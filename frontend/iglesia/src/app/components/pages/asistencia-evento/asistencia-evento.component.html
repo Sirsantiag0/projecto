@@ -1,0 +1,29 @@
+<mat-card class="gestion-card">
+    <mat-card-header class="card-header">
+        <mat-card-title class="header-title">SELECCIONA TU EVENTO</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="registroForm" (ngSubmit)="registrarMedicamento()">
+        <mat-card-content>  
+                            <!-- Select para Administración -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Eventos</mat-label>
+                    <mat-select formControlName="AdministrationRoute">
+                        <mat-option value="Oral">Oral</mat-option>
+                        <mat-option value="Intravenosa">Intravenosa</mat-option>
+                        <mat-option value="Subcutánea">Subcutánea</mat-option>
+                        <mat-option value="Tópica">Tópica</mat-option>
+                        <mat-option value="Inhalatoria">Inhalatoria</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            <div class="button-group">
+                <button mat-stroked-button color="accent" (click)="regresar()" class="btn-regresar">
+                    <mat-icon>arrow_back</mat-icon>Regresar
+                </button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="registroForm.invalid"
+                    class="btn-regresar">
+                    <mat-icon>save</mat-icon> Asistir
+                </button>
+            </div>
+        </mat-card-content>
+    </form>
+</mat-card>
