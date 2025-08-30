@@ -1,18 +1,21 @@
 /* Estilos generales */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:host {
+    --primary-color: #4a6fa5;
+    --accent-color: #ff6b6b;
+    display: block;
+    background-color: #fff;
+    color: #333;
     font-family: 'Arial', sans-serif;
 }
 
-body {
-    background-color: white;
-    color: #333;
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Navbar */
-nav {
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -26,26 +29,27 @@ nav {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #4a6fa5;
+    color: var(--primary-color);
 }
+
 
 .login-btn {
     padding: 8px 20px;
-    background-color: #ff6b6b;
-    color: white;
+    background-color: var(--accent-color);
+    color: #fff;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
 }
 
 .login-btn:hover {
-    background-color: #ff5252;
+    background-color: color-mix(in srgb, var(--accent-color), #000 15%);
 }
-
 /* Sección 1: Carrousel */
 .carrousel {
     width: 100%;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,20 +8,15 @@ import { CommonModule } from '@angular/common';
     CommonModule,
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
-  viewDate: Date = new Date();
-  events = [
+export class HomeComponent {
+  readonly viewDate = signal(new Date());
+  readonly events = signal([
     {
       start: new Date(),
       title: 'Evento de prueba',
-    }
-  ];
-
-  constructor() { }
-
-  ngOnInit(): void {
-    // inicialización
-  }
+    },
+  ]);
 }
