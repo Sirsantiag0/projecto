@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         genero: DataTypes.STRING,
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
-        email: DataTypes.STRING,
         activo: { type: DataTypes.BOOLEAN, defaultValue: true }
     });
     return Feligres;
