@@ -7,6 +7,8 @@ export interface User {
   correo: string;
   id_rol: number | null;
   rol: string | null;
+  nombres?: string | null;
+  apellidos?: string | null;
 }
 
 interface LoginResponse {

@@ -1,6 +1,7 @@
 const db = require('../models');
 const Usuario = db.Usuario;
 const Roles = db.Roles;
+const Feligres = db.Feligres;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -9,7 +10,10 @@ exports.login = async (req, res) => {
   try {
     const usuario = await Usuario.findOne({
       where: { correo },
-      include: [{ model: Roles, attributes: ['descripcion'] }]
+      include: [
+        { model: Roles, attributes: ['descripcion'] },
+        { model: Feligres, attributes: ['nombres', 'apellidos'] }
+      ]
     });
 
     if (!usuario) {
@@ -24,13 +28,18 @@ exports.login = async (req, res) => {
     // Extraemos id_rol y descripción del rol
     const rolDescripcion = usuario.Roles ? usuario.Roles.descripcion : null;
     const idRol = usuario.id_rol ? usuario.id_rol : null;
+    const feligresData = usuario.Feligre || usuario.Feligres;
+    const nombres = feligresData ? feligresData.nombres : null;
+    const apellidos = feligresData ? feligresData.apellidos : null;
 
     const token = jwt.sign(
       {
         id: usuario.id,
         correo: usuario.correo,
         id_rol: idRol,        // 🔑 ID del rol
-        rol: rolDescripcion   // 🔑 Descripción del rol
+        rol: rolDescripcion,   // 🔑 Descripción del rol
+        nombres,
+        apellidos
       },
       process.env.JWT_SECRET || 'secret_key',
       { expiresIn: '1h' }
@@ -42,7 +51,9 @@ exports.login = async (req, res) => {
         id: usuario.id,
         correo: usuario.correo,
         id_rol: idRol,
-        rol: rolDescripcion
+        rol: rolDescripcion,   // 🔑 Descripción del rol
+        nombres,
+        apellidos
       }
     });
   } catch (error) {
