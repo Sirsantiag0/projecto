@@ -34,4 +34,14 @@ export class HomeComponent {
   onLoginClosed() {
     this.showLogin.set(false);
   }
+
+  onUserOption(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    if (value === 'edit') {
+      console.log('Editar perfil');
+    } else if (value === 'logout') {
+      this.authService.logout();
+    }
+    (event.target as HTMLSelectElement).selectedIndex = 0;
+  }
 }

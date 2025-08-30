@@ -3,7 +3,11 @@
     <nav class="navbar">
         <div class="logo">Santuario María Auxiliadora</div>
         <ng-container *ngIf="authService.user(); else loginBtn">
-            <span class="user-name">{{ authService.user()?.nombres }} {{ authService.user()?.apellidos }}</span>
+            <select class="user-select" (change)="onUserOption($event)">
+                <option value="" disabled selected>{{ authService.user()?.nombres }} {{ authService.user()?.apellidos }}</option>
+                <option value="edit">Editar perfil</option>
+                <option value="logout">Cerrar sesión</option>
+            </select>
         </ng-container>
         <ng-template #loginBtn>
             <button class="login-btn" (click)="openLogin()">Login</button>

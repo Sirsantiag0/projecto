@@ -17,7 +17,13 @@
   border-radius: 8px;
   min-width: 300px;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+  /* sombra base oscura */
+  box-shadow: 
+    0 3px 8px rgba(255, 252, 252, 0.3),
+    /* resplandor blanco degradado */
+    0 0 15px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(255, 255, 255, 0.5);
 }
 
 .close-btn {
@@ -41,6 +47,9 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+.usuario {
+  margin-left: 26px;
+}
 
 button[type="submit"] {
   padding: 8px;
@@ -49,4 +58,24 @@ button[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+button:active{
+  background-color: #4a6fa5; 
+}
+
+.login-window {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  position: relative;
+
+  /* sombra normal */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+  /* brillo blanco suave alrededor */
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.6),  /* resplandor blanco */
+    0 2px 8px rgba(0,0,0,0.3);          /* sombra base */
 }

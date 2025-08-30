@@ -3,12 +3,12 @@
     <button class="close-btn" (click)="close()">✖</button>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <label>
-        Usuario
-        <input type="email" formControlName="correo" required placeholder=" ejemplo@gmail.com"/>
+        Usuario:
+        <input class="usuario" type="email" formControlName="correo" required placeholder="ejemplo@gmail.com"/>
       </label>
       <label>
-        Contraseña 
-        <input type="password" formControlName="password" required placeholder="*  *  *  *  *  *  *  *  "/>
+        Contraseña: 
+        <input type="password" formControlName="password" required placeholder="    *  *  *  *  *  *  *  *  *  *  "/>
       </label>
       <button type="submit">Ingresar</button>
     </form>

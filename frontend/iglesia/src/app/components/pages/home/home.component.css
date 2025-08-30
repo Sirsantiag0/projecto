@@ -58,9 +58,14 @@
     background-color: color-mix(in srgb, var(--accent-color), #000 15%);
 }
 
-.user-name {
+.user-select {
     font-weight: bold;
+    font-size: 18px;
     color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: #fff;
 }
 /* Sección 1: Carrousel */
 .carrousel {
