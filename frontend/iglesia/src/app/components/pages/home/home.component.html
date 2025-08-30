@@ -2,8 +2,14 @@
     <!-- Navbar -->␊
     <nav class="navbar">
         <div class="logo">Santuario María Auxiliadora</div>
-        <button class="login-btn">Login</button>
+        <ng-container *ngIf="authService.user(); else loginBtn">
+            <span class="user-name">{{ authService.user()?.correo }}</span>
+        </ng-container>
+        <ng-template #loginBtn>
+            <button class="login-btn" (click)="openLogin()">Login</button>
+        </ng-template>
     </nav>␊
+    <app-login *ngIf="showLogin()" (closed)="onLoginClosed()"></app-login>
     
     <!-- Sección 1: Carrousel -->
     <section class="carrousel">

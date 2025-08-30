@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
+    LoginComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
@@ -19,4 +22,16 @@ export class HomeComponent {
       title: 'Evento de prueba',
     },
   ]);
+
+  showLogin = signal(false);
+
+  constructor(public authService: AuthService) {}
+
+  openLogin() {
+    this.showLogin.set(true);
+  }
+
+  onLoginClosed() {
+    this.showLogin.set(false);
+  }
 }

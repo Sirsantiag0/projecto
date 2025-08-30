@@ -37,7 +37,13 @@
 }
 
 
-.login-btn {
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btn,
+.register-btn {
     padding: 8px 20px;
     background-color: var(--accent-color);
     color: #fff;
@@ -47,8 +53,14 @@
     transition: background-color 0.3s;
 }
 
-.login-btn:hover {
+.login-btn:hover,
+.register-btn:hover {
     background-color: color-mix(in srgb, var(--accent-color), #000 15%);
+}
+
+.user-name {
+    font-weight: bold;
+    color: var(--primary-color);
 }
 /* Sección 1: Carrousel */
 .carrousel {
