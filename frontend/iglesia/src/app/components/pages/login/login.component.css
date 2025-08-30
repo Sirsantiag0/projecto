@@ -61,7 +61,22 @@ button[type="submit"] {
 }
 
 button:active{
-  background-color: #4a6fa5; 
+  background-color: #4a6fa5;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .login-window {
