@@ -79,6 +79,18 @@ button:active{
   to { transform: rotate(360deg); }
 }
 
+.login-title {
+  text-align: center;
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+
+.forgot-password {
+  font-size: 12px;
+  text-align: right;
+  padding-right: 150px;
+}
+
 .login-window {
   background: #fff;
   padding: 20px;

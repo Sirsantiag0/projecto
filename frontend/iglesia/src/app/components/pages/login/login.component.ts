@@ -29,12 +29,15 @@ export class LoginComponent implements AfterViewInit {
 
 
   submit() {
+        if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     const { correo, password } = this.form.value;
-    if (!correo || !password) return;
     this.loading = true;
     setTimeout(() => {
-    this.loading = false;
-    this.closed.emit();
+      this.loading = false;
+      this.closed.emit();
     }, 1000);
     this.authService.login(correo, password).subscribe({
       error: err => console.error('Login error', err)

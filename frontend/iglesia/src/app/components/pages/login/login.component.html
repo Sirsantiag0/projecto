@@ -1,6 +1,7 @@
 <div class="overlay" (click)="close()">
   <div class="login-window" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="close()">✖</button>
+        <h2 class="login-title">Inicia Sesión</h2>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <label>
         Usuario:
@@ -10,10 +11,13 @@
         Contraseña: 
         <input type="password" formControlName="password" required placeholder="    *  *  *  *  *  *  *  *  *  *  "/>
       </label>
-        <button type="submit" [disabled]="loading">
-          Ingresar
-          <span *ngIf="loading" class="spinner"></span>
-        </button>
-      </form>
-    </div>
+      <small class="forgot-password">
+        <a href="#">¿Olvidaste tu contraseña?</a>
+      </small>
+      <button type="submit" [disabled]="loading">
+        Ingresar
+        <span *ngIf="loading" class="spinner"></span>
+      </button>
+    </form>
   </div>
+</div>
