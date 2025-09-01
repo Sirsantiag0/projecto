@@ -73,6 +73,7 @@
     padding: 8px 20px;
     background-color: var(--accent-color);
     color: #fff;
+    margin-right: -40px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -86,6 +87,7 @@
 
 .user-select {
     font-weight: bold;
+    margin-right: -50px;
     font-size: 18px;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
