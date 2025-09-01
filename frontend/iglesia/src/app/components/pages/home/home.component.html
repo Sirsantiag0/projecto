@@ -1,7 +1,28 @@
 <div class="home">
-    <!-- Navbar -->␊
+        <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">Santuario María Auxiliadora</div>
+        <div class="logo">
+            <span class="material-icons">church</span>
+            Santuario María Auxiliadora
+        </div>
+        <div class="nav-links">
+            <button class="nav-btn">
+                <span class="material-icons">handshake</span>
+                Servicios
+            </button>
+            <button class="nav-btn">
+                <span class="material-icons">groups</span>
+                Grupos
+            </button>
+            <button class="nav-btn" routerLink="/calendario">
+                <span class="material-icons">calendar_today</span>
+                Calendario
+            </button>
+            <button class="nav-btn">
+                <span class="material-icons">volunteer_activism</span>
+                Donar
+            </button>
+        </div>
         <ng-container *ngIf="authService.user(); else loginBtn">
             <select class="user-select" (change)="onUserOption($event)">
                 <option value="" disabled selected>{{ authService.user()?.nombres }} {{ authService.user()?.apellidos }}</option>
@@ -12,7 +33,7 @@
         <ng-template #loginBtn>
             <button class="login-btn" (click)="openLogin()">Login</button>
         </ng-template>
-    </nav>␊
+    </nav>
     <app-login *ngIf="showLogin()" (closed)="onLoginClosed()"></app-login>
     
     <!-- Sección 1: Carrousel -->
