@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-calendario',
   standalone: true,
@@ -10,11 +10,12 @@ import { AsistenciaEventoService } from '../../../services/asistencia-evento.ser
   styleUrls: ['./calendario.component.css'] 
 })
 export class CalendarioComponent implements  OnInit {
-  currentDate = new Date(); 
+  currentDate = new Date();
   monthDays: { day: number, fullDate: string }[] = [];
   monthName: string = '';
   year: number = 0;
-  listEventos: any[] = [];  
+  listEventos: any[] = [];
+  isMobile = false;
   eventos = [
     {
       fecha: '2025-08-05',
@@ -27,11 +28,20 @@ export class CalendarioComponent implements  OnInit {
       descripcion: 'Taller Angular'
     }
   ];
-  constructor(private eventosService: AsistenciaEventoService) {
+  constructor(private eventosService: AsistenciaEventoService,
+    private breakpointObserver: BreakpointObserver) {
   }
 
   ngOnInit() {
-    this.generarCalendario(this.currentDate.getMonth(), this.currentDate.getFullYear());
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      this.isMobile = result.matches;
+      if (this.isMobile) {
+        this.generarSemana(this.currentDate);
+      } else {
+        this.generarCalendario(this.currentDate.getMonth(), this.currentDate.getFullYear());
+      }
+    });
+
     this.searchEvento();
   }
   searchEvento() {
@@ -66,6 +76,24 @@ export class CalendarioComponent implements  OnInit {
     }
   }
 
+  generarSemana(date: Date) {
+    this.monthDays = [];
+    const dayOfWeek = date.getDay();
+    const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(date);
+    monday.setDate(date.getDate() + diffToMonday);
+
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(monday);
+      d.setDate(monday.getDate() + i);
+      const fullDate = d.toISOString().split('T')[0];
+      this.monthDays.push({ day: d.getDate(), fullDate });
+    }
+
+    this.monthName = new Intl.DateTimeFormat('default', { month: 'long' }).format(date);
+    this.year = date.getFullYear();
+  }
+
   getEventosPorDia(fecha: string) {
     return this.listEventos.filter(e => {
     const eventoFecha = new Date(e.fecha).toISOString().split('T')[0];
@@ -74,9 +102,16 @@ export class CalendarioComponent implements  OnInit {
   }
 
   cambiarMes(offset: number) {
-    const newDate = new Date(this.year, this.currentDate.getMonth() + offset, 1);
-    this.currentDate = newDate;
-    this.generarCalendario(newDate.getMonth(), newDate.getFullYear());
+    if (this.isMobile) {
+      const newDate = new Date(this.currentDate);
+      newDate.setDate(this.currentDate.getDate() + (offset * 7));
+      this.currentDate = newDate;
+      this.generarSemana(newDate);
+    } else {
+      const newDate = new Date(this.year, this.currentDate.getMonth() + offset, 1);
+      this.currentDate = newDate;
+      this.generarCalendario(newDate.getMonth(), newDate.getFullYear());
+    }
   }
 
   marcarAsistencia(evento: any) {

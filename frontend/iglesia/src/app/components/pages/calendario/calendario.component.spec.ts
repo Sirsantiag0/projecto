@@ -1,6 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CalendarioComponent } from './calendario.component';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { of } from 'rxjs';
+
+class BreakpointObserverStub {
+  observe() {
+    return of({ matches: false });
+  }
+}
 
 describe('CalendarioComponent', () => {
   let component: CalendarioComponent;
@@ -8,7 +15,8 @@ describe('CalendarioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalendarioComponent]
+      imports: [CalendarioComponent],
+      providers: [{ provide: BreakpointObserver, useClass: BreakpointObserverStub }]
     })
     .compileComponents();
 
