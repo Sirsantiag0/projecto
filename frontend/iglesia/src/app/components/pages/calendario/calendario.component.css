@@ -2,6 +2,7 @@
   max-width: 900px; /* Aumentamos el ancho máximo para más espacio */
   margin: auto;
   text-align: center;
+  margin-top: -30px; 
   font-family: Arial, sans-serif; /* Opcional: mejora la legibilidad */
 }
 

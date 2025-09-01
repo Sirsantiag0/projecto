@@ -32,7 +32,9 @@
   </ng-template>
 </nav>
 <app-login *ngIf="showLogin()" (closed)="onLoginClosed()"></app-login>
-<router-outlet></router-outlet>
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
 <footer class="footer">
   <div class="footer-content">
     <p>Dirección: Av. Principal #123, Ciudad</p>
