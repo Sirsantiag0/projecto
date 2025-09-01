@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../../../services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    LoginComponent
+    LoginComponent,
+    RouterLink
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
