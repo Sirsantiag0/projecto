@@ -1,0 +1,50 @@
+<nav class="navbar">
+  <div class="logo">
+    <span class="material-icons">church</span>
+    Santuario María Auxiliadora
+  </div>
+  <div class="nav-links">
+    <button class="nav-btn">
+      <span class="material-icons">handshake</span>
+      Servicios
+    </button>
+    <button class="nav-btn">
+      <span class="material-icons">groups</span>
+      Grupos
+    </button>
+    <button class="nav-btn" routerLink="/calendario">
+      <span class="material-icons">calendar_today</span>
+      Calendario
+    </button>
+    <button class="nav-btn">
+      <span class="material-icons">volunteer_activism</span>
+      Donar
+    </button>
+  </div>
+  <ng-container *ngIf="authService.user(); else loginBtn">
+    <select class="user-select" (change)="onUserOption($event)">
+      <option value="" disabled selected>{{ authService.user()?.nombres }} {{ authService.user()?.apellidos }}</option>
+      <option value="logout">Cerrar sesión</option>
+    </select>
+  </ng-container>
+  <ng-template #loginBtn>
+    <button class="login-btn" (click)="openLogin()">Login</button>
+  </ng-template>
+</nav>
+<app-login *ngIf="showLogin()" (closed)="onLoginClosed()"></app-login>
+<router-outlet></router-outlet>
+<footer class="footer">
+  <div class="footer-content">
+    <p>Dirección: Av. Principal #123, Ciudad</p>
+    <p>Teléfonos: (123) 456-7890</p>
+    <p>Correo: contacto&#64;santuariomariaauxiliadora.org</p>
+    <p>Horarios de atención: Lunes a Viernes 9:00 - 17:00</p>
+    <div class="social-links">
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook"><span class="material-icons">facebook</span></a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram"><span class="material-icons">instagram</span></a>
+      <a href="https://youtube.com" target="_blank" aria-label="YouTube"><span class="material-icons">youtube</span></a>
+    </div>
+    <p>© 2025 Santuario María Auxiliadora – Todos los derechos reservados.</p>
+    <p>Desarrollado por el equipo pastoral de comunicación.</p>
+  </div>
+</footer>
