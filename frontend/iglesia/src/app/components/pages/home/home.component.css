@@ -259,6 +259,7 @@
 .historia{
   text-align:center;
   padding:60px 5%;
+  margin-top: -60px
 }
 
 .historia-img{
@@ -266,6 +267,12 @@
   height:auto;
   display:block;
   margin:20px auto;
+}
+.title {
+    color:#5a5959
+}
+.subtitle {
+    color:#858484
 }
 
 .historia-btn{
@@ -279,6 +286,7 @@
   letter-spacing:.02em;
   margin-top:20px;
   transition:background .2s ease;
+  cursor: pointer
 }
 .historia-btn:hover{ background:#3d5e8a; }
 
