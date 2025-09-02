@@ -78,7 +78,8 @@ export class AsistenteComponent implements OnInit {
     if (!url) {
       return '';
     }
-    const match = url.match(/(?:v=|\.be\/)([^&]+)/);
+    // Extrae el identificador del video desde diferentes formatos de URL
+    const match = url.match(/(?:youtu\.be\/|v=|\/embed\/)([A-Za-z0-9_-]{11})/);
     const id = match ? match[1] : url;
     return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
   }
