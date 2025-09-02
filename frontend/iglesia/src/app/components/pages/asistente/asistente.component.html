@@ -15,5 +15,13 @@
       <input type="file" (change)="reemplazarImagen(img, $event)" hidden #fileInput />
       <button (click)="fileInput.click()">Reemplazar</button>
     </div>
+      </div>
 </div>
+
+<div class="video-inputs">
+  <h3>Subir videos</h3>
+  <div class="video-input" *ngFor="let url of videoUrls; index as i">
+    <input type="text" [(ngModel)]="videoUrls[i]" placeholder="URL de YouTube" />
+  </div>
+  <button (click)="guardarVideos()">Guardar videos</button>
 </div>

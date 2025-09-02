@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ArchivosEventoService } from '../../../services/archivos-evento.service'; 
+import { ArchivosEventoService } from '../../../services/archivos-evento.service';
+import { VideoService } from '../../../services/video.service';
 
 @Component({
   selector: 'app-asistente',
@@ -12,13 +13,16 @@ import { ArchivosEventoService } from '../../../services/archivos-evento.service
 })
 export class AsistenteComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
+  private videoService = inject(VideoService);
 
   detalle = '';
   archivo?: File;
   imagenes: any[] = [];
+  videoUrls: string[] = ['', '', '', ''];
 
   ngOnInit() {
     this.cargarImagenes();
+     this.videoUrls = this.videoService.getVideos();
   }
 
   cargarImagenes() {
@@ -61,5 +65,21 @@ export class AsistenteComponent implements OnInit {
         alert('Imagen reemplazada correctamente');
       });
     }
+  }
+  
+  guardarVideos() {
+    const embeds = this.videoUrls.map((url) => this.toEmbed(url));
+    this.videoService.setVideos(embeds);
+    this.videoUrls = embeds;
+    alert('Videos guardados correctamente');
+  }
+
+  private toEmbed(url: string): string {
+    if (!url) {
+      return '';
+    }
+    const match = url.match(/(?:v=|\.be\/)([^&]+)/);
+    const id = match ? match[1] : url;
+    return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
   }
 }

@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
+import { VideoService } from '../../../services/video.service';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +18,12 @@ import { ArchivosEventoService } from '../../../services/archivos-evento.service
 })
 export class HomeComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
+  private videoService = inject(VideoService);
+  private sanitizer = inject(DomSanitizer);
 
   imagenes = signal<string[]>([]);
   currentIndex = signal(0);
+  videoUrls: SafeResourceUrl[] = [];
 
   ngOnInit() {
     this.archivosService.listarImagenes().subscribe(res => {
@@ -32,5 +37,9 @@ export class HomeComponent implements OnInit {
         );
       }, 5000);
     });
+    this.videoUrls = this.videoService
+      .getVideos()
+      .filter((v) => v)
+      .map((v) => this.sanitizer.bypassSecurityTrustResourceUrl(v));
   }
 }

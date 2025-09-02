@@ -17,31 +17,10 @@
     </section>
     
     <!-- Sección 2: Videos -->
-    <section class="video-section">
+    <section class="video-section" *ngIf="videoUrls.length">
         <div class="video-container">
-            <div class="video-item">
-                <video autoplay muted loop playsinline>
-                <source src="/videos/ya.mp4" type="video/mp4">
-                Tu navegador no soporta el elemento de video.
-            </video>
-            </div>
-            <div class="video-item">
-                                <video autoplay muted loop playsinline>
-                <source src="/videos/ya1.mp4" type="video/mp4">
-                Tu navegador no soporta el elemento de video.
-            </video>
-            </div>
-            <div class="video-item">
-                                <video autoplay muted loop playsinline>
-                <source src="videos/ya.mp4" type="video/mp4">
-                Tu navegador no soporta el elemento de video.
-            </video>
-            </div>
-            <div class="video-item">
-                                <video autoplay muted loop playsinline>
-                <source src="videos/ya1.mp4" type="video/mp4">
-                Tu navegador no soporta el elemento de video.
-            </video>
+            <div class="video-item" *ngFor="let video of videoUrls">
+                <iframe [src]="video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
     </section>
