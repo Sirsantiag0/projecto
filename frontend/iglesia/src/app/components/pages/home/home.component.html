@@ -19,8 +19,15 @@
     <!-- Sección 2: Videos -->
     <section class="video-section" *ngIf="videoUrls.length">
         <div class="video-container">
-            <div class="video-item" *ngFor="let video of videoUrls">
-                <iframe [src]="video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+             <div class="video-item" *ngFor="let video of videoUrls">
+                <!-- Carga diferida para mejorar la velocidad de visualización -->
+                <iframe
+                    loading="lazy"
+                    [src]="video"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                ></iframe>
             </div>
         </div>
     </section>
