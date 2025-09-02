@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 @Component({
   selector: 'app-calendario',
   standalone: true,
@@ -9,6 +10,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.css'] 
 })
+
 export class CalendarioComponent implements  OnInit {
   currentDate = new Date();
   monthDays: { day: number, fullDate: string }[] = [];
@@ -28,9 +30,11 @@ export class CalendarioComponent implements  OnInit {
       descripcion: 'Taller Angular'
     }
   ];
-  constructor(private eventosService: AsistenciaEventoService,
-    private breakpointObserver: BreakpointObserver) {
-  }
+  constructor(
+    private eventosService: AsistenciaEventoService,
+    private breakpointObserver: BreakpointObserver,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
@@ -49,10 +53,11 @@ export class CalendarioComponent implements  OnInit {
     this.eventosService.listarEventos().subscribe(
       (data: any) => {
         this.listEventos = data.data;
-        console.log("Eventos obtenidos:", this.listEventos);
+        console.log('Eventos obtenidos:', this.listEventos);
+        this.cdr.detectChanges();
       },
       (error) => {
-        console.error("Error al obtener medics:", error);
+        console.error('Error al obtener medics:', error);
       }
     );
   }
