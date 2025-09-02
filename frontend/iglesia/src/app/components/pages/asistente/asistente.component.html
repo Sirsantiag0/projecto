@@ -10,5 +10,10 @@
   <div class="imagen-item" *ngFor="let img of imagenes">
     <p>{{ img.detalle }}</p>
     <img [src]="'http://localhost:3000/uploads/' + img.ruta_archivos" [alt]="img.detalle" />
-  </div>
+        <div class="acciones">
+      <button (click)="eliminarImagen(img.id)">Eliminar</button>
+      <input type="file" (change)="reemplazarImagen(img, $event)" hidden #fileInput />
+      <button (click)="fileInput.click()">Reemplazar</button>
+    </div>
+</div>
 </div>

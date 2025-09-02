@@ -78,5 +78,58 @@ exports.listarArchivosEvento = async (req, res) => {
   }
 };
 
+// Reemplazar archivo de evento
+exports.reemplazarArchivoEvento = async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'Debes subir un archivo' });
+    }
+
+    const archivo = await Archivos_evento.findByPk(id);
+    if (!archivo) {
+      fs.existsSync(req.file.path) && fs.unlinkSync(req.file.path);
+      return res.status(404).json({ success: false, message: 'Archivo no encontrado' });
+    }
+
+    const rutaAntigua = path.join(uploadDir, archivo.ruta_archivos);
+    if (fs.existsSync(rutaAntigua)) {
+      fs.unlinkSync(rutaAntigua);
+    }
+
+    archivo.ruta_archivos = req.file.filename;
+    archivo.detalle = req.body.detalle || archivo.detalle;
+    await archivo.save();
+
+    res.status(200).json({ success: true, data: archivo });
+  } catch (error) {
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Eliminar archivo de evento
+exports.eliminarArchivoEvento = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const archivo = await Archivos_evento.findByPk(id);
+
+    if (!archivo) {
+      return res.status(404).json({ success: false, message: 'Archivo no encontrado' });
+    }
+
+    const ruta = path.join(uploadDir, archivo.ruta_archivos);
+    if (fs.existsSync(ruta)) {
+      fs.unlinkSync(ruta);
+    }
+
+    await archivo.destroy();
+    res.status(200).json({ success: true, message: 'Archivo eliminado' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
 

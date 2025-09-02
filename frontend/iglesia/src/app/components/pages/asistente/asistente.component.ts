@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ArchivosEventoService } from '../../../services/archivos-evento.service';
+import { ArchivosEventoService } from '../../../services/archivos-evento.service'; 
 
 @Component({
   selector: 'app-asistente',
@@ -15,7 +15,7 @@ export class AsistenteComponent implements OnInit {
 
   detalle = '';
   archivo?: File;
-    imagenes: any[] = [];
+  imagenes: any[] = [];
 
   ngOnInit() {
     this.cargarImagenes();
@@ -41,8 +41,25 @@ export class AsistenteComponent implements OnInit {
     this.archivosService.subirArchivo(this.archivo, this.detalle).subscribe(() => {
       this.detalle = '';
       this.archivo = undefined;
-            this.cargarImagenes();
+      this.cargarImagenes();
       alert('Imagen subida correctamente');
     });
+  }
+    eliminarImagen(id: number) {
+    this.archivosService.eliminarArchivo(id).subscribe(() => {
+      this.cargarImagenes();
+      alert('Imagen eliminada correctamente');
+    });
+  }
+
+  reemplazarImagen(img: any, event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const archivoNuevo = target.files[0];
+      this.archivosService.reemplazarArchivo(img.id, archivoNuevo, img.detalle).subscribe(() => {
+        this.cargarImagenes();
+        alert('Imagen reemplazada correctamente');
+      });
+    }
   }
 }

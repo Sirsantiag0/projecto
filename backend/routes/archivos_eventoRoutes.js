@@ -11,4 +11,14 @@ router.post('/',
 // Listar archivos activos
 router.get('/', archivosEventoController.listarArchivosEvento);
 
+// Reemplazar archivo existente
+router.put('/:id',
+  archivosEventoController.subirArchivo,
+  archivosEventoController.reemplazarArchivoEvento
+);
+
+// Eliminar archivo
+router.delete('/:id', archivosEventoController.eliminarArchivoEvento);
+
+
 module.exports = router;
