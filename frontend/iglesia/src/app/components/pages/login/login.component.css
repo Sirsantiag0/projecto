@@ -60,8 +60,23 @@ button[type="submit"] {
   cursor: pointer;
 }
 
+.registarme {
+  background: #4aa55e;
+  border: solid #4aa55e;
+  border-radius: 4px;
+  color:#fff;
+  cursor: pointer;
+  margin-top: 10px;
+  height: 25px;
+}
+
+.registarme:active {
+    background: #79e991;
+    border: solid #79e991;
+}
+
 button:active{
-  background-color: #4a6fa5;
+  background-color: #79e991;
 }
 
 .spinner {
