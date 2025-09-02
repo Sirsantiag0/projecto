@@ -4,6 +4,8 @@ const app = express();
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./docs/swagger");
 const cors = require("cors");
+const path = require("path");
+
 
 app.use(
   cors({
@@ -15,6 +17,10 @@ app.use(
 
 // Middleware para parsear JSON
 app.use(express.json());
+
+// Servir archivos estáticos subidos
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // Ruta de prueba
 app.get("/", (req, res) => {

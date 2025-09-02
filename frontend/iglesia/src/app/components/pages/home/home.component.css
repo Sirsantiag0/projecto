@@ -24,70 +24,15 @@
 
 .carrousel-inner {
     display: flex;
-    width: 400%; /* Cuatro imágenes, 100% cada una */
     height: 100%;
-    /* Eliminamos la transición aquí, la animación la manejará */
-    animation: carrousel-slide 20s infinite linear; /* 20s para 4 imágenes, 5s por imagen */
+    transition: transform 0.5s ease;
 }
 
 .carrousel-item {
-    width: 25%; /* Cada imagen ocupa el 25% del 400% de .carrousel-inner */
     height: 100%;
     flex-shrink: 0;
     background-size: cover;
     background-position: center;
-}
-
-/* Espacios para imágenes (reemplazar con tus imágenes) */
-.carrousel-item-1 {
-    background-image: url('/images/personas.PNG');
-    background-color: #a5d8ff;
-}
-
-.carrousel-item-2 {
-    background-image: url('/images/personas1.PNG');
-    background-color: #ffd6a5;
-}
-
-.carrousel-item-3 {
-    background-image: url('/images/personas2.PNG');
-    background-color: #caffbf;
-}
-
-.carrousel-item-4 {
-    background-image: url('/images/personas1.PNG');
-    background-color: #ffadad;
-}
-
-/* Animación del carrusel */
-@keyframes carrousel-slide {
-    0% {
-        transform: translateX(0%); /* Muestra la primera imagen */
-    }
-    20% {
-        transform: translateX(0%); /* Mantén la primera imagen por un tiempo */
-    }
-    25% {
-        transform: translateX(-25%); /* Desliza a la segunda imagen */
-    }
-    45% {
-        transform: translateX(-25%); /* Mantén la segunda imagen por un tiempo */
-    }
-    50% {
-        transform: translateX(-50%); /* Desliza a la tercera imagen */
-    }
-    70% {
-        transform: translateX(-50%); /* Mantén la tercera imagen por un tiempo */
-    }
-    75% {
-        transform: translateX(-75%); /* Desliza a la cuarta imagen */
-    }
-    95% {
-        transform: translateX(-75%); /* Mantén la cuarta imagen por un tiempo */
-    }
-    100% {
-        transform: translateX(0%); /* Vuelve a la primera imagen para un ciclo continuo */
-    }
 }
 
 /* Sección 2: Videos */

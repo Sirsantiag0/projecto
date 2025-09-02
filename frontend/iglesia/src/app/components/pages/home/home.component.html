@@ -1,11 +1,8 @@
 <div class="home">
     <!-- Sección 1: Carrousel -->
-    <section class="carrousel">
-        <div class="carrousel-inner">
-            <div class="carrousel-item carrousel-item-1"></div>
-            <div class="carrousel-item carrousel-item-2"></div>
-            <div class="carrousel-item carrousel-item-3"></div>
-            <div class="carrousel-item carrousel-item-4"></div>
+    <section class="carrousel" *ngIf="imagenes().length">
+        <div class="carrousel-inner" [style.width.%]="imagenes().length * 100" [style.transform]="'translateX(-' + (currentIndex() * (100 / imagenes().length)) + '%)'">
+            <div class="carrousel-item" *ngFor="let img of imagenes()" [style.backgroundImage]="'url(' + img + ')'" [style.width.%]="100 / imagenes().length"></div>
         </div>
     </section>
     

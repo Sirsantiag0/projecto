@@ -1,0 +1,13 @@
+.asistente-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 40px auto;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}

@@ -3,7 +3,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { AsistenciaEventoComponent } from './components/pages/asistencia-evento/asistencia-evento.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { CalendarioComponent } from './components/pages/calendario/calendario.component';
-
+import { AsistenteComponent } from './components/pages/asistente/asistente.component';
 export const routes: Routes = [
   {
     path: '',
@@ -11,6 +11,7 @@ export const routes: Routes = [
     children: [
       { path: 'asistencia-evento', component: AsistenciaEventoComponent },
       { path: 'calendario', component: CalendarioComponent },
+      { path: 'asistente', component: AsistenteComponent },
       { path: 'home', component: HomeComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]

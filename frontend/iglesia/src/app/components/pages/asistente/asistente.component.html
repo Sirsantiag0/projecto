@@ -1,0 +1,6 @@
+<div class="asistente-form">
+  <h2>Subir imagen para el carrusel</h2>
+  <input type="text" [(ngModel)]="detalle" placeholder="Detalle" />
+  <input type="file" (change)="onFileChange($event)" />
+  <button (click)="subirImagen()">Subir</button>
+</div>

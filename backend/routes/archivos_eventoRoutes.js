@@ -8,12 +8,7 @@ router.post('/',
   archivosEventoController.crearArchivoEvento // Controlador
 );
 
-// Rutas para archivos de evento
+// Listar archivos activos
 router.get('/', archivosEventoController.listarArchivosEvento);
-router.get('/:id', archivosEventoController.obtenerArchivoEvento);
-router.get('/evento/:eventoId', archivosEventoController.obtenerArchivosPorEvento);
-router.put('/:id', archivosEventoController.actualizarArchivoEvento);
-router.patch('/:id/inactivar', archivosEventoController.inactivarArchivoEvento);
-router.delete('/:id', archivosEventoController.eliminarArchivoEvento);
 
 module.exports = router;
