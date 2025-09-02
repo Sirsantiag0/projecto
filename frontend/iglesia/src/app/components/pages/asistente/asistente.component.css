@@ -11,3 +11,34 @@ button {
   padding: 8px 12px;
   cursor: pointer;
 }
+
+.lista-imagenes {
+  max-width: 100%;
+  margin: 20px auto;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap; /* permite que se acomoden si no hay espacio */
+  justify-content: center;
+}
+
+.imagen-item {
+  display: flex;
+  flex-direction: column; /* que el texto quede arriba y la imagen debajo */
+  align-items: center;
+  width: 200px; /* cada bloque con ancho fijo */
+  border: solid rgb(172, 170, 170) 1px;
+  border-radius: 10px;
+}
+
+.imagen-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.imagen-item img {
+  width: 100px;
+  height: auto;
+  border-radius: 4px;
+}

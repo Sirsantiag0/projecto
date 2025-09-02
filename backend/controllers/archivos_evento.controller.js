@@ -41,7 +41,8 @@ exports.crearArchivoEvento = async (req, res) => {
     });
 
     // Si ya hay 4 archivos, eliminar el más antiguo
-    if (activos.length >= 4) {
+      // Si ya hay 8 archivos, eliminar el más antiguo
+    if (activos.length >= 8) {
       const antiguo = activos[0];
       const rutaAntigua = path.join(uploadDir, antiguo.ruta_archivos);
       if (fs.existsSync(rutaAntigua)) {

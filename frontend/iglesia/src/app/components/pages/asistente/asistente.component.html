@@ -1,6 +1,14 @@
 <div class="asistente-form">
-  <h2>Subir imagen para el carrusel</h2>
+  <h2>Subir 🖼️Carrusel + 🖼️Evento</h2>
   <input type="text" [(ngModel)]="detalle" placeholder="Detalle" />
   <input type="file" (change)="onFileChange($event)" />
   <button (click)="subirImagen()">Subir</button>
+</div>
+
+<div class="lista-imagenes" *ngIf="imagenes.length">
+  <h3>Imágenes subidas: </h3>
+  <div class="imagen-item" *ngFor="let img of imagenes">
+    <p>{{ img.detalle }}</p>
+    <img [src]="'http://localhost:3000/uploads/' + img.ruta_archivos" [alt]="img.detalle" />
+  </div>
 </div>

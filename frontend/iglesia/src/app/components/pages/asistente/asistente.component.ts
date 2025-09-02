@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
@@ -10,11 +10,22 @@ import { ArchivosEventoService } from '../../../services/archivos-evento.service
   templateUrl: './asistente.component.html',
   styleUrls: ['./asistente.component.css']
 })
-export class AsistenteComponent {
+export class AsistenteComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
 
   detalle = '';
   archivo?: File;
+    imagenes: any[] = [];
+
+  ngOnInit() {
+    this.cargarImagenes();
+  }
+
+  cargarImagenes() {
+    this.archivosService.listarImagenes().subscribe((res) => {
+      this.imagenes = res.data;
+    });
+  }
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -30,6 +41,7 @@ export class AsistenteComponent {
     this.archivosService.subirArchivo(this.archivo, this.detalle).subscribe(() => {
       this.detalle = '';
       this.archivo = undefined;
+            this.cargarImagenes();
       alert('Imagen subida correctamente');
     });
   }
