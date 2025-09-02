@@ -20,9 +20,11 @@ export class AsistenteComponent implements OnInit {
   imagenes: any[] = [];
   videoUrls: string[] = ['', '', '', ''];
 
-  ngOnInit() {
+  ngOnInit(): void {
+    // Al iniciar el componente se consultan las imágenes guardadas
     this.cargarImagenes();
-     this.videoUrls = this.videoService.getVideos();
+    // También se recuperan las URLs de los videos almacenados
+    this.videoUrls = this.videoService.getVideos();
   }
 
   cargarImagenes() {
