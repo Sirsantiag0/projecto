@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FeligresService } from '../../../services/feligres.service';
 
 @Component({
@@ -22,8 +22,10 @@ export class RegistroFeligresComponent {
       genero: ['', Validators.required],
       direccion: ['', Validators.required],
       telefono: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
-    });
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
   }
 
   onSubmit() {
@@ -32,9 +34,21 @@ export class RegistroFeligresComponent {
       return;
     }
 
-    this.feligresService.crearFeligres(this.form.value).subscribe({
+    const { confirmPassword, ...feligres } = this.form.value;
+    this.feligresService.crearFeligres(feligres).subscribe({
       next: () => this.form.reset(),
       error: err => console.error('Error al registrar feligrés', err)
     });
+  }
+  
+  private passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ mismatch: true });
+    } else {
+      confirmPassword?.setErrors(null);
+    }
+    return null;
   }
 }

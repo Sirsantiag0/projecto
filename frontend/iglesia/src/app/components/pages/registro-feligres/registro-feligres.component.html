@@ -4,12 +4,12 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <input type="text" formControlName="cedula" placeholder="Cédula">
-      <input type="text" formControlName="nombres" placeholder="Nombres">
+      <input type="text" formControlName="nombres" placeholder="Nombre">
     </div>
     <div class="form-row">
-      <input type="text" formControlName="apellidos" placeholder="Apellidos">
+      <input type="text" formControlName="apellidos" placeholder="Apellido" >
       <label class="date-group">
-        <span>Fecha de nacimiento</span>
+        <span>Año de nacimiento</span>
         <input type="date" formControlName="fecha_nacimiento">
       </label>
     </div>
@@ -31,7 +31,7 @@
 
     <div class="form-row">
       <input type="password" formControlName="password" placeholder="contraseña">
-      <input type="password" formControlName="password" placeholder="confirmar contraseña">
+      <input type="password" formControlName="confirmPassword" placeholder="confirmar contraseña">
     </div>
 
     <button type="submit" class="btn-submit">Registrar</button>

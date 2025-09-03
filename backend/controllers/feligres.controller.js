@@ -1,12 +1,25 @@
 const db = require('../models');
 const Feligres = db.Feligres;
+const Usuario = db.Usuario;
+const bcrypt = require('bcryptjs');
 
 exports.crearFeligres = async (req, res) => {
+    const t = await db.sequelize.transaction();
     try {
-        const nuevoFeligres = await Feligres.create(req.body);
-        // hacer validaciones para que guarde bien esta linea (todas las de crear)
-        res.status(201).json({ success: true, data: nuevoFeligres });
+        const { password, email, ...feligresData } = req.body;
+        const nuevoFeligres = await Feligres.create({ ...feligresData, email }, { transaction: t });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const nuevoUsuario = await Usuario.create({
+            id_feligres: nuevoFeligres.id,
+            correo: email,
+            password: hashedPassword
+        }, { transaction: t });
+
+        await t.commit();
+        res.status(201).json({ success: true, data: { feligres: nuevoFeligres, usuario: nuevoUsuario } });
     } catch (error) {
+        await t.rollback();
         res.status(500).json({ success: false, error: error.message });
     }
 };
