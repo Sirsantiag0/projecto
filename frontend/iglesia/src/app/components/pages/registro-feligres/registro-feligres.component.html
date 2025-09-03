@@ -1,42 +1,40 @@
 <body>
-  <div class="form-container">
-    <h2>Registro</h2>
-    <form>
-      <div class="form-row">
-        <input type="text" placeholder="Cédula" required>
-        <input type="text" placeholder="Nombres" required>
-      </div>
+<div class="form-container">
+  <h2>Registro</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <input type="text" formControlName="cedula" placeholder="Cédula">
+      <input type="text" formControlName="nombres" placeholder="Nombres">
+    </div>
+    <div class="form-row">
+      <input type="text" formControlName="apellidos" placeholder="Apellidos">
+      <label class="date-group">
+        <span>Fecha de nacimiento</span>
+        <input type="date" formControlName="fecha_nacimiento">
+      </label>
+    </div>
 
-      <div class="form-row">
-        <input type="text" placeholder="Apellidos" required>
-        <label style="flex:1;">
-          <span style="font-size: 13px; color: #555;">Fecha de nacimiento</span>
-          <input type="date" required>
-        </label>
-      </div>
+    <div class="form-row">
+      <select formControlName="genero">
+        <option value="" disabled selected>Selecciona tu género</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="otro">Otro</option>
+        <option value="prefiero_no_decir">Prefiero no decir</option>
+      </select>
+      <input type="text" formControlName="direccion" placeholder="Dirección">
+    </div>
+    <div class="form-row">
+      <input type="tel" formControlName="telefono" placeholder="Teléfono">
+      <input type="email" formControlName="email" placeholder="Email">
+    </div>
 
-      <div class="form-row">
-        <select required>
-          <option value="" disabled selected>Selecciona tu género</option>
-          <option value="masculino">Masculino</option>
-          <option value="femenino">Femenino</option>
-          <option value="otro">Otro</option>
-          <option value="prefiero_no_decir">Prefiero no decir</option>
-        </select>
-        <input type="text" placeholder="Dirección" required>
-      </div>
+    <div class="form-row">
+      <input type="password" formControlName="password" placeholder="contraseña">
+      <input type="password" formControlName="password" placeholder="confirmar contraseña">
+    </div>
 
-      <div class="form-row">
-        <input type="tel" placeholder="Teléfono" required>
-        <input type="email" placeholder="Email" required>
-      </div>
-
-      <div class="form-row">
-        <input type="password" placeholder="Contraseña" required>
-        <input type="password" placeholder="Confirmar contraseña" required>
-      </div>
-
-      <button type="submit" class="btn-submit">Registrar</button>
-    </form>
-  </div>
+    <button type="submit" class="btn-submit">Registrar</button>
+  </form>
+</div>
 </body>
