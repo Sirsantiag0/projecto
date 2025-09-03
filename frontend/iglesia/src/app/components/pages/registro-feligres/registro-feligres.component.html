@@ -1,0 +1,42 @@
+<body>
+  <div class="form-container">
+    <h2>Registro</h2>
+    <form>
+      <div class="form-row">
+        <input type="text" placeholder="Cédula" required>
+        <input type="text" placeholder="Nombres" required>
+      </div>
+
+      <div class="form-row">
+        <input type="text" placeholder="Apellidos" required>
+        <label style="flex:1;">
+          <span style="font-size: 13px; color: #555;">Fecha de nacimiento</span>
+          <input type="date" required>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <select required>
+          <option value="" disabled selected>Selecciona tu género</option>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+          <option value="otro">Otro</option>
+          <option value="prefiero_no_decir">Prefiero no decir</option>
+        </select>
+        <input type="text" placeholder="Dirección" required>
+      </div>
+
+      <div class="form-row">
+        <input type="tel" placeholder="Teléfono" required>
+        <input type="email" placeholder="Email" required>
+      </div>
+
+      <div class="form-row">
+        <input type="password" placeholder="Contraseña" required>
+        <input type="password" placeholder="Confirmar contraseña" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Registrar</button>
+    </form>
+  </div>
+</body>

@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, signal, inject, computed } from '@angular/core';import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
@@ -22,6 +21,8 @@ export class HomeComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
 
   imagenes = signal<string[]>([]);
+  carouselImages = computed(() => this.imagenes().slice(0, 4));
+  featuredImages = computed(() => this.imagenes().slice(-4));
   currentIndex = signal(0);
   videoUrls: SafeResourceUrl[] = [];
 
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit {
       );
       setInterval(() => {
         this.currentIndex.update(i =>
-          this.imagenes().length ? (i + 1) % this.imagenes().length : 0
+          this.carouselImages().length ? (i + 1) % this.carouselImages().length : 0
         );
       }, 5000);
     });

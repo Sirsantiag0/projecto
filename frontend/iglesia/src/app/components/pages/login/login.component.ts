@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -23,6 +24,7 @@ export class LoginComponent implements AfterViewInit {
     });
   }
 
+    
     ngAfterViewInit() {
     this.correoInput.nativeElement.focus();
   }

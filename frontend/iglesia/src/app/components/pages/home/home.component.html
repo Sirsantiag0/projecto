@@ -1,15 +1,15 @@
 <div class="home">
     <!-- Sección 1: Carrousel -->
-    <section class="carrousel" *ngIf="imagenes().length">
+    <section class="carrousel" *ngIf="carouselImages().length">
         <div
             class="carrousel-inner"
-            [style.width.%]="imagenes().length * 100"
-            [style.transform]="'translateX(-' + (currentIndex() * (100 / imagenes().length)) + '%)'"
+            [style.width.%]="carouselImages().length * 100"
+            [style.transform]="'translateX(-' + (currentIndex() * (100 / carouselImages().length)) + '%)'"
         >
             <div
                 class="carrousel-item"
-                *ngFor="let img of imagenes()"
-                [style.width.%]="100 / imagenes().length"
+                *ngFor="let img of carouselImages()"
+                [style.width.%]="100 / carouselImages().length"
             >
                 <img [src]="img" alt="Imagen del carrusel" />
             </div>
@@ -37,71 +37,20 @@
         <p>El Santuario María Auxiliadora es un lugar de paz y espiritualidad dedicado a la veneración de la Virgen María bajo su advocación de Auxiliadora. Nuestro santuario acoge a peregrinos y fieles que buscan consuelo, guía y fortaleza espiritual. Con una rica historia y tradición, somos un faro de fe y esperanza en la comunidad.</p>
     </section>
     <!-- Sección: Eventos Destacados (debajo de description) -->
-<section class="featured-events" id="eventos">
+<section class="featured-events" id="eventos" *ngIf="featuredImages().length">
   <div class="fe-wrap">
     <h2 class="fe-title">Próximos encuentros y celebraciones</h2>
-
     <div class="fe-grid">
-
-      <!-- CARD 1 -->
-      <article class="fe-card">
-        <!-- Reemplaza el src con tu póster -->
+      <article class="fe-card" *ngFor="let img of featuredImages()">
         <div class="fe-poster">
-          <img src="/images/eventos/poster1.jpg" alt="Nombre del evento 1">
-        </div>
-        <div class="fe-body">
-          <!-- TÍTULO -->
-          <h3 class="fe-name">Título evento</h3>
-
-          <!-- LUGAR Y FECHA -->
-          <ul class="fe-meta">
-            <li><span class="fe-ico">📍</span>Nombre del lugar</li>
-          </ul>
-
-          <!-- ENLACE -->
-           <a class="fe-btn" routerLink="/calendario">📅Ver calendario</a>
-        </div>
-      </article>
-
-      <!-- CARD 2 -->
-      <article class="fe-card">
-        <div class="fe-poster">
-          <img src="/images/eventos/poster2.jpg" alt="Nombre del evento 2">
+          <img [src]="img" alt="Imagen del evento" />
         </div>
         <div class="fe-body">
           <h3 class="fe-name">Título evento</h3>
           <ul class="fe-meta">
-            <li><span class="fe-ico">📍</span>Nombre del lugar</li>
+            <li><span class="fe-ico">📍</span>Santuario</li>
           </ul>
-            <a class="fe-btn" routerLink="/calendario">📅Ver calendario</a>
-        </div>
-      </article>
-
-      <!-- CARD 3 -->
-      <article class="fe-card">
-        <div class="fe-poster">
-          <img src="/images/eventos/poster3.jpg" alt="Nombre del evento 3">
-        </div>
-        <div class="fe-body">
-          <h3 class="fe-name">Título evento</h3>
-          <ul class="fe-meta">
-            <li><span class="fe-ico">📍</span>Nombre del lug/ar</li>
-          </ul>
-           <a class="fe-btn" routerLink="/calendario">📅Ver calendario</a>
-        </div>
-      </article>
-
-      <!-- CARD 4 -->
-      <article class="fe-card">
-        <div class="fe-poster">
-          <img src="/images/eventos/poster4.jpg" alt="Nombre del evento 4">
-        </div>
-        <div class="fe-body">
-          <h3 class="fe-name">Título evento</h3>
-          <ul class="fe-meta">
-            <li><span class="fe-ico" >📍</span>Nombre del lugar</li>
-          </ul>
-           <a class="fe-btn" routerLink="/calendario">📅Ver calendario</a>
+          <a class="fe-btn" routerLink="/calendario">📅Ver calendario</a>
         </div>
       </article>
     </div>

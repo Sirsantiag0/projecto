@@ -18,7 +18,7 @@
         Ingresar
         <span *ngIf="loading" class="spinner"></span>
       </button>
-      <button class="registarme">
+      <button class="registarme" routerLink="/registrar" (click)="close()">
         Registarme
       </button>
     </form>
