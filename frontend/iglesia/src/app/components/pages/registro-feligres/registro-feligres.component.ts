@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FeligresService } from '../../../services/feligres.service';
 
 @Component({
@@ -12,9 +13,11 @@ import { FeligresService } from '../../../services/feligres.service';
 })
 export class RegistroFeligresComponent {
   form: FormGroup;
-   successMessage: string | null = null;
+  successMessage: string | null = null;
+  @Output() closed = new EventEmitter<void>();
+  loading = false;
 
-  constructor(private fb: FormBuilder, private feligresService: FeligresService) {
+  constructor(private fb: FormBuilder, private feligresService: FeligresService, private router: Router) {
     this.form = this.fb.group({
       cedula: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       nombres: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
@@ -38,6 +41,8 @@ export class RegistroFeligresComponent {
     const { confirmPassword, fecha_nacimiento, ...feligres } = this.form.value;
     const birthDate = new Date(fecha_nacimiento);
     const edad = new Date().getFullYear() - birthDate.getFullYear();
+    this.loading = true;
+    setTimeout(() => this.loading = false, 1000);
     this.feligresService.crearFeligres({ ...feligres, fecha_nacimiento: birthDate, edad }).subscribe({
       next: () => {
         this.successMessage = 'Registro exitoso';
@@ -46,6 +51,11 @@ export class RegistroFeligresComponent {
       },
       error: err => console.error('Error al registrar feligrés', err)
     });
+  }
+
+  close() {
+    this.closed.emit();
+    this.router.navigate(['/home']);
   }
   
   private passwordMatchValidator(control: AbstractControl) {
