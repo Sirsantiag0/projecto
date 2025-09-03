@@ -3,14 +3,11 @@
     <button class="close-btn" (click)="close()">✖</button>
         <h2 class="login-title">Inicia Sesión</h2>
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <label>
-        Usuario:
-        <input #correoInput class="usuario" type="email" formControlName="correo" required placeholder="ejemplo@gmail.com"/>
-      </label>
-      <label>
-        Contraseña: 
-        <input type="password" formControlName="password" required placeholder="    *  *  *  *  *  *  *  *  *  *  "/>
-      </label>
+
+        <input #correoInput class="usuario" type="email" formControlName="correo" required placeholder="correo"/>
+
+        <input type="password" formControlName="password" required placeholder="cotraseña"/>
+
       <small class="forgot-password">
         <a href="#">¿Olvidaste tu contraseña?</a>
       </small>

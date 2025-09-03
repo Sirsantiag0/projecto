@@ -12,16 +12,17 @@ import { FeligresService } from '../../../services/feligres.service';
 })
 export class RegistroFeligresComponent {
   form: FormGroup;
+   successMessage: string | null = null;
 
   constructor(private fb: FormBuilder, private feligresService: FeligresService) {
     this.form = this.fb.group({
-      cedula: ['', Validators.required],
-      nombres: ['', Validators.required],
-      apellidos: ['', Validators.required],
+      cedula: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      nombres: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+      apellidos: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       fecha_nacimiento: ['', Validators.required],
       genero: ['', Validators.required],
       direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
@@ -34,9 +35,15 @@ export class RegistroFeligresComponent {
       return;
     }
 
-    const { confirmPassword, ...feligres } = this.form.value;
-    this.feligresService.crearFeligres(feligres).subscribe({
-      next: () => this.form.reset(),
+    const { confirmPassword, fecha_nacimiento, ...feligres } = this.form.value;
+    const birthDate = new Date(fecha_nacimiento);
+    const edad = new Date().getFullYear() - birthDate.getFullYear();
+    this.feligresService.crearFeligres({ ...feligres, fecha_nacimiento: birthDate, edad }).subscribe({
+      next: () => {
+        this.successMessage = 'Registro exitoso';
+        setTimeout(() => this.successMessage = null, 2000);
+        this.form.reset();
+      },
       error: err => console.error('Error al registrar feligrés', err)
     });
   }

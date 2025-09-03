@@ -28,8 +28,15 @@
       margin-bottom: 15px;
     }
 
-    .form-row input,
-    .form-row select {
+    .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field input,
+    .field select {
+      width: 90%;
       flex: 1;
       padding: 12px;
       border: 1px solid #ccc;
@@ -39,13 +46,18 @@
       background: #fafafa;
     }
 
-    .form-row input:focus,
-    .form-row select:focus {
+    .field input:focus,
+    .field select:focus {
       border-color: #4CAF50;
       outline: none;
       background: #fff;
       box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
     }
+
+        input[type="date"] {
+      color: #555;
+    }
+
 
     /* Estilo especial para fecha con label */
     .date-group {
@@ -77,13 +89,30 @@
       background: #43a047;
     }
 
-    /* Quitar estilo de label arriba */
-.date-group {
-  flex: 1;
-  display: flex;
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .success {
+      color: #4CAF50;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .field input[type="date"] {
+  color: #555;
 }
 
-input[type="date"] {
-  color: #555;
+/* Para mostrar el placeholder en inputs date (estilo uniforme) */
+.field input[type="date"]::before {
+  content: attr(placeholder);
+  color: #777;
+  margin-right: 5px;
+}
+
+.field input[type="date"]:focus::before {
+  content: "" !important;
 }
 

@@ -7,7 +7,9 @@ exports.crearFeligres = async (req, res) => {
     const t = await db.sequelize.transaction();
     try {
         const { password, email, ...feligresData } = req.body;
-        const nuevoFeligres = await Feligres.create({ ...feligresData, email }, { transaction: t });
+        const birthDate = new Date(feligresData.fecha_nacimiento);
+        const edad = new Date().getFullYear() - birthDate.getFullYear();
+        const nuevoFeligres = await Feligres.create({ ...feligresData, edad, email }, { transaction: t });
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const nuevoUsuario = await Usuario.create({
