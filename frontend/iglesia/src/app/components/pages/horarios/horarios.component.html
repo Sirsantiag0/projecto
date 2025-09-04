@@ -1,9 +1,6 @@
-<h1 class="title">Nuestros horarios</h1>
+<h2 class="title">Nuestros horarios</h2>
 <div class="schedule-grid">
-  <div class="cell">Horario 1</div>
-  <div class="cell">Horario 2</div>
-  <div class="cell">Horario 3</div>
-  <div class="cell">Horario 4</div>
-  <div class="cell">Horario 5</div>
-  <div class="cell">Horario 6</div>
+  <div class="cell" *ngFor="let img of scheduleImages(); let i = index">
+    <img [src]="img" [alt]="'Horario ' + (i + 1)" />
+  </div>
 </div>

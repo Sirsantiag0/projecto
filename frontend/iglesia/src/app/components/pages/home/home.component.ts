@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
 
   imagenes = signal<string[]>([]);
-  carouselImages = computed(() => this.imagenes().slice(0, 4));
+  carouselImages = computed(() => this.imagenes().slice(6,10));
   featuredImages = computed(() => this.imagenes().slice(-4));
   currentIndex = signal(0);
   videoUrls: SafeResourceUrl[] = [];

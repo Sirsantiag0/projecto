@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { HorariosComponent } from './horarios.component';
+import { ArchivosEventoService } from '../../../services/archivos-evento.service';
+
+class MockArchivosEventoService {
+  listarImagenes() {
+    return of({ data: [] });
+  }
+}
 
 describe('HorariosComponent', () => {
   let component: HorariosComponent;
@@ -8,9 +16,9 @@ describe('HorariosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HorariosComponent]
-    })
-    .compileComponents();
+      imports: [HorariosComponent],
+      providers: [{ provide: ArchivosEventoService, useClass: MockArchivosEventoService }]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HorariosComponent);
     component = fixture.componentInstance;
