@@ -54,3 +54,11 @@ button {
 .video-inputs input {
   padding: 8px;
 }
+
+.event-title-inputs {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

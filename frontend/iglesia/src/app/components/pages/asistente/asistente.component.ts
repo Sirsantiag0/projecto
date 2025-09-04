@@ -86,6 +86,10 @@ export class AsistenteComponent implements OnInit {
     this.tituloService.setTitles(this.eventTitles);
     alert('Títulos guardados correctamente');
   }
+    trackByIndex(index: number): number {
+    return index;
+  }
+
 
 
   private toEmbed(url: string): string {

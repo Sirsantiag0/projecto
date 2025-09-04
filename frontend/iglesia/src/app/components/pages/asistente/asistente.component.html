@@ -19,7 +19,7 @@
 </div>
 
 <div class="video-inputs">
-  <h3>Subir 📹videos</h3>
+  <h3>Subir 📹Videos</h3>
   <div class="video-input" *ngFor="let url of videoUrls; index as i">
     <input type="text" [(ngModel)]="videoUrls[i]" placeholder="URL de YouTube" />
   </div>
@@ -28,8 +28,8 @@
 
 
 <div class="event-title-inputs">
-  <h3>Subir título próximo evento</h3>
-  <div class="event-title-input" *ngFor="let title of eventTitles; index as i">
+  <h3>Proximos evento ✏️Títulos </h3>
+  <div class="event-title-input" *ngFor="let title of eventTitles; index as i; trackBy: trackByIndex">
     <input type="text" [(ngModel)]="eventTitles[i]" placeholder="Título del evento {{ i + 1 }}" />
   </div>
   <button (click)="guardarTitulos()">Guardar títulos</button>
