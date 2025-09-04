@@ -6,6 +6,7 @@ import { CalendarioComponent } from './components/pages/calendario/calendario.co
 import { AsistenteComponent } from './components/pages/asistente/asistente.component';
 import { RegistroFeligresComponent } from './components/pages/registro-feligres/registro-feligres.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { HorariosComponent } from './components/pages/horarios/horarios.component';
 export const routes: Routes = [
   {
     path: '',
@@ -17,6 +18,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'registrar', component: RegistroFeligresComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'horarios', component: HorariosComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }
