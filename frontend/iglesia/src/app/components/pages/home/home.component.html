@@ -41,12 +41,12 @@
   <div class="fe-wrap">
     <h2 class="fe-title">Próximos encuentros y celebraciones</h2>
     <div class="fe-grid">
-      <article class="fe-card" *ngFor="let img of featuredImages()">
+      <article class="fe-card" *ngFor="let img of featuredImages(); let i = index">
         <div class="fe-poster">
           <img [src]="img" alt="Imagen del evento" />
         </div>
         <div class="fe-body">
-          <h3 class="fe-name">Título evento</h3>
+          <h3 class="fe-name">{{ eventTitles[i] || 'Título evento' }}</h3>
           <ul class="fe-meta">
             <li><span class="fe-ico">📍</span>Santuario</li>
           </ul>

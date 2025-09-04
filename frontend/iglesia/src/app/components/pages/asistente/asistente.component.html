@@ -25,3 +25,12 @@
   </div>
   <button (click)="guardarVideos()">Guardar videos</button>
 </div>
+
+
+<div class="event-title-inputs">
+  <h3>Subir título próximo evento</h3>
+  <div class="event-title-input" *ngFor="let title of eventTitles; index as i">
+    <input type="text" [(ngModel)]="eventTitles[i]" placeholder="Título del evento {{ i + 1 }}" />
+  </div>
+  <button (click)="guardarTitulos()">Guardar títulos</button>
+</div>

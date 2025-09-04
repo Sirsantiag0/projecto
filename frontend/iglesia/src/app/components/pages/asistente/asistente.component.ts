@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { VideoService } from '../../../services/video.service';
+import { TituloEventoService } from '../../../services/titulo-evento.service';
 
 @Component({
   selector: 'app-asistente',
@@ -14,17 +15,22 @@ import { VideoService } from '../../../services/video.service';
 export class AsistenteComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
   private videoService = inject(VideoService);
+  private tituloService = inject(TituloEventoService);
+
 
   detalle = '';
   archivo?: File;
   imagenes: any[] = [];
   videoUrls: string[] = ['', '', '', ''];
+  eventTitles: string[] = ['', '', '', ''];
 
   ngOnInit(): void {
     // Al iniciar el componente se consultan las imágenes guardadas
     this.cargarImagenes();
     // También se recuperan las URLs de los videos almacenados
     this.videoUrls = this.videoService.getVideos();
+     // Y los títulos de los próximos eventos
+    this.eventTitles = this.tituloService.getTitles();
   }
 
   cargarImagenes() {
@@ -75,6 +81,12 @@ export class AsistenteComponent implements OnInit {
     this.videoUrls = embeds;
     alert('Videos guardados correctamente');
   }
+
+    guardarTitulos() {
+    this.tituloService.setTitles(this.eventTitles);
+    alert('Títulos guardados correctamente');
+  }
+
 
   private toEmbed(url: string): string {
     if (!url) {

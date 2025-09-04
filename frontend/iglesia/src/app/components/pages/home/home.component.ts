@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { VideoService } from '../../../services/video.service';
+import { TituloEventoService } from '../../../services/titulo-evento.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { VideoService } from '../../../services/video.service';
 export class HomeComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
   private videoService = inject(VideoService);
+  private tituloService = inject(TituloEventoService);
   private sanitizer = inject(DomSanitizer);
 
   imagenes = signal<string[]>([]);
@@ -25,6 +27,7 @@ export class HomeComponent implements OnInit {
   featuredImages = computed(() => this.imagenes().slice(-4));
   currentIndex = signal(0);
   videoUrls: SafeResourceUrl[] = [];
+  eventTitles: string[] = [];
 
   ngOnInit() {
     this.archivosService.listarImagenes().subscribe(res => {
@@ -42,5 +45,6 @@ export class HomeComponent implements OnInit {
       .getVideos()
       .filter((v) => v)
       .map((v) => this.sanitizer.bypassSecurityTrustResourceUrl(v));
+    this.eventTitles = this.tituloService.getTitles();
   }
 }
