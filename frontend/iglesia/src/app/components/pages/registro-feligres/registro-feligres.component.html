@@ -1,3 +1,4 @@
+<app-home></app-home>
 <div class="overlay" (click)="close()">
   <div class="registro-window" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="close()">✖</button>
@@ -5,7 +6,7 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="field">
-          <input type="text" formControlName="cedula" placeholder="Cédula">
+          <input #cedulaInput type="text" formControlName="cedula" placeholder="Cédula">
           <div class="error" *ngIf="form.get('cedula')?.touched && form.get('cedula')?.hasError('required')">La cédula es requerida</div>
           <div class="error" *ngIf="form.get('cedula')?.touched && form.get('cedula')?.hasError('pattern')">Ingrese solo números</div>
         </div>

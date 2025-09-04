@@ -1,22 +1,24 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeligresService } from '../../../services/feligres.service';
 import Swal from 'sweetalert2';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-registro-feligres',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HomeComponent],
   templateUrl: './registro-feligres.component.html',
   styleUrls: ['./registro-feligres.component.css']
 })
-export class RegistroFeligresComponent {
+export class RegistroFeligresComponent implements AfterViewInit {
   form: FormGroup;
   
   @Output() closed = new EventEmitter<void>();
   loading = false;
+  @ViewChild('cedulaInput') cedulaInput!: ElementRef<HTMLInputElement>;
 
   constructor(private fb: FormBuilder, private feligresService: FeligresService, private router: Router) {
     this.form = this.fb.group({
@@ -33,6 +35,11 @@ export class RegistroFeligresComponent {
     }, { validators: this.passwordMatchValidator });
   }
 
+    ngAfterViewInit() {
+    this.cedulaInput?.nativeElement.focus();
+  }
+
+
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -43,21 +50,24 @@ export class RegistroFeligresComponent {
     const birthDate = new Date(fecha_nacimiento);
     const edad = new Date().getFullYear() - birthDate.getFullYear();
     this.loading = true;
-    setTimeout(() => this.loading = false, 1000);
+   
     this.feligresService.crearFeligres({ ...feligres, fecha_nacimiento: birthDate, edad }).subscribe({
       next: () => {
-          Swal.fire({
+        this.loading = false;
+        Swal.fire({
           title: 'Registro exitoso',
           icon: 'success',
-          timer: 1000,
-          showConfirmButton: false,
+          confirmButtonText: 'Aceptar',
           position: 'center'
         }).then(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         });
         this.form.reset();
       },
-      error: err => console.error('Error al registrar feligrés', err)
+        error: err => {
+        this.loading = false;
+        console.error('Error al registrar feligrés', err);
+        }
     });
   }
 
