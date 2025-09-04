@@ -2,7 +2,6 @@
   <div class="registro-window" (click)="$event.stopPropagation()">
     <button class="close-btn" (click)="close()">✖</button>
     <h2>Registro</h2>
-    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="field">

@@ -5,6 +5,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { CalendarioComponent } from './components/pages/calendario/calendario.component';
 import { AsistenteComponent } from './components/pages/asistente/asistente.component';
 import { RegistroFeligresComponent } from './components/pages/registro-feligres/registro-feligres.component';
+import { LoginComponent } from './components/pages/login/login.component';
 export const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,7 @@ export const routes: Routes = [
       { path: 'asistente', component: AsistenteComponent },
       { path: 'home', component: HomeComponent },
       { path: 'registrar', component: RegistroFeligresComponent },
+      { path: 'login', component: LoginComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }

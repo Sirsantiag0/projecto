@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeligresService } from '../../../services/feligres.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro-feligres',
@@ -13,7 +14,7 @@ import { FeligresService } from '../../../services/feligres.service';
 })
 export class RegistroFeligresComponent {
   form: FormGroup;
-  successMessage: string | null = null;
+  
   @Output() closed = new EventEmitter<void>();
   loading = false;
 
@@ -45,8 +46,15 @@ export class RegistroFeligresComponent {
     setTimeout(() => this.loading = false, 1000);
     this.feligresService.crearFeligres({ ...feligres, fecha_nacimiento: birthDate, edad }).subscribe({
       next: () => {
-        this.successMessage = 'Registro exitoso';
-        setTimeout(() => this.successMessage = null, 2000);
+          Swal.fire({
+          title: 'Registro exitoso',
+          icon: 'success',
+          timer: 1000,
+          showConfirmButton: false,
+          position: 'center'
+        }).then(() => {
+          this.router.navigate(['/login']);
+        });
         this.form.reset();
       },
       error: err => console.error('Error al registrar feligrés', err)

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements AfterViewInit {
   form: FormGroup;
   loading = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -40,6 +40,9 @@ export class LoginComponent implements AfterViewInit {
     setTimeout(() => {
       this.loading = false;
       this.closed.emit();
+      if (this.router.url === '/login') {
+      this.router.navigate(['/home']);
+      }
     }, 1000);
     this.authService.login(correo, password).subscribe({
       error: err => console.error('Login error', err)
@@ -47,5 +50,8 @@ export class LoginComponent implements AfterViewInit {
   }
   close() {
     this.closed.emit();
+    if (this.router.url === '/login') {
+      this.router.navigate(['/home']);
+    }
   }
 }
