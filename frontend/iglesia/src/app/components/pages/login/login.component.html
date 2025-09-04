@@ -4,7 +4,20 @@
         <h2 class="login-title">Inicia Sesión</h2>
     <form [formGroup]="form" (ngSubmit)="submit()">
 
-        <input #correoInput class="usuario" type="email" formControlName="correo" required placeholder="correo"/>
+        <div class="field">
+          <input #correoInput 
+          class="usuario" 
+          type="email" 
+          formControlName="correo" 
+          placeholder="correo" />
+          <div class="error" *ngIf="form.get('correo')?.touched && form.get('correo')?.hasError('required')">
+            El correo es requerido
+          </div>
+          <div class="error" *ngIf="form.get('correo')?.touched && form.get('correo')?.hasError('email')">
+            Ingrese un correo válido
+          </div>
+        </div>
+
         <div class="field">
           <input type="password" formControlName="password" placeholder="contraseña">
           <div class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">La contraseña es requerida</div>
