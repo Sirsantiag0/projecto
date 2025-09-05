@@ -63,8 +63,7 @@ button {
   gap: 10px;
 }
 
-.event-schedule,
-.event-preview {
+.event-schedule {
   max-width: 400px;
   margin: 20px auto;
   display: flex;
@@ -72,10 +71,26 @@ button {
   gap: 10px;
 }
 
+
+.event-preview {
+  max-width: 1000px;       /* que pueda expandirse más */
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  gap: 15px;               /* espacio entre columnas y filas */
+}
+
 .event-item {
   display: flex;
+  flex-direction: column;  /* texto arriba, botones abajo */
   justify-content: space-between;
   align-items: center;
   border: 1px solid grey;
-  border-radius: 10px
+  border-radius: 10px;
+  padding: 10px;
+  background: #f9f9f9;     /* para que se diferencie cada tarjeta */
+}
+
+.acciones button {
+  margin-right: 5px
 }
