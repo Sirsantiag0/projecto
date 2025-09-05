@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { AsistenteComponent } from './asistente.component';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
+import { GruposService } from '../../../services/grupo.service';
 
 class MockArchivosEventoService {
   listarImagenes() {
@@ -35,6 +36,13 @@ class MockAsistenciaEventoService {
   }
 }
 
+class MockGruposService {
+  listarGrupos() { return of({ data: [] }); }
+  obtenerArchivosPorGrupo() { return of({ data: [] }); }
+  crearGrupo() { return of({ data: { id: 1 } }); }
+  subirArchivoGrupo() { return of({}); }
+}
+
 
 describe('AsistenteComponent', () => {
   let component: AsistenteComponent;
@@ -45,7 +53,8 @@ describe('AsistenteComponent', () => {
       imports: [AsistenteComponent],
       providers: [
         { provide: ArchivosEventoService, useClass: MockArchivosEventoService },
-        { provide: AsistenciaEventoService, useClass: MockAsistenciaEventoService }
+        { provide: AsistenciaEventoService, useClass: MockAsistenciaEventoService },
+        { provide: GruposService, useClass: MockGruposService }
       ]
     }).compileComponents();
 

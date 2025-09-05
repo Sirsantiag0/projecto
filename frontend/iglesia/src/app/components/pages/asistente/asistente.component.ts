@@ -5,6 +5,7 @@ import { ArchivosEventoService } from '../../../services/archivos-evento.service
 import { VideoService } from '../../../services/video.service';
 import { TituloEventoService } from '../../../services/titulo-evento.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
+import { GruposService } from '../../../services/grupo.service';
 
 @Component({
   selector: 'app-asistente',
@@ -18,6 +19,7 @@ export class AsistenteComponent implements OnInit {
   private videoService = inject(VideoService);
   private tituloService = inject(TituloEventoService);
   private eventosService = inject(AsistenciaEventoService);
+  private gruposService = inject(GruposService);
 
   // -------- Imágenes --------
   detalle = '';
@@ -35,11 +37,18 @@ export class AsistenteComponent implements OnInit {
   nuevoEvento: Evento = { fecha: '', hora: '', descripcion: '' };
   editingId: number | null = null;
 
+    // -------- Grupos --------
+  grupos: any[] = [];
+  grupoDescripcion = '';
+  grupoArchivo?: File;
+
+
   ngOnInit(): void {
     this.cargarImagenes();
     this.videoUrls = this.videoService.getVideos();
     this.eventTitles = this.tituloService.getTitles();
     this.cargarEventos();
+    this.cargarGrupos();
   }
 
   // ---------------- Imágenes ----------------
@@ -129,6 +138,41 @@ export class AsistenteComponent implements OnInit {
   cargarEventos() {
     this.eventosService.listarEventos().subscribe(res => {
       this.eventos = res.data;
+    });
+  }
+
+    // ---------------- Grupos ----------------
+  cargarGrupos() {
+    this.gruposService.listarGrupos().subscribe(res => {
+      this.grupos = res.data;
+      this.grupos.forEach(g => {
+        this.gruposService.obtenerArchivosPorGrupo(g.id).subscribe(ar => {
+          g.imagen = ar.data[0]?.ruta;
+        });
+      });
+    });
+  }
+
+  onGrupoFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      this.grupoArchivo = target.files[0];
+    }
+  }
+
+  agregarGrupo() {
+    if (!this.grupoArchivo || !this.grupoDescripcion) {
+      return;
+    }
+
+    this.gruposService.crearGrupo(this.grupoDescripcion).subscribe(res => {
+      const grupoId = res.data.id;
+      this.gruposService.subirArchivoGrupo(grupoId, this.grupoArchivo!).subscribe(() => {
+        this.grupoDescripcion = '';
+        this.grupoArchivo = undefined;
+        this.cargarGrupos();
+        alert('Grupo agregado correctamente');
+      });
     });
   }
 
