@@ -19,7 +19,7 @@
     height: 70vh;
     overflow: hidden;
     position: relative;
-    margin-top: 70px; /* Ajustar según la altura de tu navbar */
+    margin-top: -26px /* Ajustar según la altura de tu navbar */
 }
 
 .carrousel-inner {
