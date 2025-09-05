@@ -9,18 +9,31 @@
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+  max-width: 1100px; /* 🔹 controla qué tan juntas quedan */
+  margin: 0 auto;   /* 🔹 centra el grid horizontalmente */
 }
 
-.cell {
-  padding: 1rem;
-  display: flex;
-  width: 500px;
-  height: 500px; 
+@media (max-width: 1024px) {
+  .schedule-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cell img {
+  width: 80%;
+  max-width: 400px; /* para que no se estiren demasiado en pantallas grandes */
+  height: auto;
+  object-fit: contain;
 }
 
 .title {
-    margin-top: -10px
+  margin-top: -10px;
 }

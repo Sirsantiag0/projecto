@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
+import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
@@ -16,9 +16,9 @@ export class CalendarioComponent implements  OnInit {
   monthDays: { day: number, fullDate: string }[] = [];
   monthName: string = '';
   year: number = 0;
-  listEventos: any[] = [];
+  listEventos: Evento[] = [];
   isMobile = false;
-  eventos = [
+  eventos: Evento[] = [
     {
       fecha: '2025-08-05',
       hora: '10:00',
@@ -101,9 +101,9 @@ export class CalendarioComponent implements  OnInit {
 
   getEventosPorDia(fecha: string) {
     return this.listEventos.filter(e => {
-    const eventoFecha = new Date(e.fecha).toISOString().split('T')[0];
-    return eventoFecha === fecha;
-  });
+      const eventoFecha = new Date(e.fecha).toISOString().split('T')[0];
+      return eventoFecha === fecha;
+    });
   }
 
   cambiarMes(offset: number) {
@@ -119,7 +119,7 @@ export class CalendarioComponent implements  OnInit {
     }
   }
 
-  marcarAsistencia(evento: any) {
+  marcarAsistencia(evento: Evento) {
     alert(`Asistencia marcada para: ${evento.id} ${evento.descripcion} a las ${evento.hora}`);
   }
 }

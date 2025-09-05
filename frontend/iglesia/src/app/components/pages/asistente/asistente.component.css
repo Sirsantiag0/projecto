@@ -62,3 +62,18 @@ button {
   flex-direction: column;
   gap: 10px;
 }
+
+.event-schedule,
+.event-preview {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

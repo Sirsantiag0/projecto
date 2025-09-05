@@ -2,20 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface Evento {
+  id?: number;
+  fecha: string;
+  hora: string;
+  descripcion: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-// EventoService
+// Servicio para CRUD de eventos de asistencia
 export class AsistenciaEventoService {
   private apiUrl = 'http://localhost:3000/api/eventos'; // Asegúrate de usar la URL correcta
 
-  constructor(private http: HttpClient) { 
-
-  }
+  constructor(private http: HttpClient) {}
 
   // Crear un nuevo evento
-  crearEvento(evento: any): Observable<any> {
+  crearEvento(evento: Evento): Observable<any> {
     return this.http.post(this.apiUrl, evento);
   }
 
@@ -30,7 +34,7 @@ export class AsistenciaEventoService {
   }
 
   // Actualizar un evento
-  actualizarEvento(id: number, evento: any): Observable<any> {
+  actualizarEvento(id: number, evento: Evento): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, evento);
   }
 

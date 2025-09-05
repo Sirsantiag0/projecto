@@ -1,5 +1,5 @@
 <div class="asistente-form">
-  <h2>Subir 🖼️Carrusel + 🖼️Evento</h2>
+  <h2>Subir 🖼️Horario 🖼️Carrusel 🖼️Evento</h2>
   <input type="text" [(ngModel)]="detalle" placeholder="Detalle" />
   <input type="file" (change)="onFileChange($event)" />
   <button (click)="subirImagen()">Subir</button>
@@ -33,4 +33,24 @@
     <input type="text" [(ngModel)]="eventTitles[i]" placeholder="Título del evento {{ i + 1 }}" />
   </div>
   <button (click)="guardarTitulos()">Guardar títulos</button>
+</div>
+
+
+<div class="event-schedule">
+  <h3>Programar evento</h3>
+  <input type="date" [(ngModel)]="nuevoEvento.fecha" />
+  <input type="time" [(ngModel)]="nuevoEvento.hora" />
+  <input type="text" [(ngModel)]="nuevoEvento.descripcion" placeholder="Descripción" />
+  <button (click)="guardarEvento()">{{ editingId ? 'Actualizar' : 'Agregar' }} evento</button>
+</div>
+
+<div class="event-preview" *ngIf="eventos.length">
+  <h3>Eventos programados</h3>
+  <div class="event-item" *ngFor="let ev of eventos; trackBy: trackById">
+    <span>{{ ev.fecha | date:'yyyy-MM-dd' }} - {{ ev.hora }} - {{ ev.descripcion }}</span>
+    <div class="acciones">
+      <button (click)="editarEvento(ev)">Editar</button>
+      <button (click)="eliminarEvento(ev.id)">Eliminar</button>
+    </div>
+  </div>
 </div>

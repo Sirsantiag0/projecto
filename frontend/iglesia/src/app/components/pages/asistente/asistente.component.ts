@@ -17,22 +17,35 @@ export class AsistenteComponent implements OnInit {
   private videoService = inject(VideoService);
   private tituloService = inject(TituloEventoService);
 
-
+  // -------- Imágenes --------
   detalle = '';
   archivo?: File;
   imagenes: any[] = [];
+
+  // -------- Videos --------
   videoUrls: string[] = ['', '', '', ''];
+
+  // -------- Títulos --------
   eventTitles: string[] = ['', '', '', ''];
 
+  // -------- Eventos --------
+  eventos: any[] = [];
+  nuevoEvento: any = { fecha: '', hora: '', descripcion: '' };
+  editingId: number | null = null;
+
   ngOnInit(): void {
-    // Al iniciar el componente se consultan las imágenes guardadas
     this.cargarImagenes();
-    // También se recuperan las URLs de los videos almacenados
     this.videoUrls = this.videoService.getVideos();
-     // Y los títulos de los próximos eventos
     this.eventTitles = this.tituloService.getTitles();
+
+    // opcional: podrías guardar eventos en localStorage también
+    const eventosGuardados = localStorage.getItem('eventos');
+    if (eventosGuardados) {
+      this.eventos = JSON.parse(eventosGuardados);
+    }
   }
 
+  // ---------------- Imágenes ----------------
   cargarImagenes() {
     this.archivosService.listarImagenes().subscribe((res) => {
       this.imagenes = res.data;
@@ -47,9 +60,8 @@ export class AsistenteComponent implements OnInit {
   }
 
   subirImagen() {
-    if (!this.archivo) {
-      return;
-    }
+    if (!this.archivo) return;
+
     this.archivosService.subirArchivo(this.archivo, this.detalle).subscribe(() => {
       this.detalle = '';
       this.archivo = undefined;
@@ -57,7 +69,8 @@ export class AsistenteComponent implements OnInit {
       alert('Imagen subida correctamente');
     });
   }
-    eliminarImagen(id: number) {
+
+  eliminarImagen(id: number) {
     this.archivosService.eliminarArchivo(id).subscribe(() => {
       this.cargarImagenes();
       alert('Imagen eliminada correctamente');
@@ -74,7 +87,8 @@ export class AsistenteComponent implements OnInit {
       });
     }
   }
-  
+
+  // ---------------- Videos ----------------
   guardarVideos() {
     const embeds = this.videoUrls.map((url) => this.toEmbed(url));
     this.videoService.setVideos(embeds);
@@ -82,21 +96,52 @@ export class AsistenteComponent implements OnInit {
     alert('Videos guardados correctamente');
   }
 
-    guardarTitulos() {
+  // ---------------- Títulos ----------------
+  guardarTitulos() {
     this.tituloService.setTitles(this.eventTitles);
     alert('Títulos guardados correctamente');
   }
-    trackByIndex(index: number): number {
+
+  // ---------------- Eventos ----------------
+  guardarEvento() {
+    if (this.editingId) {
+      // Actualizar
+      const idx = this.eventos.findIndex(ev => ev.id === this.editingId);
+      if (idx > -1) {
+        this.eventos[idx] = { ...this.nuevoEvento, id: this.editingId };
+      }
+      this.editingId = null;
+    } else {
+      // Nuevo
+      const nuevo = { ...this.nuevoEvento, id: Date.now() };
+      this.eventos.push(nuevo);
+    }
+
+    this.nuevoEvento = { fecha: '', hora: '', descripcion: '' };
+    localStorage.setItem('eventos', JSON.stringify(this.eventos));
+  }
+
+  editarEvento(ev: any) {
+    this.nuevoEvento = { ...ev };
+    this.editingId = ev.id;
+  }
+
+  eliminarEvento(id: number) {
+    this.eventos = this.eventos.filter(ev => ev.id !== id);
+    localStorage.setItem('eventos', JSON.stringify(this.eventos));
+  }
+
+  trackById(index: number, item: any) {
+    return item.id;
+  }
+
+  trackByIndex(index: number) {
     return index;
   }
 
-
-
+  // ---------------- Helper YouTube ----------------
   private toEmbed(url: string): string {
-    if (!url) {
-      return '';
-    }
-    // Extrae el identificador del video desde diferentes formatos de URL
+    if (!url) return '';
     const match = url.match(/(?:youtu\.be\/|v=|\/embed\/)([A-Za-z0-9_-]{11})/);
     const id = match ? match[1] : url;
     return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;

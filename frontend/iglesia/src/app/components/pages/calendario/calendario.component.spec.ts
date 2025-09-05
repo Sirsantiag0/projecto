@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalendarioComponent } from './calendario.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { of } from 'rxjs';
-import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
+import { AsistenciaEventoService, Evento  } from '../../../services/asistencia-evento.service';
 
 class BreakpointObserverStub {
   observe() {
@@ -12,7 +12,7 @@ class BreakpointObserverStub {
 
 class AsistenciaEventoServiceStub {
   listarEventos() {
-    return of({ data: [] });
+    return of({ data: [] as Evento[] });
   }
 }
 
