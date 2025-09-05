@@ -50,7 +50,8 @@
     <span>{{ ev.fecha | date:'yyyy-MM-dd' }} - {{ ev.hora }} - {{ ev.descripcion }}</span>
     <div class="acciones">
       <button (click)="editarEvento(ev)">Editar</button>
-      <button (click)="eliminarEvento(ev.id)">Eliminar</button>
+      <button *ngIf="ev.id" (click)="eliminarEvento(ev.id)">Eliminar</button>
+
     </div>
   </div>
 </div>

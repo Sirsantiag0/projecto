@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { VideoService } from '../../../services/video.service';
 import { TituloEventoService } from '../../../services/titulo-evento.service';
+import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 
 @Component({
   selector: 'app-asistente',
@@ -16,6 +17,7 @@ export class AsistenteComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
   private videoService = inject(VideoService);
   private tituloService = inject(TituloEventoService);
+  private eventosService = inject(AsistenciaEventoService);
 
   // -------- Imágenes --------
   detalle = '';
@@ -29,20 +31,15 @@ export class AsistenteComponent implements OnInit {
   eventTitles: string[] = ['', '', '', ''];
 
   // -------- Eventos --------
-  eventos: any[] = [];
-  nuevoEvento: any = { fecha: '', hora: '', descripcion: '' };
+  eventos: Evento[] = [];
+  nuevoEvento: Evento = { fecha: '', hora: '', descripcion: '' };
   editingId: number | null = null;
 
   ngOnInit(): void {
     this.cargarImagenes();
     this.videoUrls = this.videoService.getVideos();
     this.eventTitles = this.tituloService.getTitles();
-
-    // opcional: podrías guardar eventos en localStorage también
-    const eventosGuardados = localStorage.getItem('eventos');
-    if (eventosGuardados) {
-      this.eventos = JSON.parse(eventosGuardados);
-    }
+    this.cargarEventos();
   }
 
   // ---------------- Imágenes ----------------
@@ -105,30 +102,34 @@ export class AsistenteComponent implements OnInit {
   // ---------------- Eventos ----------------
   guardarEvento() {
     if (this.editingId) {
-      // Actualizar
-      const idx = this.eventos.findIndex(ev => ev.id === this.editingId);
-      if (idx > -1) {
-        this.eventos[idx] = { ...this.nuevoEvento, id: this.editingId };
-      }
-      this.editingId = null;
+      this.eventosService.actualizarEvento(this.editingId, this.nuevoEvento).subscribe(() => {
+        this.cargarEventos();
+        this.editingId = null;
+        this.nuevoEvento = { fecha: '', hora: '', descripcion: '' };
+      });
     } else {
-      // Nuevo
-      const nuevo = { ...this.nuevoEvento, id: Date.now() };
-      this.eventos.push(nuevo);
+      this.eventosService.crearEvento(this.nuevoEvento).subscribe(() => {
+        this.cargarEventos();
+        this.nuevoEvento = { fecha: '', hora: '', descripcion: '' };
+      });
     }
-
-    this.nuevoEvento = { fecha: '', hora: '', descripcion: '' };
-    localStorage.setItem('eventos', JSON.stringify(this.eventos));
   }
 
-  editarEvento(ev: any) {
-    this.nuevoEvento = { ...ev };
-    this.editingId = ev.id;
+  editarEvento(ev: Evento) {
+    this.nuevoEvento = { fecha: ev.fecha, hora: ev.hora, descripcion: ev.descripcion };
+    this.editingId = ev.id!;
   }
 
   eliminarEvento(id: number) {
-    this.eventos = this.eventos.filter(ev => ev.id !== id);
-    localStorage.setItem('eventos', JSON.stringify(this.eventos));
+    this.eventosService.eliminarEvento(id).subscribe(() => {
+      this.cargarEventos();
+    });
+  }
+
+  cargarEventos() {
+    this.eventosService.listarEventos().subscribe(res => {
+      this.eventos = res.data;
+    });
   }
 
   trackById(index: number, item: any) {
