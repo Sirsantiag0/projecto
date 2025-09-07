@@ -36,13 +36,8 @@ exports.crearArchivoGrupo = async (req, res) => {
     }
 
     const nuevoArchivo = await Archivos_grupo.create({
-      nombre_original: req.file.originalname,
-      nombre_archivo: req.file.filename,
-      ruta: path.join('grupos', req.file.filename),
-      tipo_archivo: req.file.mimetype,
-      tamaño: req.file.size,
-      id_grupo: req.body.id_grupo,
-      descripcion: req.body.descripcion || null
+      ruta_archivos: req.file.filename,
+      id_grupo: req.body.id_grupo
     });
 
     res.status(201).json({ success: true, data: nuevoArchivo });
@@ -65,13 +60,13 @@ exports.descargarArchivo = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Archivo no encontrado' });
     }
 
-    const filePath = path.join(__dirname, '..', 'uploads', archivo.ruta);
+    const filePath = path.join(__dirname, '..', 'uploads', 'grupos', archivo.ruta_archivos);
     
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ success: false, message: 'El archivo físico no existe' });
     }
 
-    res.download(filePath, archivo.nombre_original);
+    res.download(filePath);
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

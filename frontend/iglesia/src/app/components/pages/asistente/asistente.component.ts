@@ -147,7 +147,7 @@ export class AsistenteComponent implements OnInit {
       this.grupos = res.data;
       this.grupos.forEach(g => {
         this.gruposService.obtenerArchivosPorGrupo(g.id).subscribe(ar => {
-          g.imagen = ar.data[0]?.ruta;
+          g.imagen = ar.data[0]?.ruta_archivos;
         });
       });
     });
