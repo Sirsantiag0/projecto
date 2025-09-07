@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,11 @@ export class GruposService {
 
   obtenerArchivosPorGrupo(grupoId: number): Observable<any> {
     return this.http.get<any>(`${this.archivosUrl}/grupo/${grupoId}`);
+  }
+  
+  crearGrupoConImagen(descripcion: string, archivo: File): Observable<any> {
+    return this.crearGrupo(descripcion).pipe(
+      switchMap(res => this.subirArchivoGrupo(res.data.id, archivo))
+    );
   }
 }

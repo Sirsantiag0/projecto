@@ -165,15 +165,14 @@ export class AsistenteComponent implements OnInit {
       return;
     }
 
-    this.gruposService.crearGrupo(this.grupoDescripcion).subscribe(res => {
-      const grupoId = res.data.id;
-      this.gruposService.subirArchivoGrupo(grupoId, this.grupoArchivo!).subscribe(() => {
+    this.gruposService
+      .crearGrupoConImagen(this.grupoDescripcion, this.grupoArchivo!)
+      .subscribe(() => {
         this.grupoDescripcion = '';
         this.grupoArchivo = undefined;
         this.cargarGrupos();
         alert('Grupo agregado correctamente');
       });
-    });
   }
 
   trackById(index: number, item: any) {

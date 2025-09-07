@@ -65,7 +65,7 @@
     <h3>Grupos agregados</h3>
     <div class="grupo-item" *ngFor="let g of grupos">
       <p>{{ g.descripcion }}</p>
-      <img *ngIf="g.imagen" [src]="'http://localhost:3000/uploads/' + g.imagen" [alt]="g.descripcion" />
+      <img *ngIf="g.imagen" [src]="'http://localhost:3000/uploads/grupos/' + g.imagen" [alt]="g.descripcion" />
     </div>
   </div>
 </div>
