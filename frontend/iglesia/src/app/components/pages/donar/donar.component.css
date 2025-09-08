@@ -1,0 +1,76 @@
+.donar {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: -55px
+}
+
+.donar h2 {
+  margin-bottom: 0.5rem;
+}
+
+.descripcion {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-style: italic;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 280px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.value {
+  font-weight: 500;
+}
+
+.copy-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.copy-btn:hover {
+  color: #1976d2;
+}
+
+.donar-btn {
+  margin-top: 0.5rem;
+  align-self: center;
+  background: #1976d2;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.donar-btn:hover {
+  background: #125a9c;
+}

@@ -1,1 +1,29 @@
-<p>donar works!</p>
+<div class="donar">
+  <h2>Apoya nuestra misión</h2>
+  <p class="descripcion">
+    "Si tu corazón es generoso, te invitamos a apoyarnos con tu aporte solidario. Para realizar una transferencia bancaria o un depósito, ponemos a tu disposición nuestras cuentas"
+  </p>
+
+  <div class="cards">
+    <div class="card" *ngFor="let cuenta of cuentas">
+      <div class="row">
+        <span class="label">Cuenta Corriente:</span>
+        <span class="value">{{ cuenta.numero }}</span>
+        <button class="copy-btn" (click)="copiar(cuenta.numero)" title="Copiar número de cuenta">📋</button>
+      </div>
+      <div class="row">
+        <span class="label">Banco:</span>
+        <span class="value">{{ cuenta.banco }}</span>
+      </div>
+      <div class="row">
+        <span class="value">Parroquia María Auxiliadora</span>
+      </div>
+      <div class="row">
+        <span class="label">RUC:</span>
+        <span class="value">{{ cuenta.ruc }}</span>
+        <button class="copy-btn" (click)="copiar(cuenta.ruc)" title="Copiar RUC">📋</button>
+      </div>
+      <a class="donar-btn" [href]="cuenta.link" target="_blank" rel="noopener">Apoyar misión</a>
+    </div>
+  </div>
+</div>
