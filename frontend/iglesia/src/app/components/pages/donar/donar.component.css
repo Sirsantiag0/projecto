@@ -1,7 +1,8 @@
 .donar {
   text-align: center;
   padding: 2rem 1rem;
-  margin-top: -55px
+  margin-top: -55px;
+  margin-bottom: 100px
 }
 
 .donar h2 {
@@ -9,7 +10,7 @@
 }
 
 .descripcion {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto 2rem;
   font-style: italic;
 }
@@ -22,15 +23,27 @@
 }
 
 .card {
-  background: #fff;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.8),   /* capa blanca translúcida */
+      rgba(255, 255, 255, 0.8)
+    ),
+    url('/images/papaleon1.PNG');     /* ruta a tu imagen */
+  background-size: cover;
+  background-position: center;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 1.5rem;
   width: 280px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .row {
@@ -61,16 +74,31 @@
 }
 
 .donar-btn {
-  margin-top: 0.5rem;
-  align-self: center;
-  background: #1976d2;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  display: block;
+  margin: 4px auto 0;
+  width: 50%;
+  font-size: 14px;
+  padding: 2px 4px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
   text-decoration: none;
-  transition: background 0.3s;
+    box-shadow:
+    0 4px 0 #2E7D32,
+    0 5px 5px rgba(0,0,0,0.1);
+  position: relative;
+  transition: all 0.1s ease;
 }
 
 .donar-btn:hover {
-  background: #125a9c;
+  background-color: #45a049;
+}
+
+.donar-btn:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #2E7D32,
+    0 2px 3px rgba(0,0,0,0.1);
 }
