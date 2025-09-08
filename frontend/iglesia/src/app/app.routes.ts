@@ -9,6 +9,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { HorariosComponent } from './components/pages/horarios/horarios.component';
 import { DonarComponent } from './components/pages/donar/donar.component';
 import { HistoriaComponent } from './components/pages/historia/historia.component';
+import { AdministradorComponent } from './components/pages/administrador/administrador.component';
 export const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,7 @@ export const routes: Routes = [
       { path: 'horarios', component: HorariosComponent },
       { path: 'donar', component: DonarComponent },
       { path: 'historia', component: HistoriaComponent },
+      { path: 'administrador', component: AdministradorComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }

@@ -1,1 +1,51 @@
-<p>administrador works!</p>
+<h2>Administración de Feligreses</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cédula</th>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of feligreses">
+      <ng-container *ngIf="editFeligresId === f.id; else viewMode">
+        <td><input [(ngModel)]="editFeligres.cedula" /></td>
+        <td><input [(ngModel)]="editFeligres.nombres" /></td>
+        <td><input [(ngModel)]="editFeligres.apellidos" /></td>
+        <td><input [(ngModel)]="editFeligres.email" /></td>
+        <td><input [(ngModel)]="editFeligres.telefono" /></td>
+        <td>
+          <button (click)="guardarEdicion()">Guardar</button>
+          <button (click)="cancelarEdicion()">Cancelar</button>
+        </td>
+      </ng-container>
+      <ng-template #viewMode>
+        <td>{{ f.cedula }}</td>
+        <td>{{ f.nombres }}</td>
+        <td>{{ f.apellidos }}</td>
+        <td>{{ f.email }}</td>
+        <td>{{ f.telefono }}</td>
+        <td>
+          <button (click)="iniciarEdicion(f)">Editar</button>
+          <button (click)="eliminarFeligres(f.id)">Eliminar</button>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Agregar Feligres</h3>
+<form (ngSubmit)="agregarFeligres()">
+  <input name="cedula" [(ngModel)]="nuevoFeligres.cedula" placeholder="Cédula" required />
+  <input name="nombres" [(ngModel)]="nuevoFeligres.nombres" placeholder="Nombres" required />
+  <input name="apellidos" [(ngModel)]="nuevoFeligres.apellidos" placeholder="Apellidos" required />
+  <input name="email" [(ngModel)]="nuevoFeligres.email" placeholder="Email" type="email" required />
+  <input name="telefono" [(ngModel)]="nuevoFeligres.telefono" placeholder="Teléfono" />
+  <input name="password" [(ngModel)]="nuevoFeligres.password" placeholder="Contraseña" type="password" required />
+  <button type="submit">Crear</button>
+</form>
