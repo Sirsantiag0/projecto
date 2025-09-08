@@ -7,8 +7,11 @@ exports.crearFeligres = async (req, res) => {
     const t = await db.sequelize.transaction();
     try {
         const { password, email, ...feligresData } = req.body;
-        const birthDate = new Date(feligresData.fecha_nacimiento);
-        const edad = new Date().getFullYear() - birthDate.getFullYear();
+        let edad = feligresData.edad;
+        if (feligresData.fecha_nacimiento) {
+            const birthDate = new Date(feligresData.fecha_nacimiento);
+            edad = new Date().getFullYear() - birthDate.getFullYear();
+        }
         const nuevoFeligres = await Feligres.create({ ...feligresData, edad, email }, { transaction: t });
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,13 +56,12 @@ exports.actualizarFeligres = async (req, res) => {
 exports.eliminarFeligres = async (req, res) => {
     try {
         const { id } = req.params;
-        // Eliminar Feligres 
-        const deleted = await db.Feligres.destroy({ where: { id } });
+        await Usuario.destroy({ where: { id_feligres: id } });
+        const deleted = await Feligres.destroy({ where: { id } });
         if (deleted) {
             return res.status(200).json({ success: true, message: 'Feligres Eliminado' });
         }
         return res.status(404).json({ success: false, message: 'Feligres no encontrado' });
-
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

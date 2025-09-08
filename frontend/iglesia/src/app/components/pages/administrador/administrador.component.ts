@@ -16,6 +16,9 @@ export class AdministradorComponent implements OnInit {
     cedula: '',
     nombres: '',
     apellidos: '',
+    edad: '',
+    genero: '',
+    direccion: '',
     email: '',
     telefono: '',
     password: ''
@@ -41,6 +44,9 @@ export class AdministradorComponent implements OnInit {
         cedula: '',
         nombres: '',
         apellidos: '',
+        edad: '',
+        genero: '',
+        direccion: '',
         email: '',
         telefono: '',
         password: ''
