@@ -1,12 +1,45 @@
 const db = require('../models');
 const Grupos = db.Grupos;
 
+const Archivos_grupo = db.Archivos_grupo;
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const dir = path.join(__dirname, '..', 'uploads', 'grupos');
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+        const nombreUnico = Date.now() + '-' + file.originalname;
+        cb(null, nombreUnico);
+    }
+});
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 }
+});
+
+exports.subirArchivo = upload.single('archivo');
+
 // Crear grupo
 exports.crearGrupo = async (req, res) => {
     try {
         const nuevoGrupo = await Grupos.create(req.body);
+        if (req.file) {
+            await Archivos_grupo.create({
+                ruta_archivos: req.file.filename,
+                id_grupo: nuevoGrupo.id
+            });
+        }
         res.status(201).json({ success: true, data: nuevoGrupo });
     } catch (error) {
+             if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }   
         res.status(500).json({ success: false, error: error.message });
     }
 };

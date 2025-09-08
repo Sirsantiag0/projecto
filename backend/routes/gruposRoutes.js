@@ -3,7 +3,7 @@ const router = express.Router();
 const gruposController = require('../controllers/grupos.controller');
 
 router.get('/', gruposController.listarGrupos);
-router.post('/', gruposController.crearGrupo);
+router.post('/', gruposController.subirArchivo, gruposController.crearGrupo);
 router.get('/:id', gruposController.obtenerGrupo);
 router.put('/:id', gruposController.actualizarGrupo);
 router.patch('/:id/inactivar', gruposController.inactivarGrupo);
