@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { VideoService } from '../../../services/video.service';
-import { TituloEventoService } from '../../../services/titulo-evento.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 import { GruposService } from '../../../services/grupo.service';
 
@@ -17,7 +16,6 @@ import { GruposService } from '../../../services/grupo.service';
 export class AsistenteComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
   private videoService = inject(VideoService);
-  private tituloService = inject(TituloEventoService);
   private eventosService = inject(AsistenciaEventoService);
   private gruposService = inject(GruposService);
 
@@ -28,9 +26,6 @@ export class AsistenteComponent implements OnInit {
 
   // -------- Videos --------
   videoUrls: string[] = ['', '', '', ''];
-
-  // -------- Títulos --------
-  eventTitles: string[] = ['', '', '', ''];
 
   // -------- Eventos --------
   eventos: Evento[] = [];
@@ -46,7 +41,6 @@ export class AsistenteComponent implements OnInit {
   ngOnInit(): void {
     this.cargarImagenes();
     this.videoUrls = this.videoService.getVideos();
-    this.eventTitles = this.tituloService.getTitles();
     this.cargarEventos();
     this.cargarGrupos();
   }
@@ -102,11 +96,6 @@ export class AsistenteComponent implements OnInit {
     alert('Videos guardados correctamente');
   }
 
-  // ---------------- Títulos ----------------
-  guardarTitulos() {
-    this.tituloService.setTitles(this.eventTitles);
-    alert('Títulos guardados correctamente');
-  }
 
   // ---------------- Eventos ----------------
   guardarEvento() {
@@ -179,9 +168,6 @@ export class AsistenteComponent implements OnInit {
     return item.id;
   }
 
-  trackByIndex(index: number) {
-    return index;
-  }
 
   // ---------------- Helper YouTube ----------------
   private toEmbed(url: string): string {

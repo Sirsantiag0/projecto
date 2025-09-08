@@ -35,6 +35,10 @@
   border-radius: 15px;
 }
 
+.cell:hover {
+  transform: scale(1.03);
+}
+
 .title {
   margin-top: -10px;
 }

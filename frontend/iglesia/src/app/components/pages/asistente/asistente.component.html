@@ -26,16 +26,6 @@
   <button (click)="guardarVideos()">Guardar videos</button>
 </div>
 
-
-<div class="event-title-inputs">
-  <h3>Proximos evento ✏️Títulos </h3>
-  <div class="event-title-input" *ngFor="let title of eventTitles; index as i; trackBy: trackByIndex">
-    <input type="text" [(ngModel)]="eventTitles[i]" placeholder="Título del evento {{ i + 1 }}" />
-  </div>
-  <button (click)="guardarTitulos()">Guardar títulos</button>
-</div>
-
-
 <div class="event-schedule">
   <h3>Programar 📅evento</h3>
   <input type="date" [(ngModel)]="nuevoEvento.fecha" />

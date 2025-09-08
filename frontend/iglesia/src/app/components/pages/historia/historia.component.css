@@ -1,0 +1,25 @@
+/* Estilos para la página de historia */
+.historia {
+  text-align: center; /* centra todo el texto */
+  max-width: 900px;   /* opcional, para que no se vea tan ancho */
+  margin: 0 auto;     /* centra el bloque */
+  padding: 1rem;
+}
+
+.historia img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto; /* centra también la imagen */
+}
+
+.historia p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.historia strong {
+  display: block;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}

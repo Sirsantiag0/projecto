@@ -8,6 +8,7 @@ import { RegistroFeligresComponent } from './components/pages/registro-feligres/
 import { LoginComponent } from './components/pages/login/login.component';
 import { HorariosComponent } from './components/pages/horarios/horarios.component';
 import { DonarComponent } from './components/pages/donar/donar.component';
+import { HistoriaComponent } from './components/pages/historia/historia.component';
 export const routes: Routes = [
   {
     path: '',
@@ -21,6 +22,7 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'horarios', component: HorariosComponent },
       { path: 'donar', component: DonarComponent },
+      { path: 'historia', component: HistoriaComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }
