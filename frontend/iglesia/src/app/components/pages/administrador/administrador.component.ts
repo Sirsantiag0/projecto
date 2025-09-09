@@ -27,11 +27,6 @@ export class AdministradorComponent implements OnInit {
   };
   editFeligresId: number | null = null;
   editFeligres: any = {};
-    roles = [
-    { id: 1, nombre: 'Administrador' },
-    { id: 2, nombre: 'Asistente' },
-    { id: 3, nombre: 'Feligres' }
-  ];
 
   constructor(private feligresService: FeligresService) {}
 
@@ -87,8 +82,4 @@ export class AdministradorComponent implements OnInit {
       this.cargarFeligreses();
     });
   }
-    asignarRol(f: any) {
-    this.feligresService.actualizarRol(f.id, f.id_rol).subscribe();
-  }
-
 }

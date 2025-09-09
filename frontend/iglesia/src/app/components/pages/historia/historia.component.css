@@ -4,6 +4,7 @@
   max-width: 900px;   /* opcional, para que no se vea tan ancho */
   margin: 0 auto;     /* centra el bloque */
   padding: 1rem;
+  margin-top: -40px
 }
 
 .historia img {
@@ -11,6 +12,7 @@
   height: auto;
   display: block;
   margin: 1rem auto; /* centra también la imagen */
+  border-radius: 15px
 }
 
 .historia p {
