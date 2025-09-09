@@ -11,6 +11,7 @@
       <th>Dirección</th>
       <th>Email</th>
       <th>Teléfono</th>
+      <th>Rol</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -26,6 +27,13 @@
         <td><input [(ngModel)]="editFeligres.email" /></td>
         <td><input [(ngModel)]="editFeligres.telefono" /></td>
         <td>
+          <select [(ngModel)]="editFeligres.id_rol">
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+            <option [value]="3">3</option>
+          </select>
+        </td>
+        <td>
           <button (click)="guardarEdicion()">Guardar</button>
           <button (click)="cancelarEdicion()">Cancelar</button>
         </td>
@@ -39,6 +47,7 @@
         <td>{{ f.direccion }}</td>
         <td>{{ f.email }}</td>
         <td>{{ f.telefono }}</td>
+        <td>{{ f.id_rol }}</td>
         <td>
           <button (click)="iniciarEdicion(f)">Editar</button>
           <button (click)="eliminarFeligres(f.id)">Eliminar</button>
@@ -60,5 +69,10 @@
   <input name="email" [(ngModel)]="nuevoFeligres.email" placeholder="Email" type="email" required />
   <input name="telefono" [(ngModel)]="nuevoFeligres.telefono" placeholder="Teléfono" />
   <input name="password" [(ngModel)]="nuevoFeligres.password" placeholder="Contraseña" type="password" required />
+    <select name="id_rol" [(ngModel)]="nuevoFeligres.id_rol">
+    <option [value]="1">1</option>
+    <option [value]="2">2</option>
+    <option [value]="3">3</option>
+  </select>
   <button type="submit">Crear</button>
 </form>
