@@ -4,10 +4,26 @@ table {
   margin-bottom: 1rem;
 }
 
-th, td {
+th, 
+td {
   border: 1px solid #ccc;
   padding: 0.5rem;
 }
+
+th {
+  position: relative;
+}
+
+.resizer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+}
+
 
 form input {
   margin-right: 0.5rem;

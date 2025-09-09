@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FeligresService } from '../../../services/feligres.service';
+import { ResizableColumnDirective } from '../../../directives/resizable-column.directive';
 
 @Component({
   selector: 'app-administrador',
    standalone: true,
-  imports: [CommonModule, FormsModule],
+ imports: [CommonModule, FormsModule, ResizableColumnDirective],
   templateUrl: './administrador.component.html',
   styleUrl: './administrador.component.css'
 })
