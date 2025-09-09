@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FeligresService {
   private apiUrl = 'http://localhost:3000/api/feligres';
+  private usuarioUrl = 'http://localhost:3000/api/usuario';
 
   constructor(private http: HttpClient) {}
 
@@ -24,5 +25,9 @@ export class FeligresService {
 
   eliminarFeligres(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+  
+  actualizarRol(id: number, id_rol: number): Observable<any> {
+    return this.http.put(`${this.usuarioUrl}/${id}`, { id_rol });
   }
 }

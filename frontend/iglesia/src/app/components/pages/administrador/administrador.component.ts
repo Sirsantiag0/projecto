@@ -16,15 +16,22 @@ export class AdministradorComponent implements OnInit {
     cedula: '',
     nombres: '',
     apellidos: '',
+    fecha_nacimiento: '',
     edad: '',
     genero: '',
     direccion: '',
     email: '',
     telefono: '',
-    password: ''
+    password: '',
+    id_rol: 3
   };
   editFeligresId: number | null = null;
   editFeligres: any = {};
+    roles = [
+    { id: 1, nombre: 'Administrador' },
+    { id: 2, nombre: 'Asistente' },
+    { id: 3, nombre: 'Feligres' }
+  ];
 
   constructor(private feligresService: FeligresService) {}
 
@@ -44,12 +51,14 @@ export class AdministradorComponent implements OnInit {
         cedula: '',
         nombres: '',
         apellidos: '',
+        fecha_nacimiento: '',
         edad: '',
         genero: '',
         direccion: '',
         email: '',
         telefono: '',
-        password: ''
+        password: '',
+        id_rol: 3
       };
       this.cargarFeligreses();
     });
@@ -77,6 +86,9 @@ export class AdministradorComponent implements OnInit {
     this.feligresService.eliminarFeligres(id).subscribe(() => {
       this.cargarFeligreses();
     });
+  }
+    asignarRol(f: any) {
+    this.feligresService.actualizarRol(f.id, f.id_rol).subscribe();
   }
 
 }

@@ -42,6 +42,11 @@
         <td>
           <button (click)="iniciarEdicion(f)">Editar</button>
           <button (click)="eliminarFeligres(f.id)">Eliminar</button>
+            <select [(ngModel)]="f.id_rol" (change)="asignarRol(f)">
+            <option [ngValue]="1">Administrador</option>
+            <option [ngValue]="2">Asistente</option>
+            <option [ngValue]="3">Feligres</option>
+          </select>
         </td>
       </ng-template>
     </tr>
@@ -53,6 +58,7 @@
   <input name="cedula" [(ngModel)]="nuevoFeligres.cedula" placeholder="Cédula" required />
   <input name="nombres" [(ngModel)]="nuevoFeligres.nombres" placeholder="Nombres" required />
   <input name="apellidos" [(ngModel)]="nuevoFeligres.apellidos" placeholder="Apellidos" required />
+  <input name="fecha_nacimiento" [(ngModel)]="nuevoFeligres.fecha_nacimiento" placeholder="Fecha de Nacimiento" type="date" />
   <input name="edad" [(ngModel)]="nuevoFeligres.edad" placeholder="Edad" type="number" />
   <input name="genero" [(ngModel)]="nuevoFeligres.genero" placeholder="Género" />
   <input name="direccion" [(ngModel)]="nuevoFeligres.direccion" placeholder="Dirección" />
