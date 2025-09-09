@@ -15,10 +15,12 @@ exports.crearFeligres = async (req, res) => {
         const nuevoFeligres = await Feligres.create({ ...feligresData, edad, email }, { transaction: t });
 
         const hashedPassword = await bcrypt.hash(password, 10);
+         // Asignar rol de feligrés (id_rol = 3) de forma predeterminada al crear el usuario
         const nuevoUsuario = await Usuario.create({
             id_feligres: nuevoFeligres.id,
             correo: email,
-            password: hashedPassword
+            password: hashedPassword,
+            id_rol: 3
         }, { transaction: t });
 
         await t.commit();
