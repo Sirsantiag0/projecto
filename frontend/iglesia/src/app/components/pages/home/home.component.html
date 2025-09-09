@@ -37,16 +37,16 @@
         <p>El Santuario María Auxiliadora es un lugar de paz y espiritualidad dedicado a la veneración de la Virgen María bajo su advocación de Auxiliadora. Nuestro santuario acoge a peregrinos y fieles que buscan consuelo, guía y fortaleza espiritual. Con una rica historia y tradición, somos un faro de fe y esperanza en la comunidad.</p>
     </section>
     <!-- Sección: Eventos Destacados (debajo de description) -->
-<section class="featured-events" id="eventos" *ngIf="featuredImages().length">
+<section class="featured-events" id="eventos" *ngIf="featuredEvents().length">
   <div class="fe-wrap">
     <h2 class="fe-title">Próximos encuentros y celebraciones</h2>
     <div class="fe-grid">
-      <article class="fe-card" *ngFor="let img of featuredImages(); let i = index">
+      <article class="fe-card" *ngFor="let event of featuredEvents(); let i = index">
         <div class="fe-poster">
-          <img [src]="img" alt="Imagen del evento" />
+          <img [src]="featuredImages()[i]" alt="Imagen del evento" />
         </div>
         <div class="fe-body">
-          <h3 class="fe-name">Título evento</h3>
+          <h3 class="fe-name">{{ event.descripcion }}</h3>
           <ul class="fe-meta">
             <li><span class="fe-ico">📍</span>Santuario</li>
           </ul>

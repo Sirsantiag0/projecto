@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { VideoService } from '../../../services/video.service';
+import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 
 @Component({
   selector: 'app-home',
@@ -20,16 +21,24 @@ export class HomeComponent implements OnInit {
   private archivosService = inject(ArchivosEventoService);
   private videoService = inject(VideoService);
   private sanitizer = inject(DomSanitizer);
+  private eventosService = inject(AsistenciaEventoService);
 
   imagenes = signal<string[]>([]);
   carouselImages = computed(() => this.imagenes().slice(6,10));
   featuredImages = computed(() => this.imagenes().slice(-4));
+  eventos = signal<Evento[]>([]);
+  featuredEvents = computed(() =>
+    this.eventos()
+      .filter(e => new Date(e.fecha) > new Date())
+      .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime())
+      .slice(0, 4)
+  );
   currentIndex = signal(0);
   videoUrls: SafeResourceUrl[] = [];
 
 
   ngOnInit() {
-    this.archivosService.listarImagenes().subscribe(res => {
+      this.archivosService.listarImagenes().subscribe(res => {
       const data = res.data || [];
       this.imagenes.set(
         data.map((img: any) => `http://localhost:3000/uploads/${img.ruta_archivos}`)
@@ -44,5 +53,9 @@ export class HomeComponent implements OnInit {
       .getVideos()
       .filter((v) => v)
       .map((v) => this.sanitizer.bypassSecurityTrustResourceUrl(v));
+    this.eventosService.listarEventos().subscribe(res => {
+      const data = res.data || [];
+      this.eventos.set(data);
+    });
   }
 }
