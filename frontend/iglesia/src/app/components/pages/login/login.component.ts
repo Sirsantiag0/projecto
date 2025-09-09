@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -31,21 +32,31 @@ export class LoginComponent implements AfterViewInit {
 
 
   submit() {
-        if (this.form.invalid) {
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
     const { correo, password } = this.form.value;
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.closed.emit();
-      if (this.router.url === '/login') {
-      this.router.navigate(['/home']);
-      }
-    }, 1000);
     this.authService.login(correo, password).subscribe({
-      error: err => console.error('Login error', err)
+           next: () => {
+        this.loading = false;
+        this.closed.emit();
+        if (this.router.url === '/login') {
+          this.router.navigate(['/home']);
+        }
+      },
+      error: err => {
+        this.loading = false;
+        console.error('Login error', err);
+        Swal.fire({
+          title: 'Error',
+          text: 'El correo o la contraseña son incorrectos',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          position: 'center'
+        });
+      }
     });
   }
   close() {
