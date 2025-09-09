@@ -1,9 +1,13 @@
-table {
-  width: 100%;
-  border-collapse: collapse;
+h2 {
+  text-align: center;
   margin-bottom: 1rem;
 }
 
+table {
+  width: 70%;
+  border-collapse: collapse;
+  margin: 0 auto 1rem; /* centrado horizontal */
+}
 th, 
 td {
   border: 1px solid #ccc;
@@ -24,8 +28,17 @@ th {
   user-select: none;
 }
 
+form {
+  width: 70%;
+  border-collapse: collapse;
+  margin: 0 auto 1rem; /* centrado horizontal */
+}
 
 form input {
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+h3 {
+  text-align: center;
 }
