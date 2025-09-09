@@ -109,3 +109,22 @@ button:active {
   background-color: #45a049; /* Cambia el color al pasar el mouse */
 
 }
+
+@media (max-width: 600px) {
+  .dias-semana,
+  .dias-mes {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .dias-semana div,
+  .dias-mes .dia {
+    flex: 0 0 140px;
+  }
+
+  .evento {
+    width: 100%;
+    max-width: none;
+    word-break: normal;
+  }
+}
