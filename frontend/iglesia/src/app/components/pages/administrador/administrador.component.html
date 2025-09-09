@@ -11,6 +11,7 @@
       <th>Dirección</th>
       <th>Email</th>
       <th>Teléfono</th>
+      <th>Rol</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -25,6 +26,7 @@
         <td><input [(ngModel)]="editFeligres.direccion" /></td>
         <td><input [(ngModel)]="editFeligres.email" /></td>
         <td><input [(ngModel)]="editFeligres.telefono" /></td>
+        <td>{{ f.Usuario?.Roles?.descripcion || f.Usuario?.id_rol }}</td>
         <td>
           <button (click)="guardarEdicion()">Guardar</button>
           <button (click)="cancelarEdicion()">Cancelar</button>
@@ -39,6 +41,7 @@
         <td>{{ f.direccion }}</td>
         <td>{{ f.email }}</td>
         <td>{{ f.telefono }}</td>
+        <td>{{ f.Usuario?.Roles?.descripcion || f.Usuario?.id_rol }}</td>
         <td>
           <button (click)="iniciarEdicion(f)">Editar</button>
           <button (click)="eliminarFeligres(f.id)">Eliminar</button>

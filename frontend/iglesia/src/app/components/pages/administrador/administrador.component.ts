@@ -61,7 +61,8 @@ export class AdministradorComponent implements OnInit {
 
   iniciarEdicion(f: any) {
     this.editFeligresId = f.id;
-    this.editFeligres = { ...f };
+    const { Usuario, ...feligresData } = f;
+    this.editFeligres = { ...feligresData };
   }
 
   guardarEdicion() {

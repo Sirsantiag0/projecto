@@ -33,7 +33,13 @@ exports.crearFeligres = async (req, res) => {
 
 exports.listarFeligreses = async (req, res) => {
     try {
-        const feligres = await Feligres.findAll();
+        const feligres = await Feligres.findAll({
+            include: [{
+                model: Usuario,
+                attributes: ['id', 'id_rol'],
+                include: [{ model: db.Roles, attributes: ['descripcion'] }]
+            }]
+        });
         res.status(200).json({ success: true, data: feligres });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
