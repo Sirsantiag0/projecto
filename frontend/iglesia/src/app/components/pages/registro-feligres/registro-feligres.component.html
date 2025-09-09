@@ -5,20 +5,20 @@
     <h2>Registro</h2>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-row">
-        <div class="field">
-          <input #cedulaInput type="text" formControlName="cedula" placeholder="Cédula">
+          <div class="field">
+            <input #cedulaInput type="text" formControlName="cedula" placeholder="Cédula" maxlength="10">
           <div class="error" *ngIf="form.get('cedula')?.touched && form.get('cedula')?.hasError('required')">La cédula es requerida</div>
           <div class="error" *ngIf="form.get('cedula')?.touched && form.get('cedula')?.hasError('pattern')">Ingrese solo números</div>
         </div>
-        <div class="field">
-          <input type="text" formControlName="nombres" placeholder="Nombre">
+          <div class="field">
+            <input type="text" formControlName="nombres" placeholder="Nombre" (input)="capitalizeFirstLetter('nombres')">
           <div class="error" *ngIf="form.get('nombres')?.touched && form.get('nombres')?.hasError('required')">El nombre es requerido</div>
           <div class="error" *ngIf="form.get('nombres')?.touched && form.get('nombres')?.hasError('pattern')">Ingrese solo letras</div>
         </div>
       </div>
       <div class="form-row">
-        <div class="field">
-          <input type="text" formControlName="apellidos" placeholder="Apellido">
+          <div class="field">
+            <input type="text" formControlName="apellidos" placeholder="Apellido" (input)="capitalizeFirstLetter('apellidos')">
           <div class="error" *ngIf="form.get('apellidos')?.touched && form.get('apellidos')?.hasError('required')">El apellido es requerido</div>
           <div class="error" *ngIf="form.get('apellidos')?.touched && form.get('apellidos')?.hasError('pattern')">Ingrese solo letras</div>
         </div>
@@ -44,8 +44,8 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="field">
-          <input type="tel" formControlName="telefono" placeholder="Teléfono">
+          <div class="field">
+            <input type="tel" formControlName="telefono" placeholder="Teléfono" maxlength="10">
           <div class="error" *ngIf="form.get('telefono')?.touched && form.get('telefono')?.hasError('required')">El teléfono es requerido</div>
           <div class="error" *ngIf="form.get('telefono')?.touched && form.get('telefono')?.hasError('pattern')">Ingrese solo números</div>
         </div>

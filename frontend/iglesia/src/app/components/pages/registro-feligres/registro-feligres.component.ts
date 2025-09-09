@@ -22,13 +22,13 @@ export class RegistroFeligresComponent implements AfterViewInit {
 
   constructor(private fb: FormBuilder, private feligresService: FeligresService, private router: Router) {
     this.form = this.fb.group({
-      cedula: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+     cedula: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(10)]],
       nombres: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       apellidos: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       fecha_nacimiento: ['', Validators.required],
       genero: ['', Validators.required],
       direccion: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
@@ -76,6 +76,13 @@ export class RegistroFeligresComponent implements AfterViewInit {
     this.router.navigate(['/home']);
   }
   
+    capitalizeFirstLetter(field: string) {
+    const control = this.form.get(field);
+    if (control) {
+      const value = control.value as string;
+      control.setValue(value ? value.charAt(0).toUpperCase() + value.slice(1) : '', { emitEvent: false });
+    }
+  }
   private passwordMatchValidator(control: AbstractControl) {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
