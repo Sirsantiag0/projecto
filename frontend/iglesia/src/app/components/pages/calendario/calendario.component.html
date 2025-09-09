@@ -1,10 +1,11 @@
   <div class="calendario">
-    <div class="header">
-      <button (click)="cambiarMes(-1)">&#8592;</button>
-      <h2>{{ monthName | titlecase }} {{ year }}</h2>
-      <button (click)="cambiarMes(1)">&#8594;</button>
-    </div>
+  <div class="header">
+    <button (click)="cambiarMes(-1)">&#8592;</button>
+    <h2>{{ monthName | titlecase }} {{ year }}</h2>
+    <button (click)="cambiarMes(1)">&#8594;</button>
+  </div>
 
+  <div class="dias-contenedor">
     <div class="dias-semana">
       <div>Lun</div>
       <div>Mar</div>
@@ -29,3 +30,4 @@
       </div>
     </div>
   </div>
+</div>

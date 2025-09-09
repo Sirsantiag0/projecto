@@ -13,6 +13,10 @@
   margin-bottom: 10px;
 }
 
+.dias-contenedor {
+  overflow-x: auto;
+}
+
 .dias-semana, .dias-mes {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -114,7 +118,6 @@ button:active {
   .dias-semana,
   .dias-mes {
     display: flex;
-    overflow-x: auto;
   }
 
   .dias-semana div,
