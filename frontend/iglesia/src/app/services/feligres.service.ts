@@ -18,9 +18,6 @@ export class FeligresService {
   listarFeligreses(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
-    listarUsuarios(): Observable<any> {
-    return this.http.get(this.usuarioUrl);
-  }
 
   actualizarFeligres(id: number, feligres: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, feligres);
