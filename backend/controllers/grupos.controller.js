@@ -81,13 +81,37 @@ exports.obtenerGrupo = async (req, res) => {
 exports.actualizarGrupo = async (req, res) => {
     try {
         const { id } = req.params;
-        const [updated] = await Grupos.update(req.body, { where: { id } });
-        if (updated) {
-            const grupoActualizado = await Grupos.findByPk(id);
-            return res.status(200).json({ success: true, data: grupoActualizado });
+          const { titulo, descripcion } = req.body;
+
+        const grupo = await Grupos.findByPk(id);
+        if (!grupo) {
+            return res.status(404).json({ success: false, message: 'Grupo no encontrado' });
         }
-        return res.status(404).json({ success: false, message: 'Grupo no encontrado' });
+               // Actualizar datos básicos del grupo
+        await grupo.update({
+            titulo,
+            descripcion,
+            ruta_archivo: req.file ? req.file.filename : grupo.ruta_archivo
+        });
+
+        // Si se envía una nueva imagen, actualizamos o creamos el registro asociado
+        if (req.file) {
+            const archivo = await Archivos_grupo.findOne({ where: { id_grupo: id } });
+            if (archivo) {
+                const oldPath = path.join(__dirname, '..', 'uploads', 'grupos', archivo.ruta_archivos);
+                if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+                await archivo.update({ ruta_archivos: req.file.filename });
+            } else {
+                await Archivos_grupo.create({ id_grupo: id, ruta_archivos: req.file.filename });
+            }
+        }
+
+        const grupoActualizado = await Grupos.findByPk(id);
+        return res.status(200).json({ success: true, data: grupoActualizado });
     } catch (error) {
+        if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
         res.status(500).json({ success: false, error: error.message });
     }
 };
