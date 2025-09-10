@@ -132,7 +132,7 @@ export class AsistenteComponent implements OnInit {
     });
   }
 
-    // ---------------- Grupos ----------------
+    // ---------------- Grupos ---------------- // grupos
   cargarGrupos() {
     this.gruposService.listarGrupos().subscribe(res => {
       this.grupos = res.data;
