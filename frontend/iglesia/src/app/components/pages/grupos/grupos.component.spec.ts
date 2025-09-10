@@ -1,16 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { GruposComponent } from './grupos.component';
-import { GruposService } from '../../../services/grupo.service';
 
-class MockGruposService {
-  listarGrupos() {
-    return of({ data: [] });
-  }
-  obtenerArchivosPorGrupo() {
-    return of({ data: [] });
-  }
-}
+import { GruposComponent } from './grupos.component';
 
 describe('GruposComponent', () => {
   let component: GruposComponent;
@@ -18,8 +8,7 @@ describe('GruposComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GruposComponent],
-      providers: [{ provide: GruposService, useClass: MockGruposService }]
+      imports: [GruposComponent]
     })
     .compileComponents();
 
