@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const Archivos_grupo = sequelize.define('Archivos_grupo', {
         ruta_archivos: DataTypes.STRING,
-                id_grupo: {
+            id_grupo: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

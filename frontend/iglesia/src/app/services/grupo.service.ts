@@ -15,14 +15,11 @@ export class GruposService {
     return this.http.get<any>(this.gruposUrl);
   }
 
-  crearGrupo(descripcion: string): Observable<any> {
-    return this.http.post<any>(this.gruposUrl, { descripcion });
-  }
-
-  subirArchivoGrupo(id_grupo: number, archivo: File): Observable<any> {
+  subirArchivoGrupo(titulo: string, descripcion:string, archivo: File): Observable<any> {
     const formData = new FormData();
+    formData.append('titulo', titulo);
+    formData.append('descripcion', descripcion);
     formData.append('archivo', archivo);
-    formData.append('id_grupo', id_grupo.toString());
     return this.http.post<any>(this.archivosUrl, formData);
   }
 
@@ -30,9 +27,5 @@ export class GruposService {
     return this.http.get<any>(`${this.archivosUrl}/grupo/${grupoId}`);
   }
   
-  crearGrupoConImagen(descripcion: string, archivo: File): Observable<any> {
-    return this.crearGrupo(descripcion).pipe(
-      switchMap(res => this.subirArchivoGrupo(res.data.id, archivo))
-    );
-  }
+
 }

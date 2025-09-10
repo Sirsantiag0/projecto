@@ -21,6 +21,7 @@ export class AsistenteComponent implements OnInit {
 
   // -------- Imágenes --------
   detalle = '';
+  titulo = ''; // Nuevo campo
   archivo?: File;
   imagenes: any[] = [];
 
@@ -149,20 +150,25 @@ export class AsistenteComponent implements OnInit {
     }
   }
 
-  agregarGrupo() {
-    if (!this.grupoArchivo || !this.grupoDescripcion) {
-      return;
-    }
 
-    this.gruposService
-      .crearGrupoConImagen(this.grupoDescripcion, this.grupoArchivo!)
-      .subscribe(() => {
-        this.grupoDescripcion = '';
-        this.grupoArchivo = undefined;
-        this.cargarGrupos();
-        alert('Grupo agregado correctamente');
-      });
+ agregarGrupo() {
+  if (!this.grupoArchivo || !this.grupoDescripcion || !this.titulo) {
+    return;
   }
+
+  // Aquí pasamos titulo y descripcion al servicio
+  this.gruposService
+    .subirArchivoGrupo(this.titulo, this.grupoDescripcion, this.grupoArchivo!)
+    .subscribe(() => {
+      this.titulo = '';
+      this.grupoDescripcion = '';
+      this.grupoArchivo = undefined;
+      this.cargarGrupos();
+      alert('Grupo agregado correctamente');
+
+    });
+    console.log(this.titulo, this.grupoDescripcion,  this.grupoArchivo! )
+}
 
   trackById(index: number, item: any) {
     return item.id;

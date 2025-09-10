@@ -48,6 +48,7 @@
 <div class="group-section">
   <h3>Agregar 👪grupo</h3>
   <input type="file" (change)="onGrupoFileChange($event)" />
+  <input type="text" [(ngModel)]="titulo" placeholder="Titulo" />
   <input type="text" [(ngModel)]="grupoDescripcion" placeholder="Descripción del grupo" />
   <button (click)="agregarGrupo()">Guardar grupo</button>
 

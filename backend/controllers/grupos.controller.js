@@ -27,22 +27,32 @@ exports.subirArchivo = upload.single('archivo');
 
 // Crear grupo
 exports.crearGrupo = async (req, res) => {
-    try {
-        const nuevoGrupo = await Grupos.create(req.body);
-        if (req.file) {
-            await Archivos_grupo.create({
-                ruta_archivos: req.file.filename,
-                id_grupo: nuevoGrupo.id
-            });
-        }
-        res.status(201).json({ success: true, data: nuevoGrupo });
-    } catch (error) {
-             if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }   
-        res.status(500).json({ success: false, error: error.message });
+  try {
+    const { titulo, descripcion } = req.body;
+
+    const nuevoGrupo = await Grupos.create({
+      titulo,
+      descripcion
+    });
+
+    if (req.file) {
+      await Archivos_grupo.create({
+        grupoId: nuevoGrupo.id,  // 👈 relación
+        titulo,
+        descripcion,
+        ruta_archivo: req.file.filename
+      });
     }
+
+    res.status(201).json({ success: true, data: nuevoGrupo });
+  } catch (error) {
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+    res.status(500).json({ success: false, error: error.message });
+  }
 };
+
 
 // Listar grupos
 exports.listarGrupos = async (req, res) => {

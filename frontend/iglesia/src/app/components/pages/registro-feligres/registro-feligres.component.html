@@ -23,7 +23,7 @@
           <div class="error" *ngIf="form.get('apellidos')?.touched && form.get('apellidos')?.hasError('pattern')">Ingrese solo letras</div>
         </div>
         <div class="field">
-          <input type="date" formControlName="fecha_nacimiento" placeholder="Año de nacimiento">
+          <input type="date" formControlName="fecha_nacimiento" placeholder="Fecha de nacimiento">
           <div class="error" *ngIf="form.get('fecha_nacimiento')?.touched && form.get('fecha_nacimiento')?.hasError('required')">La fecha es requerida</div>
         </div>
       </div>
