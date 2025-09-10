@@ -37,6 +37,7 @@ export class AsistenteComponent implements OnInit {
   grupos: any[] = [];
   grupoDescripcion = '';
   grupoArchivo?: File;
+  grupoEditingId: number | null = null;
 
 
   ngOnInit(): void {
@@ -150,25 +151,54 @@ export class AsistenteComponent implements OnInit {
     }
   }
 
+    agregarGrupo() {
+    if (!this.grupoDescripcion || !this.titulo) {
+      window.alert('Todos los campos son obligatorios');
+      return;
+    }
 
- agregarGrupo() {
-  if (!this.grupoArchivo || !this.grupoDescripcion || !this.titulo) {
-    return;
+
+    if (this.grupoEditingId) {
+      this.gruposService
+        .actualizarGrupo(this.grupoEditingId, this.titulo, this.grupoDescripcion)
+        .subscribe(() => {
+          this.resetGrupoForm();
+          this.cargarGrupos();
+          alert('Grupo actualizado correctamente');
+        });
+    } else {
+      if (!this.grupoArchivo) {
+        return;
+      }
+      this.gruposService
+        .crearGrupo(this.titulo, this.grupoDescripcion, this.grupoArchivo)
+        .subscribe(() => {
+          this.resetGrupoForm();
+          window.alert('Grupo agregado correctamente');
+          this.cargarGrupos();
+        });
+    }
   }
 
-  // Aquí pasamos titulo y descripcion al servicio
-  this.gruposService
-    .crearGrupo(this.titulo, this.grupoDescripcion, this.grupoArchivo!)
-    .subscribe(() => {
-      this.titulo = '';
-      this.grupoDescripcion = '';
-      this.grupoArchivo = undefined;
-      this.cargarGrupos();
-      alert('Grupo agregado correctamente');
+  editarGrupo(grupo: any) {
+    this.grupoEditingId = grupo.id;
+    this.titulo = grupo.titulo;
+    this.grupoDescripcion = grupo.descripcion;
+    this.grupoArchivo = undefined;
+  }
 
+  eliminarGrupo(id: number) {
+    this.gruposService.eliminarGrupo(id).subscribe(() => {
+      this.cargarGrupos();
     });
-    
-}
+  }
+
+  private resetGrupoForm() {
+    this.titulo = '';
+    this.grupoDescripcion = '';
+    this.grupoArchivo = undefined;
+    this.grupoEditingId = null;
+  }
 
   trackById(index: number, item: any) {
     return item.id;

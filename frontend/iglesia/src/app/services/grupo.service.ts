@@ -26,4 +26,13 @@ export class GruposService {
   obtenerArchivosPorGrupo(grupoId: number): Observable<any> {
     return this.http.get<any>(`${this.archivosUrl}/grupo/${grupoId}`);
   }
+
+  
+  actualizarGrupo(id: number, titulo: string, descripcion: string): Observable<any> {
+    return this.http.put<any>(`${this.gruposUrl}/${id}`, { titulo, descripcion});
+  }
+
+  eliminarGrupo(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.gruposUrl}/${id}`);
+  }
 }
