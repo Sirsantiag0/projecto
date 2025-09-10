@@ -40,7 +40,7 @@ class MockGruposService {
   listarGrupos() { return of({ data: [] }); }
   obtenerArchivosPorGrupo() { return of({ data: [] }); }
   crearGrupo() { return of({ data: { id: 1 } }); }
-  subirArchivoGrupo() { return of({}); }
+  
 }
 
 

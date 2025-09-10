@@ -158,7 +158,7 @@ export class AsistenteComponent implements OnInit {
 
   // Aquí pasamos titulo y descripcion al servicio
   this.gruposService
-    .subirArchivoGrupo(this.titulo, this.grupoDescripcion, this.grupoArchivo!)
+    .crearGrupo(this.titulo, this.grupoDescripcion, this.grupoArchivo!)
     .subscribe(() => {
       this.titulo = '';
       this.grupoDescripcion = '';
@@ -167,7 +167,7 @@ export class AsistenteComponent implements OnInit {
       alert('Grupo agregado correctamente');
 
     });
-    console.log(this.titulo, this.grupoDescripcion,  this.grupoArchivo! )
+    
 }
 
   trackById(index: number, item: any) {

@@ -102,3 +102,42 @@
     0 1px 0 #2E7D32,
     0 2px 3px rgba(0,0,0,0.1);
 }
+
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 botones por fila */
+  gap: 10px; /* espacio entre botones */
+  margin-top: 10px;
+}
+
+.donar-btn {
+  display: flex;               /* Flex para alinear logo y texto */
+  align-items: center;         /* Centrar verticalmente */
+  justify-content: center;     /* Centrar logo+texto en el botón */
+  gap: 6px;                    /* espacio entre logo y texto */
+  width: 75%;
+  font-size: 14px;
+  padding: 6px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 0 #2E7D32, 0 5px 5px rgba(0,0,0,0.1);
+  transition: all 0.1s ease;
+}
+
+.bank-logo {
+  width: 15px;   /* tamaño pequeño */
+  height: 15px;
+  object-fit: contain; /* mantiene proporciones */
+  border-radius: 5px
+}
+
+.donar-btn:hover {
+  background-color: #45a049;
+}
+
+
