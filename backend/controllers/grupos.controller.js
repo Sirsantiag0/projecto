@@ -32,15 +32,14 @@ exports.crearGrupo = async (req, res) => {
 
     const nuevoGrupo = await Grupos.create({
       titulo,
-      descripcion
+      descripcion,
+      ruta_archivo: req.file ? req.file.filename : null
     });
 
     if (req.file) {
       await Archivos_grupo.create({
-        grupoId: nuevoGrupo.id,  // 👈 relación
-        titulo,
-        descripcion,
-        ruta_archivo: req.file.filename
+        id_grupo: nuevoGrupo.id,
+        ruta_archivos: req.file.filename
       });
     }
 
