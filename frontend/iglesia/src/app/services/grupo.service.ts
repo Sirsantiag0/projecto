@@ -28,8 +28,15 @@ export class GruposService {
   }
 
   
-  actualizarGrupo(id: number, titulo: string, descripcion: string): Observable<any> {
-    return this.http.put<any>(`${this.gruposUrl}/${id}`, { titulo, descripcion});
+  actualizarGrupo(id: number, titulo: string, descripcion: string, archivo?: File): Observable<any> {
+    if (archivo) {
+      const formData = new FormData();
+      formData.append('titulo', titulo);
+      formData.append('descripcion', descripcion);
+      formData.append('archivo', archivo);
+      return this.http.put<any>(`${this.gruposUrl}/${id}`, formData);
+    }
+    return this.http.put<any>(`${this.gruposUrl}/${id}`, { titulo, descripcion });
   }
 
   eliminarGrupo(id: number): Observable<any> {

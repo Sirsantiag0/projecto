@@ -160,7 +160,7 @@ export class AsistenteComponent implements OnInit {
 
     if (this.grupoEditingId) {
       this.gruposService
-        .actualizarGrupo(this.grupoEditingId, this.titulo, this.grupoDescripcion)
+        .actualizarGrupo(this.grupoEditingId, this.titulo, this.grupoDescripcion, this.grupoArchivo)
         .subscribe(() => {
           this.resetGrupoForm();
           this.cargarGrupos();
