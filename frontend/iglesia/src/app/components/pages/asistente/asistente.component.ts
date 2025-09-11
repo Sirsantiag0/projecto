@@ -135,12 +135,10 @@ export class AsistenteComponent implements OnInit {
     // ---------------- Grupos ---------------- // grupos
   cargarGrupos() {
     this.gruposService.listarGrupos().subscribe(res => {
-      this.grupos = res.data;
-      this.grupos.forEach(g => {
-        this.gruposService.obtenerArchivosPorGrupo(g.id).subscribe(ar => {
-          g.imagen = ar.data[0]?.ruta_archivos;
-        });
-      });
+       this.grupos = res.data.map((g: any) => ({
+        ...g,
+        imagen: g.ruta_archivo
+      }));
     });
   }
 
