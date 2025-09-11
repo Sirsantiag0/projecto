@@ -1,1 +1,9 @@
-<p>feligres works!</p>
+<h2>Mis eventos</h2>
+<div class="event-cards">
+  <mat-card *ngFor="let evento of eventos()">
+    <mat-card-title>{{ evento.descripcion }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ evento.fecha }} - {{ evento.hora }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

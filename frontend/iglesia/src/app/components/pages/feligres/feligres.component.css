@@ -1,0 +1,22 @@
+.event-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+ /* centra verticalmente en la pantalla */
+}
+
+mat-card {
+  width: 300px;
+}
+
+
+h2 {
+  text-align: center;
+  padding: 1rem 1rem;
+  margin: 0;
+  margin-top:-20px;
+  margin-bottom: 15px
+}

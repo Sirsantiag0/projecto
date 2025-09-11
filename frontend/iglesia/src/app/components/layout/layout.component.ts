@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginComponent } from '../pages/login/login.component';
 import { AuthService } from '../../services/auth.service';
 
@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 export class LayoutComponent {
   showLogin = signal(false);
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   openLogin() {
     this.showLogin.set(true);
@@ -27,8 +27,8 @@ export class LayoutComponent {
 
   onUserOption(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
-    if (value === 'edit') {
-      console.log('Editar perfil');
+        if (value === 'mis-eventos') {
+      this.router.navigate(['/feligres']);
     } else if (value === 'logout') {
       this.authService.logout();
     }
