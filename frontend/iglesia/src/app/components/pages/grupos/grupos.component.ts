@@ -10,4 +10,4 @@ export class GruposComponent {
 
 }
 
-// chage realitzed 
+// chage realitzedddd
