@@ -15,6 +15,7 @@ export interface Evento {
 // Servicio para CRUD de eventos de asistencia
 export class AsistenciaEventoService {
   private apiUrl = 'http://localhost:3000/api/eventos'; // Asegúrate de usar la URL correcta
+  private asistenciaUrl = 'http://localhost:3000/api/asistencia-evento';
 
   constructor(private http: HttpClient) {}
 
@@ -46,6 +47,10 @@ export class AsistenciaEventoService {
   // Eliminar un evento permanentemente
   eliminarEvento(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  registrarAsistencia(asistencia: { id_evento: number; id_feligres: number }): Observable<any> {
+    return this.http.post(this.asistenciaUrl, asistencia);
   }
   // getMedics(): Observable<any> {
     // const headers = this.getHeaders(); // Obtener encabezados con el token

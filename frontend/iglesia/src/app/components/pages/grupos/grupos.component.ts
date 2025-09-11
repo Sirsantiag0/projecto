@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GruposService } from '../../../services/grupo.service';
 
@@ -7,18 +7,22 @@ import { GruposService } from '../../../services/grupo.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './grupos.component.html',
-  styleUrls: ['./grupos.component.css']
+  styleUrls: ['./grupos.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GruposComponent implements OnInit {
   private gruposService = inject(GruposService);
-  grupos: any[] = [];
+   grupos = signal<any[]>([]);
 
   ngOnInit(): void {
     this.gruposService.listarGrupos().subscribe(res => {
-      this.grupos = res.data.map((g: any) => ({
-        ...g,
-        imagen: g.ruta_archivo
-      }));
+      const data = res.data || [];
+      this.grupos.set(
+        data.map((g: any) => ({
+          ...g,
+          imagen: g.ruta_archivo
+        }))
+      );
     });
   }
 }

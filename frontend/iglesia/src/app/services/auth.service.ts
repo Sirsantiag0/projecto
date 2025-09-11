@@ -7,6 +7,7 @@ export interface User {
   correo: string;
   id_rol: number | null;
   rol: string | null;
+  id_feligres: number | null;
   nombres?: string | null;
   apellidos?: string | null;
 }

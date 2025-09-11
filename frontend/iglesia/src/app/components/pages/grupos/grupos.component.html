@@ -1,7 +1,11 @@
-<div class="grupos-grid" *ngIf="grupos.length">
-  <div class="grupo-card" *ngFor="let g of grupos">
+<h2>Nuestros grupos</h2>
+<div class="grupos-grid" *ngIf="grupos().length; else noGrupos">
+  <div class="grupo-card" *ngFor="let g of grupos()">
     <img *ngIf="g.imagen" [src]="'http://localhost:3000/uploads/grupos/' + g.imagen" [alt]="g.titulo" />
     <div class="grupo-titulo">{{ g.titulo }}</div>
     <button class="conocer-btn">CONOCER</button>
   </div>
 </div>
+<ng-template #noGrupos>
+  <p class="no-grupos">No hay grupos disponibles.</p>
+</ng-template>

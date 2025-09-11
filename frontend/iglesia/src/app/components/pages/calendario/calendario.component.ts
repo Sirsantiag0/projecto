@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import Swal from 'sweetalert2';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-calendario',
@@ -33,7 +35,8 @@ export class CalendarioComponent implements  OnInit {
   constructor(
     private eventosService: AsistenciaEventoService,
     private breakpointObserver: BreakpointObserver,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -120,6 +123,35 @@ export class CalendarioComponent implements  OnInit {
   }
 
   marcarAsistencia(evento: Evento) {
-    alert(`Asistencia marcada para: ${evento.id} ${evento.descripcion} a las ${evento.hora}`);
+    const user = this.authService.user();
+    if (!user || !user.id_feligres || !evento.id) {
+            Swal.fire({
+        icon: 'warning',
+        title: 'Acceso requerido',
+        text: 'Debes iniciar sesión para participar en este evento.',
+        confirmButtonText: 'Aceptar',
+        position: 'center'
+      });
+      return;
+    }
+
+    this.eventosService.registrarAsistencia({
+      id_evento: evento.id,
+      id_feligres: user.id_feligres
+    }).subscribe(
+      () => {
+        Swal.fire({
+      icon: 'success',
+      title: 'Asistencia registrada',
+      text: `Asistencia marcada para: ${evento.descripcion} a las ${evento.hora}, te esperamos⛪`,
+      confirmButtonText: 'Aceptar',
+      position: 'center'
+    });
+      },
+      error => {
+        console.error('Error al registrar asistencia:', error);
+      }
+    );
   }
+  
 }
