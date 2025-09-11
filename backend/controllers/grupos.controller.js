@@ -94,7 +94,7 @@ exports.actualizarGrupo = async (req, res) => {
             ruta_archivo: req.file ? req.file.filename : grupo.ruta_archivo
         });
 
-        // Si se envía una nueva imagen, actualizamos o creamos el registro asociado
+        // Si se envía una nueva imagen, actualizamos o creamofs el registro asociado
         if (req.file) {
             const archivo = await Archivos_grupo.findOne({ where: { id_grupo: id } });
             if (archivo) {

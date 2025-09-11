@@ -1,0 +1,7 @@
+<div class="grupos-grid" *ngIf="grupos.length">
+  <div class="grupo-card" *ngFor="let g of grupos">
+    <img *ngIf="g.imagen" [src]="'http://localhost:3000/uploads/grupos/' + g.imagen" [alt]="g.titulo" />
+    <div class="grupo-titulo">{{ g.titulo }}</div>
+    <button class="conocer-btn">CONOCER</button>
+  </div>
+</div>

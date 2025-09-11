@@ -1,13 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GruposService } from '../../../services/grupo.service';
 
 @Component({
   selector: 'app-grupos',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './grupos.component.html',
-  styleUrl: './grupos.component.css'
+  styleUrls: ['./grupos.component.css']
 })
-export class GruposComponent {
+export class GruposComponent implements OnInit {
+  private gruposService = inject(GruposService);
+  grupos: any[] = [];
 
+  ngOnInit(): void {
+    this.gruposService.listarGrupos().subscribe(res => {
+      this.grupos = res.data;
+      this.grupos.forEach(g => {
+        this.gruposService.obtenerArchivosPorGrupo(g.id).subscribe(ar => {
+          g.imagen = ar.data[0]?.ruta_archivos;
+        });
+      });
+    });
+  }
 }
-
-// chage realitzedddd
