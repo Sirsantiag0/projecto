@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class GruposService {
   private gruposUrl = 'http://localhost:3000/api/grupos';
-  private archivosUrl = 'http://localhost:3000/api/archivos-grupo';
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +23,7 @@ export class GruposService {
   }
 
   obtenerArchivosPorGrupo(grupoId: number): Observable<any> {
-    return this.http.get<any>(`${this.archivosUrl}/grupo/${grupoId}`);
+    return this.http.get<any>(`${this.gruposUrl}/grupo/${grupoId}`);
   }
 
   
@@ -36,7 +35,7 @@ export class GruposService {
       formData.append('archivo', archivo);
       return this.http.put<any>(`${this.gruposUrl}/${id}`, formData);
     }
-    return this.http.put<any>(`${this.gruposUrl}/${id}`, { titulo, descripcion });
+    return this.http.put<any>(`${this.gruposUrl}/${id}`, { titulo, descripcion, archivo });
   }
 
   eliminarGrupo(id: number): Observable<any> {

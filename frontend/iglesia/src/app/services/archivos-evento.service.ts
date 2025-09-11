@@ -20,6 +20,7 @@ export class ArchivosEventoService {
     formData.append('detalle', detalle);
     return this.http.post<any>(this.apiUrl, formData);
   }
+  
     reemplazarArchivo(id: number, archivo: File, detalle: string): Observable<any> {
     const formData = new FormData();
     formData.append('archivo', archivo);
