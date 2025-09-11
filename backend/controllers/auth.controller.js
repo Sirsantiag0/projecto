@@ -38,6 +38,7 @@ exports.login = async (req, res) => {
         correo: usuario.correo,
         id_rol: idRol,        // 🔑 ID del rol
         rol: rolDescripcion,   // 🔑 Descripción del rol
+        id_feligres: usuario.id_feligres,
         nombres,
         apellidos
       },
@@ -52,6 +53,7 @@ exports.login = async (req, res) => {
         correo: usuario.correo,
         id_rol: idRol,
         rol: rolDescripcion,   // 🔑 Descripción del rol
+        id_feligres: usuario.id_feligres,
         nombres,
         apellidos
       }

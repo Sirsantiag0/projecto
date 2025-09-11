@@ -10,6 +10,7 @@ import { HorariosComponent } from './components/pages/horarios/horarios.componen
 import { DonarComponent } from './components/pages/donar/donar.component';
 import { HistoriaComponent } from './components/pages/historia/historia.component';
 import { GruposComponent } from './components/pages/grupos/grupos.component';
+import { FeligresComponent } from './components/pages/feligres/feligres.component';
 import { AdministradorComponent } from './components/pages/administrador/administrador.component';
 export const routes: Routes = [
   {
@@ -27,6 +28,7 @@ export const routes: Routes = [
       { path: 'historia', component: HistoriaComponent },
       { path: 'administrador', component: AdministradorComponent },
       { path: 'grupos', component: GruposComponent },
+      { path: 'feligres', component: FeligresComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }
