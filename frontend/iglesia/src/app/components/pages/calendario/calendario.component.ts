@@ -143,7 +143,7 @@ export class CalendarioComponent implements  OnInit {
             Swal.fire({
         icon: 'warning',
         title: 'Acceso requerido',
-        text: 'Debes iniciar sesión para participar en este evento.',
+        text: 'Debes iniciar sesión para marcar asistencia.',
         confirmButtonText: 'Aceptar',
         position: 'center'
       });

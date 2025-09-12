@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { CommonModule } from '@angular/common';
 import { GruposService } from '../../../services/grupo.service';
 import { AuthService } from '../../../services/auth.service';
+import { SuscripcionGrupoService } from '../../../services/suscripcion-grupo.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
 export class GruposComponent implements OnInit {
   private gruposService = inject(GruposService);
   private authService = inject(AuthService);
+  private suscripcionService = inject(SuscripcionGrupoService);
   grupos = signal<any[]>([]);
   selectedGrupo = signal<any | null>(null);
 
@@ -39,13 +41,42 @@ export class GruposComponent implements OnInit {
   }
   
   ingresar() {
-    if (!this.authService.user()) {
+        const user = this.authService.user();
+    if (!user) {
       Swal.fire({
         icon: 'warning',
         title: 'Acceso requerido',
         text: 'Debes iniciar sesión para solicitar ingreso.',
         confirmButtonText: 'Aceptar',
         position: 'center'
+      });
+            return;
+    }
+
+    const id_feligres = user.id_feligres;
+    const id_grupo = this.selectedGrupo()?.id;
+
+    if (id_feligres && id_grupo) {
+      this.suscripcionService.suscribir(id_feligres, id_grupo).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Suscripción exitosa',
+            text: 'Ya estás suscrito exitosamente.',
+            confirmButtonText: 'Aceptar',
+            position: 'center'
+          });
+          this.closeModal();
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo completar la suscripción.',
+            confirmButtonText: 'Aceptar',
+            position: 'center'
+          });
+        }
       });
     }
   }

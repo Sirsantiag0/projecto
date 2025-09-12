@@ -50,8 +50,8 @@ exports.eliminarSuscripcionGrupo = async (req, res) => {
 exports.obtenerSuscripcionesPorGrupo = async (req, res) => {
     try {
         const { grupoId } = req.params;
-        const suscripciones = await Suscripcion_grupo.findAll({ 
-            where: { grupo_id: grupoId }
+        const suscripciones = await Suscripcion_grupo.findAll({
+            where: { id_grupo: grupoId }
         });
         res.status(200).json({ success: true, data: suscripciones });
     } catch (error) {
@@ -62,8 +62,8 @@ exports.obtenerSuscripcionesPorGrupo = async (req, res) => {
 exports.obtenerSuscripcionesPorFeligres = async (req, res) => {
     try {
         const { feligresId } = req.params;
-        const suscripciones = await Suscripcion_grupo.findAll({ 
-            where: { feligres_id: feligresId }
+        const suscripciones = await Suscripcion_grupo.findAll({
+            where: { id_feligres: feligresId }
         });
         res.status(200).json({ success: true, data: suscripciones });
     } catch (error) {
