@@ -23,7 +23,7 @@
           <div *ngFor="let evento of getEventosPorDia(dia.fullDate)">
             <div class="evento">
               <small>{{ evento.hora }}   {{ evento.descripcion }}</small>
-              <button (click)="marcarAsistencia(evento)">Participar</button>
+              <button *ngIf="!haParticipado(evento)" (click)="marcarAsistencia(evento)">Participar</button>
             </div>
           </div>
         </div>

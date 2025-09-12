@@ -15,11 +15,17 @@ class BreakpointObserverStub {
     listarEventos() {
       return of({ data: [] as Evento[] });
     }
+    registrarAsistencia() {
+      return of({});
+    }
+    obtenerAsistenciasPorFeligres() {
+      return of({ data: [] });
+    }
   }
 
   class AuthServiceStub {
     user() {
-      return null;
+      return { id_feligres: 1 } as any;
     }
   }
 
@@ -45,5 +51,18 @@ describe('CalendarioComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should hide participate button after asistencia', () => {
+    const today = new Date().toISOString().split('T')[0];
+    const evento: Evento = { id: 1, fecha: today, hora: '10:00', descripcion: 'Test' };
+    component.listEventos = [evento];
+    fixture.detectChanges();
+
+    component.marcarAsistencia(evento);
+    fixture.detectChanges();
+
+    const boton = fixture.nativeElement.querySelector('.evento button');
+    expect(boton).toBeNull();
   });
 });

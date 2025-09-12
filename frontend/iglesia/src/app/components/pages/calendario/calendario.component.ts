@@ -20,6 +20,7 @@ export class CalendarioComponent implements  OnInit {
   year: number = 0;
   listEventos: Evento[] = [];
   isMobile = false;
+  participatedEventIds = new Set<number>();
   eventos: Evento[] = [
     {
       fecha: '2025-08-05',
@@ -50,6 +51,7 @@ export class CalendarioComponent implements  OnInit {
     });
 
     this.searchEvento();
+    this.loadParticipations();
   }
   searchEvento() {
 
@@ -63,6 +65,19 @@ export class CalendarioComponent implements  OnInit {
         console.error('Error al obtener medics:', error);
       }
     );
+  }
+
+  loadParticipations() {
+    const user = this.authService.user();
+    if (user?.id_feligres) {
+      this.eventosService
+        .obtenerAsistenciasPorFeligres(user.id_feligres)
+        .subscribe((res: { data: { id_evento: number }[] }) => {
+          const asistencias = res.data || [];
+          asistencias.forEach(a => this.participatedEventIds.add(a.id_evento));
+          this.cdr.detectChanges();
+        });
+    }
   }
 
   generarCalendario(month: number, year: number) {
@@ -147,11 +162,19 @@ export class CalendarioComponent implements  OnInit {
       confirmButtonText: 'Aceptar',
       position: 'center'
     });
+        if (evento.id) {
+          this.participatedEventIds.add(evento.id);
+          this.cdr.detectChanges();
+        }
       },
       error => {
         console.error('Error al registrar asistencia:', error);
       }
     );
+  }
+
+  haParticipado(evento: Evento) {
+    return !!evento.id && this.participatedEventIds.has(evento.id);
   }
   
 }

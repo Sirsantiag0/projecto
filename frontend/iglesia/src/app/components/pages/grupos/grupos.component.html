@@ -3,9 +3,20 @@
   <div class="grupo-card" *ngFor="let g of grupos()">
     <img *ngIf="g.imagen" [src]="'http://localhost:3000/uploads/grupos/' + g.imagen" [alt]="g.titulo" />
     <div class="grupo-titulo">{{ g.titulo }}</div>
-    <button class="conocer-btn">CONOCER</button>
+    <button class="conocer-btn" (click)="openModal(g)">CONOCER</button>
   </div>
 </div>
 <ng-template #noGrupos>
   <p class="no-grupos">No hay grupos disponibles.</p>
 </ng-template>
+
+<div class="modal" *ngIf="selectedGrupo()" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <img *ngIf="selectedGrupo()?.imagen" [src]="'http://localhost:3000/uploads/grupos/' + selectedGrupo()?.imagen" [alt]="selectedGrupo()?.titulo" />
+    <div class="modal-overlay">
+      <div class="modal-title">{{ selectedGrupo()?.titulo }}</div>
+      <div class="modal-description">{{ selectedGrupo()?.descripcion }}</div>
+      <button class="ingresar-btn">Ingresar</button>
+    </div>
+  </div>
+</div>

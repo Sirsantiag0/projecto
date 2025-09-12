@@ -60,6 +60,93 @@ h2 {
   padding: 1rem 1rem;
   margin: 0;
   margin-top:-20px;
-  margin-bottom: 15px
+  margin-bottom: 15px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  position: relative;
+  width: 900px;
+  max-width: 90%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-box img {
+  width: 900px;
+  height: auto;
+  display: block;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.modal-title {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.modal-description {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.ingresar-btn {
+  display: block;
+  margin: 4px auto 0;
+  width: 30%;
+  height: 5%;
+  font-size: 14px;
+  padding: 2px 4px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow:
+  0 4px 0 #2E7D32,
+  0 5px 5px rgba(0,0,0,0.1);
+  position: relative;
+  transition: all 0.1s ease;
+  margin-bottom: 60px;
+}
+
+.ingresar-btn:hover {
+  background-color: #45a049;
+}
+
+.ingresar-btn:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #2E7D32,
+    0 2px 3px rgba(0,0,0,0.1);
 }
 

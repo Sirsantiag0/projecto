@@ -12,7 +12,8 @@ import { GruposService } from '../../../services/grupo.service';
 })
 export class GruposComponent implements OnInit {
   private gruposService = inject(GruposService);
-   grupos = signal<any[]>([]);
+    grupos = signal<any[]>([]);
+  selectedGrupo = signal<any | null>(null);
 
   ngOnInit(): void {
     this.gruposService.listarGrupos().subscribe(res => {
@@ -24,5 +25,13 @@ export class GruposComponent implements OnInit {
         }))
       );
     });
+  }
+  
+  openModal(grupo: any) {
+    this.selectedGrupo.set(grupo);
+  }
+
+  closeModal() {
+    this.selectedGrupo.set(null);
   }
 }
