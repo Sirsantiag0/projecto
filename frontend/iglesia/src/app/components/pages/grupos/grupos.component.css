@@ -122,31 +122,49 @@ h2 {
   display: block;
   margin: 4px auto 0;
   width: 30%;
-  height: 5%;
+  height: 30px;
   font-size: 14px;
-  padding: 2px 4px;
+  padding: 8px 12px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
-  box-shadow:
-  0 4px 0 #2E7D32,
-  0 5px 5px rgba(0,0,0,0.1);
   position: relative;
-  transition: all 0.1s ease;
+  transition: all 0.3s ease;
   margin-bottom: 60px;
+
+  /* ✅ Mantiene la sombra verde inferior */
+  box-shadow:
+    0 4px 0 #2E7D32,
+    0 5px 5px rgba(0, 0, 0, 0.1),
+
+    /* 🔹 Glow blanco difuminado */
+    0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.4),
+    0 0 40px rgba(255, 255, 255, 0.3);
 }
 
 .ingresar-btn:hover {
   background-color: #45a049;
+
+  /* Glow blanco más fuerte al hacer hover */
+  box-shadow:
+    0 4px 0 #2E7D32,
+    0 5px 5px rgba(0, 0, 0, 0.1),
+    0 0 15px rgba(255, 255, 255, 0.8),
+    0 0 30px rgba(255, 255, 255, 0.6),
+    0 0 60px rgba(255, 255, 255, 0.5);
 }
 
 .ingresar-btn:active {
-  transform: translateY(4px);
+  transform: translateY(2px);
   box-shadow:
     0 1px 0 #2E7D32,
-    0 2px 3px rgba(0,0,0,0.1);
+    0 2px 3px rgba(0, 0, 0, 0.1),
+    0 0 8px rgba(255, 255, 255, 0.5),
+    0 0 15px rgba(255, 255, 255, 0.4);
 }
+
 
