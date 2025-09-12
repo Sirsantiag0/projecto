@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GruposService } from '../../../services/grupo.service';
+import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-grupos',
@@ -12,7 +14,8 @@ import { GruposService } from '../../../services/grupo.service';
 })
 export class GruposComponent implements OnInit {
   private gruposService = inject(GruposService);
-    grupos = signal<any[]>([]);
+  private authService = inject(AuthService);
+  grupos = signal<any[]>([]);
   selectedGrupo = signal<any | null>(null);
 
   ngOnInit(): void {
@@ -33,5 +36,17 @@ export class GruposComponent implements OnInit {
 
   closeModal() {
     this.selectedGrupo.set(null);
+  }
+  
+  ingresar() {
+    if (!this.authService.user()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Acceso requerido',
+        text: 'Debes iniciar sesión para solicitar ingreso.',
+        confirmButtonText: 'Aceptar',
+        position: 'center'
+      });
+    }
   }
 }

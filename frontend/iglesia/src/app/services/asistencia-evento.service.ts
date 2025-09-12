@@ -56,6 +56,10 @@ export class AsistenciaEventoService {
   obtenerAsistenciasPorFeligres(feligresId: number): Observable<any> {
     return this.http.get<any>(`${this.asistenciaUrl}/feligreses/${feligresId}/asistencias`);
   }
+
+  eliminarAsistencia(id: number): Observable<any> {
+    return this.http.delete(`${this.asistenciaUrl}/${id}`);
+  }
   // getMedics(): Observable<any> {
     // const headers = this.getHeaders(); // Obtener encabezados con el token
     // return this.http.get<any>(${environment.apiUrl}/api/Account/Medics, { headers });

@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { forkJoin } from 'rxjs';
 import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
 import { AuthService } from '../../../services/auth.service';
 
 // ---------------- Interfaces ----------------
 interface Asistencia {
+    id: number;
   id_evento: number;
 }
 
@@ -15,12 +17,13 @@ interface Evento {
   fecha: string;
   hora: string;
   descripcion: string;
+  asistenciaId: number;
 }
 
 @Component({
   selector: 'app-feligres',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './feligres.component.html',
   styleUrls: ['./feligres.component.css']
 })
@@ -44,11 +47,20 @@ export class FeligresComponent implements OnInit {
 
           if (requests.length) {
             forkJoin(requests).subscribe((eventRes: { data: Evento }[]) => {
-              const eventos = eventRes.map(e => e.data);
+                           const eventos = eventRes.map((e, index) => ({
+                ...e.data,
+                asistenciaId: asistencias[index].id,
+              }));
               this.eventos.set(eventos);
             });
           }
         });
     }
+  }
+  
+  eliminarAsistencia(asistenciaId: number): void {
+    this.asistenciaEventoService.eliminarAsistencia(asistenciaId).subscribe(() => {
+      this.eventos.update(eventos => eventos.filter(e => e.asistenciaId !== asistenciaId));
+    });
   }
 }

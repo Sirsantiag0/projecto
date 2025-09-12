@@ -30,7 +30,9 @@ export class LayoutComponent {
         if (value === 'mis-eventos') {
       this.router.navigate(['/feligres']);
     } else if (value === 'logout') {
+      this.router.navigate(['/home']);
       this.authService.logout();
+      
     }
     (event.target as HTMLSelectElement).selectedIndex = 0;
   }

@@ -5,5 +5,8 @@
     <mat-card-content>
       <p>{{ evento.fecha }} - {{ evento.hora }}</p>
     </mat-card-content>
+        <mat-card-actions>
+      <button mat-button color="warn" (click)="eliminarAsistencia(evento.asistenciaId)">Eliminar</button>
+    </mat-card-actions>
   </mat-card>
 </div>
