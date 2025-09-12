@@ -8,8 +8,34 @@
  /* centra verticalmente en la pantalla */
 }
 
-mat-card {
+.event-cards mat-card {
   width: 300px;
+}
+
+
+.group-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 auto 1rem;
+  justify-content: center;
+  text-align: center;
+}
+
+.group-card {
+  width: 150px;
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  color: #fff;
+}
+
+.group-title {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.25rem;
 }
 
 

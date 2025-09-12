@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { forkJoin } from 'rxjs';
 import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
 import { AuthService } from '../../../services/auth.service';
+import { SuscripcionGrupoService } from '../../../services/suscripcion-grupo.service';
 
 // ---------------- Interfaces ----------------
 interface Asistencia {
@@ -20,6 +21,13 @@ interface Evento {
   asistenciaId: number;
 }
 
+interface Grupo {
+  id: number;
+  titulo: string;
+  ruta_archivo: string;
+}
+
+
 @Component({
   selector: 'app-feligres',
   standalone: true,
@@ -30,12 +38,23 @@ interface Evento {
 export class FeligresComponent implements OnInit {
   private asistenciaEventoService = inject(AsistenciaEventoService);
   private authService = inject(AuthService);
+   private suscripcionGrupoService = inject(SuscripcionGrupoService);
 
   eventos = signal<Evento[]>([]);
+  grupos = signal<Grupo[]>([]);
 
   ngOnInit(): void {
     const user = this.authService.user();
     if (user?.id_feligres) {
+            this.suscripcionGrupoService
+        .obtenerSuscripcionesPorFeligres(user.id_feligres)
+        .subscribe((res: { data: any[] }) => {
+          const grupos = res.data
+            .map((s: any) => s.Grupos)
+            .filter((g: Grupo | undefined) => g);
+          this.grupos.set(grupos);
+        });
+
       this.asistenciaEventoService
         .obtenerAsistenciasPorFeligres(user.id_feligres)
         .subscribe((res: { data: Asistencia[] }) => {
@@ -47,7 +66,7 @@ export class FeligresComponent implements OnInit {
 
           if (requests.length) {
             forkJoin(requests).subscribe((eventRes: { data: Evento }[]) => {
-                           const eventos = eventRes.map((e, index) => ({
+              const eventos = eventRes.map((e, index) => ({
                 ...e.data,
                 asistenciaId: asistencias[index].id,
               }));

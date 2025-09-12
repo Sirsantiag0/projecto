@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FeligresComponent } from './feligres.component';
 
@@ -8,9 +9,8 @@ describe('FeligresComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FeligresComponent]
-    })
-    .compileComponents();
+      imports: [FeligresComponent, HttpClientTestingModule]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FeligresComponent);
     component = fixture.componentInstance;
