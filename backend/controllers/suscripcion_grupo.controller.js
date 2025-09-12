@@ -63,8 +63,7 @@ exports.obtenerSuscripcionesPorFeligres = async (req, res) => {
     try {
         const { feligresId } = req.params;
         const suscripciones = await Suscripcion_grupo.findAll({
-            where: { id_feligres: feligresId },
-            include: [{ model: db.Grupos, attributes: ['id', 'titulo', 'ruta_archivo'] }]
+            where: { id_feligres: feligresId }
         });
         res.status(200).json({ success: true, data: suscripciones });
     } catch (error) {
