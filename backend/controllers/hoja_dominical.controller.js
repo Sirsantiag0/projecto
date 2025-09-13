@@ -1,12 +1,40 @@
 const db = require('../models');
 const Hoja_dominical = db.Hoja_dominical;
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
+
+// Carpeta de almacenamiento de hojas dominicales
+const hojasDir = path.join(__dirname, '..', 'uploads', 'hojas_dominical');
+if (!fs.existsSync(hojasDir)) {
+    fs.mkdirSync(hojasDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+    destination: (_req, _file, cb) => cb(null, hojasDir),
+    filename: (_req, file, cb) => {
+        const nombreUnico = Date.now() + '-' + file.originalname;
+        cb(null, nombreUnico);
+    }
+});
+
+const upload = multer({ storage });
+exports.subirArchivo = upload.single('ruta_archivos');
 
 // Crear hoja dominical
 exports.crearHojaDominical = async (req, res) => {
     try {
-        const nuevaHoja = await Hoja_dominical.create(req.body);
+                const { fecha, titulo } = req.body;
+        const nuevaHoja = await Hoja_dominical.create({
+            fecha,
+            titulo,
+            ruta_archivos: req.file ? req.file.filename : null
+        });
         res.status(201).json({ success: true, data: nuevaHoja });
     } catch (error) {
+                if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
         res.status(500).json({ success: false, error: error.message });
     }
 };
@@ -41,13 +69,30 @@ exports.obtenerHojaDominical = async (req, res) => {
 exports.actualizarHojaDominical = async (req, res) => {
     try {
         const { id } = req.params;
-        const [updated] = await Hoja_dominical.update(req.body, { where: { id } });
-        if (updated) {
-            const hojaActualizada = await Hoja_dominical.findByPk(id);
-            return res.status(200).json({ success: true, data: hojaActualizada });
+        const hoja = await Hoja_dominical.findByPk(id);
+        if (!hoja) {
+            if (req.file && fs.existsSync(req.file.path)) {
+                fs.unlinkSync(req.file.path);
+            }
+            return res.status(404).json({ success: false, message: 'Hoja dominical no encontrada' });
         }
-        return res.status(404).json({ success: false, message: 'Hoja dominical no encontrada' });
+        
+        if (req.file) {
+            const rutaAntigua = path.join(hojasDir, hoja.ruta_archivos);
+            if (fs.existsSync(rutaAntigua)) {
+                fs.unlinkSync(rutaAntigua);
+            }
+            hoja.ruta_archivos = req.file.filename;
+        }
+
+        hoja.fecha = req.body.fecha || hoja.fecha;
+        hoja.titulo = req.body.titulo || hoja.titulo;
+        await hoja.save();
+        return res.status(200).json({ success: true, data: hoja });
     } catch (error) {
+                if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
         res.status(500).json({ success: false, error: error.message });
     }
 };

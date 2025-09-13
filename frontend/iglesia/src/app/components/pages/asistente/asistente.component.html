@@ -66,3 +66,11 @@
     </div>
   </div>
 </div>
+
+<div class="hoja-section">
+  <h3>Subir 📄hoja dominical</h3>
+  <input type="file" accept="application/pdf" (change)="onHojaFileChange($event)"/>
+  <input type="date" [(ngModel)]="hojaFecha" />
+  <input type="text" [(ngModel)]="hojaTitulo" placeholder="Título" />
+  <button (click)="subirHojaDominical()">Guardar hoja</button>
+</div>

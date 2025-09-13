@@ -5,6 +5,7 @@ import { ArchivosEventoService } from '../../../services/archivos-evento.service
 import { VideoService } from '../../../services/video.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 import { GruposService } from '../../../services/grupo.service';
+import { HojaDominicalService } from '../../../services/hoja-dominical.service';
 
 @Component({
   selector: 'app-asistente',
@@ -18,6 +19,7 @@ export class AsistenteComponent implements OnInit {
   private videoService = inject(VideoService);
   private eventosService = inject(AsistenciaEventoService);
   private gruposService = inject(GruposService);
+   private hojaService = inject(HojaDominicalService);
 
   // -------- Imágenes --------
   detalle = '';
@@ -38,6 +40,11 @@ export class AsistenteComponent implements OnInit {
   grupoDescripcion = '';
   grupoArchivo?: File;
   grupoEditingId: number | null = null;
+
+  // -------- Hoja dominical --------
+  hojaArchivo?: File;
+  hojaFecha = '';
+  hojaTitulo = '';
 
 
   ngOnInit(): void {
@@ -197,6 +204,35 @@ export class AsistenteComponent implements OnInit {
     this.grupoArchivo = undefined;
     this.grupoEditingId = null;
   }
+
+    // ---------------- Hoja dominical ----------------
+  onHojaFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      this.hojaArchivo = target.files[0];
+    }
+  }
+
+  subirHojaDominical() {
+    if (!this.hojaArchivo || !this.hojaFecha || !this.hojaTitulo) {
+      window.alert('Todos los campos son obligatorios');
+      return;
+    }
+
+    this.hojaService
+      .crearHojaDominical(this.hojaArchivo, this.hojaFecha, this.hojaTitulo)
+      .subscribe(() => {
+        this.resetHojaForm();
+        alert('Hoja dominical subida correctamente');
+      });
+  }
+
+  private resetHojaForm() {
+    this.hojaArchivo = undefined;
+    this.hojaFecha = '';
+    this.hojaTitulo = '';
+  }
+
 
   trackById(index: number, item: any) {
     return item.id;

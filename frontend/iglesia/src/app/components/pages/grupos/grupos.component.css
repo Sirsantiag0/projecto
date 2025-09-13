@@ -15,6 +15,10 @@
   background-color: rgba(128, 128, 128, 0.187)
 }
 
+.grupo-card img:hover {
+  transform: scale(1.02);
+}
+
 .grupo-card img {
   margin-top:30px;
   margin-bottom:15px;
@@ -42,13 +46,37 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4a6fa5;
+  background: linear-gradient(145deg, #4a6fa5, #3f5b87); /* gradiente sutil */
   color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 7px 20px;
+  border-radius: 25px;
   cursor: pointer;
+  letter-spacing: .05em;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+
+  /* sombra elegante */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25),
+              0 0 6px rgba(74, 111, 165, 0.4);
+
+  /* animación suave */
+  transition: all 0.3s ease;
 }
+
+.conocer-btn:hover {
+  background: linear-gradient(145deg, #3d5e8a, #324b70); /* gradiente más oscuro */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35),
+              0 0 10px rgba(74, 111, 165, 0.6); /* brillo */
+  transform: translateX(-50%) scale(1.05); /* efecto zoom suave */
+}
+
+.conocer-btn:active {
+  transform: translateX(-50%) scale(0.97); /* efecto al hacer click */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
 
 .no-grupos {
   text-align: center;
