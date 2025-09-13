@@ -32,7 +32,6 @@ Empresa.hasMany(Servicios, {foreignKey: 'id_empresa'});
 Servicios.belongsTo(Empresa, { foreignKey: 'id_empresa' });
 // hoja dominical
 
-Empresa.hasMany(Hoja_dominical, {foreignKey: 'id_hoja_dominical'});
 
 // Usuario ---------
 Usuario.belongsTo(Feligres, {foreignKey: 'id_feligres'});
