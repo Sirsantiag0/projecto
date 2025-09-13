@@ -13,5 +13,9 @@ export class SuscripcionGrupoService {
   suscribir(id_feligres: number, id_grupo: number): Observable<any> {
     return this.http.post<any>(this.apiUrl, { id_feligres, id_grupo });
   }
+    obtenerSuscripcionesPorFeligres(id_feligres: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/feligres/${id_feligres}`);
+  }
+
 
 }

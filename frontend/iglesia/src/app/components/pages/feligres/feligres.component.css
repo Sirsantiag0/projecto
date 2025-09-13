@@ -1,4 +1,5 @@
-.event-cards {
+.event-cards,
+.group-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;

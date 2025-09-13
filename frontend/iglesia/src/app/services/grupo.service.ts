@@ -13,6 +13,11 @@ export class GruposService {
   listarGrupos(): Observable<any> {
     return this.http.get<any>(this.gruposUrl);
   }
+  
+    obtenerGrupo(id: number): Observable<any> {
+    return this.http.get<any>(`${this.gruposUrl}/${id}`);
+  }
+
 
   crearGrupo(titulo: string, descripcion: string, archivo: File): Observable<any> {
     const formData = new FormData();

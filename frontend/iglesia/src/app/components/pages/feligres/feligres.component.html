@@ -10,3 +10,13 @@
     </mat-card-actions>
   </mat-card>
 </div>
+<br>
+<h2>Mis grupos</h2>
+<div *ngIf="authService.user()">
+  <div class="group-cards">
+    <mat-card *ngFor="let grupo of grupos()">
+      <img *ngIf="grupo.ruta_archivo" mat-card-image [src]="'http://localhost:3000/uploads/grupos/' + grupo.ruta_archivo" [alt]="grupo.titulo" />
+      <mat-card-title>{{ grupo.titulo }}</mat-card-title>
+    </mat-card>
+  </div>
+</div>

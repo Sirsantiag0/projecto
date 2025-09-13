@@ -5,7 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { forkJoin } from 'rxjs';
 import { AsistenciaEventoService } from '../../../services/asistencia-evento.service';
 import { AuthService } from '../../../services/auth.service';
-
+import { SuscripcionGrupoService } from '../../../services/suscripcion-grupo.service';
+import { GruposService } from '../../../services/grupo.service';
 
 // ---------------- Interfaces ----------------
 interface Asistencia {
@@ -21,6 +22,17 @@ interface Evento {
   asistenciaId: number;
 }
 
+interface Suscripcion {
+  id_grupo: number;
+}
+
+interface Grupo {
+  id: number;
+  titulo: string;
+  ruta_archivo: string | null;
+}
+
+
 @Component({
   selector: 'app-feligres',
   standalone: true,
@@ -30,9 +42,12 @@ interface Evento {
 })
 export class FeligresComponent implements OnInit {
   private asistenciaEventoService = inject(AsistenciaEventoService);
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
+  private suscripcionGrupoService = inject(SuscripcionGrupoService);
+  private gruposService = inject(GruposService);
 
   eventos = signal<Evento[]>([]);
+  grupos = signal<Grupo[]>([]);
 
   ngOnInit(): void {
     const user = this.authService.user();
@@ -53,6 +68,22 @@ export class FeligresComponent implements OnInit {
                 asistenciaId: asistencias[index].id,
               }));
               this.eventos.set(eventos);
+            });
+          }
+        });
+        
+      this.suscripcionGrupoService
+        .obtenerSuscripcionesPorFeligres(user.id_feligres)
+        .subscribe((res: { data: Suscripcion[] }) => {
+          const subs = res.data || [];
+          const requests = subs.map((s: Suscripcion) =>
+            this.gruposService.obtenerGrupo(s.id_grupo)
+          );
+
+          if (requests.length) {
+            forkJoin(requests).subscribe((grupoRes: { data: Grupo }[]) => {
+              const grupos = grupoRes.map(g => g.data);
+              this.grupos.set(grupos);
             });
           }
         });
