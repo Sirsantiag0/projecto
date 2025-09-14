@@ -1,1 +1,14 @@
-<p>hoja-dominical works!</p>
+<div class="hoja-container">
+  <!-- Selector de fecha -->
+  <input type="date" [(ngModel)]="fechaSeleccionada" class="fecha-input" />
+
+  <!-- Título del PDF -->
+  <div class="titulo-pdf">
+    {{ tituloPdf || 'TITULO DEL PDF' }}
+  </div>
+
+  <!-- Botón Descargar -->
+  <button class="descargar-btn" (click)="descargarPdf()">
+    Descargar 📥
+  </button>
+</div>
