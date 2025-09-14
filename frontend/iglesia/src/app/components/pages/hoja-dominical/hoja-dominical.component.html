@@ -1,6 +1,6 @@
 <div class="hoja-container">
   <!-- Selector de fecha -->
-  <input type="date" [(ngModel)]="fechaSeleccionada" class="fecha-input" />
+  <input type="date" [(ngModel)]="fechaSeleccionada" (change)="buscarHoja()" class="fecha-input" />
 
   <!-- Título del PDF -->
   <div class="titulo-pdf">
@@ -8,7 +8,7 @@
   </div>
 
   <!-- Botón Descargar -->
-  <button class="descargar-btn" (click)="descargarPdf()">
+  <button class="descargar-btn" (click)="descargarPdf()" [disabled]="!rutaPdf">
     Descargar 📥
   </button>
 </div>

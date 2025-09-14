@@ -10,6 +10,11 @@ export class HojaDominicalService {
 
   constructor(private http: HttpClient) {}
 
+    obtenerHojaPorFecha(fecha: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/fecha/${fecha}`);
+  }
+
+
   crearHojaDominical(archivo: File, fecha: string, titulo: string): Observable<any> {
     const formData = new FormData();
     formData.append('ruta_archivos', archivo);

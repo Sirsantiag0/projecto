@@ -128,6 +128,22 @@ exports.eliminarHojaDominical = async (req, res) => {
     }
 };
 
+ // Obtener hoja dominical por fecha exacta
+exports.obtenerHojaPorFecha = async (req, res) => {
+    try {
+        const { fecha } = req.params;
+        const hoja = await Hoja_dominical.findOne({
+            where: db.Sequelize.where(db.Sequelize.fn('DATE', db.Sequelize.col('fecha')), fecha)
+        });
+        if (hoja) {
+            return res.status(200).json({ success: true, data: hoja });
+        }
+        return res.status(404).json({ success: false, message: 'Hoja dominical no encontrada' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
 // Obtener hojas por rango de fechas
 exports.obtenerHojasPorFecha = async (req, res) => {
     try {
