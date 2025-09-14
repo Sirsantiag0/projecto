@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
 
 import { HojaDominicalComponent } from './hoja-dominical.component';
 
@@ -9,8 +8,7 @@ describe('HojaDominicalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-            imports: [HojaDominicalComponent],
-      providers: [provideHttpClient()]
+      imports: [HojaDominicalComponent]
     })
     .compileComponents();
 
