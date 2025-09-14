@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HojaDominicalService } from '../../../services/hoja-dominical.service';
 
 @Component({
   selector: 'app-hoja-dominical',
@@ -10,17 +11,46 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./hoja-dominical.component.css']
 })
 export class HojaDominicalComponent {
-  fechaSeleccionada: string = '';
-  tituloPdf: string = 'Hoja Dominical';
+  private hojaService = inject(HojaDominicalService);
 
-  descargarPdf() {
+  fechaSeleccionada: string = '';
+  hojaSeleccionada?: any;
+  tituloPdf: string = 'TITULO DEL PDF';
+
+  buscarHoja() {
     if (!this.fechaSeleccionada) {
-      alert('Por favor selecciona una fecha 📅');
+      this.hojaSeleccionada = undefined;
+      this.tituloPdf = 'TITULO DEL PDF';
       return;
     }
 
-    // Simulación de descarga
-    alert(`Descargando PDF de la fecha: ${this.fechaSeleccionada}`);
-    // Aquí podrías llamar a tu backend para generar/descargar el PDF
+    this.hojaService.obtenerHojaPorFecha(this.fechaSeleccionada).subscribe({
+      next: (res) => {
+        this.hojaSeleccionada = res.data[0];
+        this.tituloPdf = this.hojaSeleccionada
+          ? this.hojaSeleccionada.titulo
+          : 'No hay hoja dominical para esta fecha';
+      },
+      error: () => {
+        this.hojaSeleccionada = undefined;
+        this.tituloPdf = 'No hay hoja dominical para esta fecha';
+      }
+    });
+  }
+
+  descargarPdf() {
+    if (!this.hojaSeleccionada) {
+      alert('No hay hoja dominical para la fecha seleccionada');
+      return;
+    }
+
+    const url = this.hojaService.getArchivoUrl(
+      this.hojaSeleccionada.ruta_archivos
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.download = this.hojaSeleccionada.titulo || 'hoja-dominical';
+    link.click();
   }
 }

@@ -1,14 +1,28 @@
+
 <div class="hoja-container">
+    <div class="title">
+    <h2>Luz del </h2>
+    <h1>Domingo</h1>
+    </div>
   <!-- Selector de fecha -->
-  <input type="date" [(ngModel)]="fechaSeleccionada" class="fecha-input" />
+    <input
+    type="date"
+    [(ngModel)]="fechaSeleccionada"
+    (change)="buscarHoja()"
+    class="fecha-input"
+  />
 
   <!-- Título del PDF -->
   <div class="titulo-pdf">
-    {{ tituloPdf || 'TITULO DEL PDF' }}
+     {{ tituloPdf }}
   </div>
 
   <!-- Botón Descargar -->
-  <button class="descargar-btn" (click)="descargarPdf()">
+    <button
+    class="descargar-btn"
+    (click)="descargarPdf()"
+    [disabled]="!hojaSeleccionada"
+  >
     Descargar 📥
   </button>
 </div>
