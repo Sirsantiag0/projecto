@@ -12,6 +12,7 @@ import { HistoriaComponent } from './components/pages/historia/historia.componen
 import { GruposComponent } from './components/pages/grupos/grupos.component';
 import { FeligresComponent } from './components/pages/feligres/feligres.component';
 import { AdministradorComponent } from './components/pages/administrador/administrador.component';
+import { HojaDominicalComponent } from './components/pages/hoja-dominical/hoja-dominical.component';
 export const routes: Routes = [
   {
     path: '',
@@ -29,6 +30,7 @@ export const routes: Routes = [
       { path: 'administrador', component: AdministradorComponent },
       { path: 'grupos', component: GruposComponent },
       { path: 'feligres', component: FeligresComponent },
+      { path: 'hoja-dominical', component: HojaDominicalComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }
