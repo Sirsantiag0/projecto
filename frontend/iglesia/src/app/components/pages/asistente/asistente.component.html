@@ -74,3 +74,19 @@
   <input type="text" [(ngModel)]="hojaTitulo" placeholder="Título" />
   <button (click)="subirHojaDominical()">Guardar hoja</button>
 </div>
+
+<div class="service-section">
+  <h3>Subir 🙏servicio</h3>
+  <input type="text" [(ngModel)]="servicioDescripcion" placeholder="Descripción del servicio" />
+  <button (click)="subirServicio()">Guardar servicio</button>
+</div>
+
+<div class="lista-servicios" *ngIf="servicios.length">
+  <h3>Servicios registrados</h3>
+  <ul>
+    <li *ngFor="let servicio of servicios">
+      <span>{{ servicio.descripcion }}</span>
+      <span class="servicio-estado" *ngIf="servicio.activo === false">Inactivo</span>
+    </li>
+  </ul>
+</div>

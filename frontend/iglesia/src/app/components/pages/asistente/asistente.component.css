@@ -31,13 +31,6 @@ button {
 }
 
 .imagen-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  object-fit: cover;
-}
-
-.imagen-item img {
   width: 100px;
   height: auto;
   border-radius: 4px;
@@ -55,7 +48,11 @@ button {
   padding: 8px;
 }
 
-.event-title-inputs {
+.event-title-inputs,
+.event-schedule,
+.group-section,
+.hoja-section,
+.service-section {
   max-width: 400px;
   margin: 20px auto;
   display: flex;
@@ -63,13 +60,7 @@ button {
   gap: 10px;
 }
 
-.event-schedule {
-  max-width: 400px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+
 
 
 .event-preview {
@@ -95,13 +86,7 @@ button {
   margin-right: 5px
 }
 
-  .group-section {
-    max-width: 400px;
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+
 
 .lista-grupos {
   max-width: 1000px;
@@ -134,10 +119,32 @@ button {
   object-fit: cover;
 }
 
-.hoja-section {
-      max-width: 400px;
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.lista-servicios {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-servicios ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lista-servicios li {
+  padding: 8px 12px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.servicio-estado {
+  font-size: 0.85rem;
+  color: #b30000;
 }

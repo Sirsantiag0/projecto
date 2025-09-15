@@ -6,6 +6,7 @@ import { VideoService } from '../../../services/video.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 import { GruposService } from '../../../services/grupo.service';
 import { HojaDominicalService } from '../../../services/hoja-dominical.service';
+import { ServiciosService, Servicio } from '../../../services/servicios.service'
 
 @Component({
   selector: 'app-asistente',
@@ -19,7 +20,8 @@ export class AsistenteComponent implements OnInit {
   private videoService = inject(VideoService);
   private eventosService = inject(AsistenciaEventoService);
   private gruposService = inject(GruposService);
-   private hojaService = inject(HojaDominicalService);
+  private hojaService = inject(HojaDominicalService);
+  private serviciosService = inject(ServiciosService);
 
   // -------- Imágenes --------
   detalle = '';
@@ -46,12 +48,17 @@ export class AsistenteComponent implements OnInit {
   hojaFecha = '';
   hojaTitulo = '';
 
+    // -------- Servicios --------
+  servicios: Servicio[] = [];
+  servicioDescripcion = '';
+
 
   ngOnInit(): void {
     this.cargarImagenes();
     this.videoUrls = this.videoService.getVideos();
     this.cargarEventos();
     this.cargarGrupos();
+    this.cargarServicios();
   }
 
   // ---------------- Imágenes ----------------
@@ -233,6 +240,38 @@ export class AsistenteComponent implements OnInit {
     this.hojaTitulo = '';
   }
 
+    // ---------------- Servicios ----------------
+  cargarServicios() {
+    this.serviciosService.listarServicios().subscribe({
+      next: (res) => {
+        this.servicios = res.data ?? [];
+      },
+      error: (error) => {
+        console.error('Error al cargar servicios', error);
+        this.servicios = [];
+      }
+    });
+  }
+
+  subirServicio() {
+    const descripcion = this.servicioDescripcion.trim();
+    if (!descripcion) {
+      window.alert('La descripción del servicio es obligatoria');
+      return;
+    }
+
+    this.serviciosService.crearServicio(descripcion).subscribe({
+      next: () => {
+        this.servicioDescripcion = '';
+        this.cargarServicios();
+        alert('Servicio guardado correctamente');
+      },
+      error: (error) => {
+        console.error('Error al crear servicio', error);
+        window.alert('No se pudo guardar el servicio');
+      }
+    });
+  }
 
   trackById(index: number, item: any) {
     return item.id;
