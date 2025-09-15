@@ -21,3 +21,8 @@ h2 {
   margin-top:-20px;
   margin-bottom: 15px
 }
+
+button {
+  border: solid 0.01px rgb(181, 180, 180);
+  font-size: 12px
+}

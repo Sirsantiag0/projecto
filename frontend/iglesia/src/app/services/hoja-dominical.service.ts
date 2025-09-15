@@ -17,7 +17,7 @@ export class HojaDominicalService {
     formData.append('titulo', titulo);
     return this.http.post<any>(this.apiUrl, formData);
   }
-    obtenerHojaPorFecha(fecha: string): Observable<any> {
+   obtenerHojaPorFecha(fecha: string): Observable<any> {
     const params = { fechaInicio: fecha, fechaFin: fecha };
     return this.http.get<any>(`${this.apiUrl}/por-fecha`, { params });
   }
