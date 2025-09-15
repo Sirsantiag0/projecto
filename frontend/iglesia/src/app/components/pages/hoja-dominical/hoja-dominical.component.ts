@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HojaDominicalService } from '../../../services/hoja-dominical.service';
@@ -10,12 +10,17 @@ import { HojaDominicalService } from '../../../services/hoja-dominical.service';
   templateUrl: './hoja-dominical.component.html',
   styleUrls: ['./hoja-dominical.component.css']
 })
-export class HojaDominicalComponent {
+export class HojaDominicalComponent implements OnInit {
   private hojaService = inject(HojaDominicalService);
 
-  fechaSeleccionada: string = '';
+
+fechaSeleccionada: string = new Date().toISOString().split('T')[0];
   hojaSeleccionada?: any;
   tituloPdf: string = 'TITULO DEL PDF';
+
+    ngOnInit() {
+    this.buscarHoja();
+  }
 
   buscarHoja() {
     if (!this.fechaSeleccionada) {
