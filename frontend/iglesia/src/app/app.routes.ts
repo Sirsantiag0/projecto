@@ -13,6 +13,7 @@ import { GruposComponent } from './components/pages/grupos/grupos.component';
 import { FeligresComponent } from './components/pages/feligres/feligres.component';
 import { AdministradorComponent } from './components/pages/administrador/administrador.component';
 import { HojaDominicalComponent } from './components/pages/hoja-dominical/hoja-dominical.component';
+import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -20,14 +21,24 @@ export const routes: Routes = [
     children: [
       { path: 'asistencia-evento', component: AsistenciaEventoComponent },
       { path: 'calendario', component: CalendarioComponent },
-      { path: 'asistente', component: AsistenteComponent },
+            {
+        path: 'asistente',
+        component: AsistenteComponent,
+        canActivate: [authGuard],
+        data: { roles: [1, 2] }
+      },
       { path: 'home', component: HomeComponent },
       { path: 'registrar', component: RegistroFeligresComponent },
       { path: 'login', component: LoginComponent },
       { path: 'horarios', component: HorariosComponent },
       { path: 'donar', component: DonarComponent },
       { path: 'historia', component: HistoriaComponent },
-      { path: 'administrador', component: AdministradorComponent },
+            {
+        path: 'administrador',
+        component: AdministradorComponent,
+        canActivate: [authGuard],
+        data: { roles: [1] }
+      },
       { path: 'grupos', component: GruposComponent },
       { path: 'feligres', component: FeligresComponent },
       { path: 'hoja-dominical', component: HojaDominicalComponent },
