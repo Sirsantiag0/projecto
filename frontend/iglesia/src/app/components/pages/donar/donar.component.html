@@ -9,7 +9,14 @@
       <div class="row">
         <span class="label">Cuenta Corriente:</span>
         <span class="value">{{ cuenta.numero }}</span>
-        <button class="copy-btn" (click)="copiar(cuenta.numero)" title="Copiar número de cuenta">📋</button>
+                <button
+          type="button"
+          class="copy-btn"
+          (click)="copiar(cuenta.numero)"
+          title="Copiar número de cuenta"
+        >
+          Copiar
+        </button>
       </div>
       <div class="row">
         <span class="label">Banco:</span>
@@ -21,37 +28,74 @@
       <div class="row">
         <span class="label">RUC:</span>
         <span class="value">{{ cuenta.ruc }}</span>
-        <button class="copy-btn" (click)="copiar(cuenta.ruc)" title="Copiar RUC">📋</button>
+                <button
+          type="button"
+          class="copy-btn"
+          (click)="copiar(cuenta.ruc)"
+          title="Copiar RUC"
+        >
+          Copiar
+        </button>
       </div>
       <div class="row">
         <span class="value"><strong>Apoyar mision via:</strong></span>
       </div>
-<div class="btn-grid">
-  <a class="donar-btn banco-pichincha" href="https://www.pichincha.com/" target="_blank" rel="noopener">
-    <img src="/images/pichincha.png" alt="Logo Pichincha" class="bank-logo" />
-    Pichincha
-  </a>
-  <a class="donar-btn banco-guayaquil" href="https://www.bancoguayaquil.com/" target="_blank" rel="noopener">
-    <img src="/images/guayaquil.png" alt="Logo Guayaquil" class="bank-logo" />
-    Guayaquil
-  </a>
-  <a class="donar-btn banco-pacifico" href="https://www.bancodelpacifico.com/personas/inicio" target="_blank" rel="noopener">
-    <img src="/images/pacifico.png" alt="Logo Pacífico" class="bank-logo" />
-    Pacífico
-  </a>
-  <a class="donar-btn banco-produbanco" href="https://www.produbanco.com.ec/" target="_blank" rel="noopener">
-    <img src="/images/produbanco.png" alt="Logo Produbanco" class="bank-logo" />
-    Produbanco
-  </a>
-  <a class="donar-btn banco-internacional" href="https://www.bancointernacional.com.ec/" target="_blank" rel="noopener">
-    <img src="/images/internacional.png" alt="Logo Internacional" class="bank-logo" />
-    Internacional
-  </a>
-  <a class="donar-btn banco-bolivariano" href="https://www.bolivariano.com/" target="_blank" rel="noopener">
-    <img src="/images/bolibariano.png" alt="Logo Bolivariano" class="bank-logo" />
-    Bolivariano
-  </a>
-</div>
+      <div class="btn-grid">
+        <a
+          class="donar-btn banco-pichincha"
+          href="https://www.pichincha.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/images/pichincha.png" alt="Logo Pichincha" class="bank-logo" />
+          Pichincha
+        </a>
+        <a
+          class="donar-btn banco-guayaquil"
+          href="https://www.bancoguayaquil.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/images/guayaquil.png" alt="Logo Guayaquil" class="bank-logo" />
+          Guayaquil
+        </a>
+        <a
+          class="donar-btn banco-pacifico"
+          href="https://www.bancodelpacifico.com/personas/inicio"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/images/pacifico.png" alt="Logo Pacífico" class="bank-logo" />
+          Pacífico
+        </a>
+        <a
+          class="donar-btn banco-produbanco"
+          href="https://www.produbanco.com.ec/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/images/produbanco.png" alt="Logo Produbanco" class="bank-logo" />
+          Produbanco
+        </a>
+        <a
+          class="donar-btn banco-internacional"
+          href="https://www.bancointernacional.com.ec/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/images/internacional.png" alt="Logo Internacional" class="bank-logo" />
+          Internacional
+        </a>
+        <a
+          class="donar-btn banco-bolivariano"
+          href="https://www.bolivariano.com/"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="/images/bolibariano.png" alt="Logo Bolivariano" class="bank-logo" />
+          Bolivariano
+        </a>
+      </div>
 
     </div>
   </div>
