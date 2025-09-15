@@ -16,6 +16,9 @@ export class SuscripcionGrupoService {
     obtenerSuscripcionesPorFeligres(id_feligres: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/feligres/${id_feligres}`);
   }
+    eliminarSuscripcion(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 
 
 }

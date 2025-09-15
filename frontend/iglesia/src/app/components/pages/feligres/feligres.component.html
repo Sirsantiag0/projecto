@@ -17,6 +17,9 @@
     <mat-card *ngFor="let grupo of grupos()">
       <img *ngIf="grupo.ruta_archivo" mat-card-image [src]="'http://localhost:3000/uploads/grupos/' + grupo.ruta_archivo" [alt]="grupo.titulo" />
       <mat-card-title>{{ grupo.titulo }}</mat-card-title>
+      <mat-card-actions>
+        <button mat-button color="warn" (click)="eliminarSuscripcion(grupo.suscripcionId)">Abandonar</button>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

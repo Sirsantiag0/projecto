@@ -23,6 +23,8 @@ interface Evento {
 }
 
 interface Suscripcion {
+
+  id: number;
   id_grupo: number;
 }
 
@@ -31,6 +33,13 @@ interface Grupo {
   titulo: string;
   ruta_archivo: string | null;
 }
+
+
+interface GrupoSuscrito extends Grupo {
+  suscripcionId: number;
+}
+
+
 
 
 @Component({
@@ -47,7 +56,7 @@ export class FeligresComponent implements OnInit {
   private gruposService = inject(GruposService);
 
   eventos = signal<Evento[]>([]);
-  grupos = signal<Grupo[]>([]);
+  grupos = signal<GrupoSuscrito[]>([]);
 
   ngOnInit(): void {
     const user = this.authService.user();
@@ -82,7 +91,10 @@ export class FeligresComponent implements OnInit {
 
           if (requests.length) {
             forkJoin(requests).subscribe((grupoRes: { data: Grupo }[]) => {
-              const grupos = grupoRes.map(g => g.data);
+                            const grupos = grupoRes.map((g, index) => ({
+                ...g.data,
+                suscripcionId: subs[index].id,
+              }));
               this.grupos.set(grupos);
             });
           }
@@ -94,5 +106,16 @@ export class FeligresComponent implements OnInit {
     this.asistenciaEventoService.eliminarAsistencia(asistenciaId).subscribe(() => {
       this.eventos.update(eventos => eventos.filter(e => e.asistenciaId !== asistenciaId));
     });
+  }
+
+  
+  eliminarSuscripcion(suscripcionId: number): void {
+    this.suscripcionGrupoService
+      .eliminarSuscripcion(suscripcionId)
+      .subscribe(() => {
+        this.grupos.update(grupos =>
+          grupos.filter(g => g.suscripcionId !== suscripcionId)
+        );
+      });
   }
 }
