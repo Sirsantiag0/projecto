@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HojaDominicalService } from '../../../services/hoja-dominical.service';
@@ -12,13 +12,18 @@ import { HojaDominicalService } from '../../../services/hoja-dominical.service';
 })
 export class HojaDominicalComponent implements OnInit {
   private hojaService = inject(HojaDominicalService);
+  private cd = inject(ChangeDetectorRef);
+  
 
 
-fechaSeleccionada: string = new Date().toISOString().split('T')[0];
+fechaSeleccionada: string = '';
   hojaSeleccionada?: any;
   tituloPdf: string = 'TITULO DEL PDF';
 
-    ngOnInit() {
+  ngOnInit() {
+    const hoy = new Date();
+    hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
+    this.fechaSeleccionada = hoy.toISOString().split('T')[0];
     this.buscarHoja();
   }
 
@@ -35,10 +40,12 @@ fechaSeleccionada: string = new Date().toISOString().split('T')[0];
         this.tituloPdf = this.hojaSeleccionada
           ? this.hojaSeleccionada.titulo
           : 'No hay hoja dominical para esta fecha';
+          this.cd.detectChanges();
       },
       error: () => {
         this.hojaSeleccionada = undefined;
         this.tituloPdf = 'No hay hoja dominical para esta fecha';
+        this.cd.detectChanges();
       }
     });
   }
