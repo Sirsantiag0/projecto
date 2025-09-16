@@ -25,6 +25,7 @@ const Servicios = require('./servicios')(sequelize, Sequelize.DataTypes);
 const Suscripcion_curso = require('./suscripcion_curso')(sequelize, Sequelize.DataTypes);
 const Suscripcion_grupo = require('./suscripcion_grupo')(sequelize, Sequelize.DataTypes);
 const Tipo = require('./tipo')(sequelize, Sequelize.DataTypes);
+const Requisitos = require('./requisitos')(sequelize, Sequelize.DataTypes)
 
 // Definir relaciones
 // Empresa 
@@ -41,6 +42,9 @@ Feligres.hasOne(Usuario, { foreignKey: 'id_feligres' });
 Usuario.belongsTo(Roles, { foreignKey: 'id_rol'});
 Roles.hasMany(Usuario, { foreignKey: 'id_rol', as: 'usuario' });
 
+//Requisitos --------
+Requisitos.belongsTo(Servicios, {foreignKey: 'id_servicio'});
+Servicios.hasMany(Requisitos, {foreignKey: 'id_servicio'});
 
 // Estado_servicio
 Estado_servicio.hasMany(Servicios, {foreignKey: 'id_estado_servicio'});
@@ -116,6 +120,7 @@ module.exports = {
     Hoja_dominical,
     Qr_evento,
     Servicios,
+    Requisitos,
     Suscripcion_curso,
     Suscripcion_grupo,
     Tipo,

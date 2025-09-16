@@ -44,6 +44,7 @@ app.use("/api/grupos", require("./routes/gruposRoutes"));
 app.use("/api/hoja-dominical", require("./routes/hoja_dominicalRoutes"));
 app.use("/api/qr-evento", require("./routes/qr_eventoRoutes"));
 app.use("/api/servicios", require("./routes/serviciosRoutes"));
+app.use('/api/requisitos', require ("./routes/serviciosRoutes"));
 app.use("/api/suscripcion-curso", require("./routes/suscripcion_cursoRoutes"));
 app.use("/api/suscripcion-grupo", require("./routes/suscripcion_grupoRoutes"));
 app.use("/api/usuario", require("./routes/usuarioRoutes"));
