@@ -1,1 +1,53 @@
-<p>servicios works!</p>
+<section class="servicios" aria-live="polite">
+  <h1 class="servicios__titulo">Nuestros servicios</h1>
+
+  <p *ngIf="isLoading()" class="servicios__mensaje">Cargando servicios...</p>
+
+  <p *ngIf="!isLoading() && error()" class="servicios__mensaje servicios__mensaje--error">
+    {{ error() }}
+  </p>
+
+  <div *ngIf="!isLoading() && !error()" class="servicios__listado">
+    <p *ngIf="!servicios().length" class="servicios__mensaje servicios__mensaje--vacio">
+      Por el momento no hay servicios disponibles.
+    </p>
+
+    <article
+      class="servicio-card"
+      *ngFor="let servicio of servicios(); let i = index; trackBy: trackByServicio"
+    >
+      <h2 class="servicio-card__titulo">{{ servicio.descripcion }}</h2>
+
+      <button
+        type="button"
+        class="servicio-card__trigger"
+        (click)="toggleServicio(i)"
+        [attr.aria-expanded]="isExpanded(i)"
+        [attr.aria-controls]="'servicio-detalle-' + i"
+      >
+        <span>Ver requisitos</span>
+        <span class="servicio-card__icono" [class.servicio-card__icono--abierto]="isExpanded(i)">▾</span>
+      </button>
+
+      <div
+        *ngIf="isExpanded(i)"
+        class="servicio-card__contenido"
+        [id]="'servicio-detalle-' + i"
+      >
+        <ng-container *ngIf="obtenerRequisitos(servicio) as requisitos">
+          <ng-container *ngIf="requisitos.length; else sinRequisitos">
+            <ul class="servicio-card__lista">
+              <li *ngFor="let requisito of requisitos; trackBy: trackByRequisito">{{ requisito }}</li>
+            </ul>
+          </ng-container>
+        </ng-container>
+
+        <ng-template #sinRequisitos>
+          <p class="servicio-card__texto">Este servicio no tiene requisitos registrados por el momento.</p>
+          <p class="servicio-card__texto">Este servicio no tiene requisitos registrados por el momento.</p>
+
+        </ng-template>
+      </div>
+    </article>
+  </div>
+</section>

@@ -4,7 +4,7 @@
     Santuario María Auxiliadora
   </div>
   <div class="nav-links">
-    <button class="nav-btn">  
+    <button class="nav-btn" routerLink="/servicios">  
       <span class="material-icons">handshake</span>
       Servicios
     </button>
@@ -31,9 +31,8 @@
         <option value="" disabled selected>
           {{ authService.user()?.nombres }} {{ authService.user()?.apellidos }}
         </option>
-        <option value="mis-eventos">Mis eventos</option>
         <option value="mis-eventos">Mis grupos</option>
-        <option>Mis servicios</option>
+        <option value="mis-eventos">Mis eventos</option>
         <option value="logout">Cerrar sesión</option>
       </select>
     </ng-container>

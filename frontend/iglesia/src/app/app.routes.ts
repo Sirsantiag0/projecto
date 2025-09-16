@@ -13,6 +13,7 @@ import { GruposComponent } from './components/pages/grupos/grupos.component';
 import { FeligresComponent } from './components/pages/feligres/feligres.component';
 import { AdministradorComponent } from './components/pages/administrador/administrador.component';
 import { HojaDominicalComponent } from './components/pages/hoja-dominical/hoja-dominical.component';
+import { ServiciosComponent } from './components/pages/servicios/servicios.component';
 import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
@@ -42,6 +43,7 @@ export const routes: Routes = [
       { path: 'grupos', component: GruposComponent },
       { path: 'feligres', component: FeligresComponent },
       { path: 'hoja-dominical', component: HojaDominicalComponent },
+      { path: 'servicios', component: ServiciosComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }
