@@ -189,3 +189,44 @@
   max-width: 100%;
   height: 600px;
 }
+
+.telefono {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espacio entre texto y botón */
+}
+
+.llamar-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.llamar-btn:hover {
+  background-color: #45a049;
+}
+
+.telefono {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espacio entre texto y botón */
+}
+
+.llamar-btn {
+  background-color: #bebebe;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.llamar-btn:hover {
+  background-color: #81a383;
+}
+

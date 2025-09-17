@@ -52,17 +52,22 @@ export class ServiciosComponent implements OnInit {
     return requisito || String(index);
   }
 
-  protected obtenerRequisitos(servicio: ServicioConRequisitos): string[] {
-    const requisitos = servicio.requisitos;
-    if (Array.isArray(requisitos)) {
-      return requisitos.map((r) => r.trim()).filter((r) => !!r);
-    }
-    if (typeof requisitos === 'string') {
-      return requisitos
-        .split(/\r?\n|,/) // permite separar por saltos de línea o comas
-        .map((item) => item.trim())
-        .filter((item) => !!item);
-    }
-    return [];
+protected obtenerRequisitos(servicio: ServicioConRequisitos): string[] {
+  const requisitos = servicio.requisitos;
+
+  if (Array.isArray(requisitos)) {
+    return requisitos
+      .map((r: string) => r.trim())
+      .filter((r: string) => !!r);
   }
+
+  if (typeof requisitos === 'string') {
+    return (requisitos as string)
+      .split(/\r?\n|,/) // separar por saltos de línea o comas
+      .map((item: string) => item.trim())
+      .filter((item: string) => !!item);
+  }
+
+  return [];
+}
 }
