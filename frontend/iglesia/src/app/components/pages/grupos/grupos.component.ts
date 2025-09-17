@@ -19,6 +19,7 @@ export class GruposComponent implements OnInit {
   private suscripcionService = inject(SuscripcionGrupoService);
   grupos = signal<any[]>([]);
   selectedGrupo = signal<any | null>(null);
+  suscripciones = signal<number[]>([]);
 
   ngOnInit(): void {
     this.gruposService.listarGrupos().subscribe(res => {
@@ -30,6 +31,16 @@ export class GruposComponent implements OnInit {
         }))
       );
     });
+    
+    const user = this.authService.user();
+    if (user?.id_feligres) {
+      this.suscripcionService
+        .obtenerSuscripcionesPorFeligres(user.id_feligres)
+        .subscribe(res => {
+          const data = res.data || [];
+          this.suscripciones.set(data.map((s: any) => s.id_grupo));
+        });
+    }
   }
   
   openModal(grupo: any) {
@@ -66,6 +77,9 @@ export class GruposComponent implements OnInit {
             confirmButtonText: 'Aceptar',
             position: 'center'
           });
+                    this.suscripciones.update(current =>
+            current.includes(id_grupo) ? current : [...current, id_grupo]
+          );
           this.closeModal();
         },
         error: () => {
@@ -80,4 +94,10 @@ export class GruposComponent implements OnInit {
       });
     }
   }
-}
+  estaSuscrito(grupoId: number | null | undefined): boolean {
+    if (!grupoId) {
+      return false;
+    }
+    return this.suscripciones().includes(grupoId);
+  }
+} 

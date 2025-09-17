@@ -16,7 +16,8 @@
   <mat-card *ngFor="let evento of eventos()">
     <mat-card-title>{{ evento.descripcion }}</mat-card-title>
     <mat-card-content>
-      <p>{{ evento.fecha }} - {{ evento.hora }}</p>
+            <p>Fecha: {{ evento.fecha | date: 'dd/MM/yyyy':'UTC' }} </p>
+            <p>Hora: {{ evento.hora }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button color="warn" (click)="eliminarAsistencia(evento.asistenciaId)">Cancelar-asistencia</button>
