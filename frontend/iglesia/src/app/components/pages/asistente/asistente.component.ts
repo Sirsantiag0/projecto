@@ -6,7 +6,8 @@ import { VideoService } from '../../../services/video.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
 import { GruposService } from '../../../services/grupo.service';
 import { HojaDominicalService } from '../../../services/hoja-dominical.service';
-import { ServiciosService, Servicio } from '../../../services/servicios.service'
+import { ServiciosService, Servicio } from '../../../services/servicios.service';
+import { RequisitosService } from '../../../services/requisitos.service';
 
 @Component({
   selector: 'app-asistente',
@@ -22,6 +23,7 @@ export class AsistenteComponent implements OnInit {
   private gruposService = inject(GruposService);
   private hojaService = inject(HojaDominicalService);
   private serviciosService = inject(ServiciosService);
+  private requisitosService = inject(RequisitosService);
 
   // -------- Imágenes --------
   detalle = '';
@@ -51,6 +53,8 @@ export class AsistenteComponent implements OnInit {
     // -------- Servicios --------
   servicios: Servicio[] = [];
   servicioDescripcion = '';
+    servicioSeleccionadoId: number | null = null;
+  requisitoDescripcion = '';
 
 
   ngOnInit(): void {
@@ -272,6 +276,35 @@ export class AsistenteComponent implements OnInit {
       }
     });
   }
+
+    agregarRequisito() {
+    const servicioId = this.servicioSeleccionadoId;
+    const requisito = this.requisitoDescripcion.trim();
+
+    if (!servicioId) {
+      window.alert('Selecciona un servicio para continuar');
+      return;
+    }
+
+    if (!requisito) {
+      window.alert('El requisito es obligatorio');
+      return;
+    }
+
+    this.requisitosService.crearRequisito(servicioId, requisito).subscribe({
+      next: () => {
+        this.requisitoDescripcion = '';
+        this.servicioSeleccionadoId = null;
+        this.cargarServicios();
+        alert('Requisito guardado correctamente');
+      },
+      error: (error) => {
+        console.error('Error al guardar requisito', error);
+        window.alert('No se pudo guardar el requisito');
+      }
+    });
+  }
+
 
   trackById(index: number, item: any) {
     return item.id;

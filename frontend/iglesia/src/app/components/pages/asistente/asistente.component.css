@@ -148,3 +148,27 @@ button {
   font-size: 0.85rem;
   color: #b30000;
 }
+
+.requisito-section {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.requisito-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.requisito-form select,
+.requisito-form input {
+  padding: 8px;
+}
+
+.requisito-hint {
+  font-size: 0.85rem;
+  color: #555;
+}

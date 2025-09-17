@@ -1,5 +1,6 @@
 const db = require('../models');
 const Servicios = db.Servicios;
+const Requisitos = db.Requisitos;
 
 // Crear servicio 
 exports.crearServicio = async (req, res) => {
@@ -14,8 +15,34 @@ exports.crearServicio = async (req, res) => {
 // Listar servicios 
 exports.listarServicios = async (req, res) => {
     try {
-        const servicios = await Servicios.findAll();
-        res.status(200).json({ success: true, data: servicios });
+        const servicios = await Servicios.findAll({
+            include: [
+                {
+                    model: Requisitos,
+                    attributes: ['id', 'requisito', 'activo'],
+                    required: false,
+                },
+            ],
+            order: [
+                ['id', 'ASC'],
+                [Requisitos, 'id', 'ASC'],
+            ],
+        });
+
+        const data = servicios.map((servicio) => {
+            const { Requisitos: requisitosRelacionados = [], ...resto } = servicio.toJSON();
+            const requisitos = Array.isArray(requisitosRelacionados)
+                ? requisitosRelacionados
+                    .filter((req) => req && req.requisito && req.activo !== false)
+                    .map((req) => req.requisito)
+                : [];
+
+            return {
+                ...resto,
+                requisitos,
+            };
+        });
+        res.status(200).json({ success: true, data });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

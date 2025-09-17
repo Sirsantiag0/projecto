@@ -90,3 +90,30 @@
     </li>
   </ul>
 </div>
+
+
+<div class="requisito-section">
+  <h3>Agregar requisito a un servicio</h3>
+  <div class="requisito-form">
+    <select [(ngModel)]="servicioSeleccionadoId">
+      <option [ngValue]="null" disabled>Selecciona un servicio</option>
+      <option *ngFor="let servicio of servicios" [ngValue]="servicio.id ?? null">
+        {{ servicio.descripcion }}
+      </option>
+    </select>
+    <input
+      type="text"
+      [(ngModel)]="requisitoDescripcion"
+      placeholder="Descripción del requisito"
+    />
+    <button
+      (click)="agregarRequisito()"
+      [disabled]="!servicioSeleccionadoId || !requisitoDescripcion.trim()"
+    >
+      Guardar requisito
+    </button>
+  </div>
+  <p class="requisito-hint" *ngIf="!servicios.length">
+    Registra un servicio para poder agregar requisitos.
+  </p>
+</div>
