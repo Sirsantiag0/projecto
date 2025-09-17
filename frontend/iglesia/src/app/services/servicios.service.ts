@@ -6,6 +6,7 @@ export interface Servicio {
   id?: number;
   descripcion: string;
   activo?: boolean;
+  requisitos?: string[];
   createdAt?: string;
   updatedAt?: string;
 }

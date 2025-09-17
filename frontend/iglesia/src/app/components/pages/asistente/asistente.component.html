@@ -84,9 +84,18 @@
 <div class="lista-servicios" *ngIf="servicios.length">
   <h3>Servicios registrados</h3>
   <ul>
-    <li *ngFor="let servicio of servicios">
-      <span>{{ servicio.descripcion }}</span>
-      <span class="servicio-estado" *ngIf="servicio.activo === false">Inactivo</span>
+    <li *ngFor="let servicio of servicios" class="servicio-item">
+      <div class="servicio-info">
+        <span>{{ servicio.descripcion }}</span>
+        <span class="servicio-estado" *ngIf="servicio.activo === false">Inactivo</span>
+      </div>
+      <button
+        type="button"
+        class="servicio-eliminar"
+        (click)="eliminarServicio(servicio)"
+      >
+        Eliminar
+      </button>
     </li>
   </ul>
 </div>

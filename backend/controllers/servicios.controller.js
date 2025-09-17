@@ -96,14 +96,32 @@ exports.inactivarServicio = async (req, res) => {
 
 // Eliminar servicio 
 exports.eliminarServicio = async (req, res) => {
+    let transaction;
     try {
+         transaction = await db.sequelize.transaction();
         const { id } = req.params;
-        const deleted = await Servicios.destroy({ where: { id } });
-        if (deleted) {
-            return res.status(200).json({ success: true, message: 'Servicio eliminado' });
+
+        await Requisitos.destroy({ where: { id_servicio: id }, transaction });
+
+        const deleted = await Servicios.destroy({ where: { id }, transaction });
+        if (!deleted) {
+            await transaction.rollback();
+            return res.status(404).json({ success: false, message: 'Servicio no encontrado' });
         }
-        return res.status(404).json({ success: false, message: 'Servicio no encontrado' });
+        
+        await transaction.commit();
+        return res.status(200).json({
+            success: true,
+            message: 'Servicio y requisitos eliminados',
+        });
     } catch (error) {
+                if (transaction) {
+            try {
+                await transaction.rollback();
+            } catch (rollbackError) {
+                console.error('Error al revertir la transacción al eliminar servicio', rollbackError);
+            }
+        }
         res.status(500).json({ success: false, error: error.message });
     }
 };

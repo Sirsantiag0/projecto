@@ -277,6 +277,36 @@ export class AsistenteComponent implements OnInit {
     });
   }
 
+    eliminarServicio(servicio: Servicio) {
+    const servicioId = servicio.id;
+    if (!servicioId) {
+      return;
+    }
+
+    const confirmar = window.confirm(
+      `¿Deseas eliminar el servicio "${servicio.descripcion}"? Esta acción también eliminará todos sus requisitos.`
+    );
+
+    if (!confirmar) {
+      return;
+    }
+
+    this.serviciosService.eliminarServicio(servicioId).subscribe({
+      next: () => {
+        if (this.servicioSeleccionadoId === servicioId) {
+          this.servicioSeleccionadoId = null;
+          this.requisitoDescripcion = '';
+        }
+        this.cargarServicios();
+        alert('Servicio eliminado correctamente');
+      },
+      error: (error) => {
+        console.error('Error al eliminar servicio', error);
+        window.alert('No se pudo eliminar el servicio');
+      }
+    });
+  }
+
     agregarRequisito() {
     const servicioId = this.servicioSeleccionadoId;
     const requisito = this.requisitoDescripcion.trim();

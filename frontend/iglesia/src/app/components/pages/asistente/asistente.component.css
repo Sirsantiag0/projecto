@@ -143,6 +143,24 @@ button {
   align-items: center;
   gap: 10px;
 }
+.lista-servicios .servicio-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lista-servicios .servicio-eliminar {
+  background-color: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+.lista-servicios .servicio-eliminar:hover {
+  background-color: #c62828;
+}
+
 
 .servicio-estado {
   font-size: 0.85rem;
