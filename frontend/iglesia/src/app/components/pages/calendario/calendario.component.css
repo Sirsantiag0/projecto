@@ -1,3 +1,15 @@
+:host {
+  display: block;
+  padding: 2rem 1rem 3rem;
+  background: linear-gradient(
+    180deg,
+    #f9fafb 0%,
+    #eef2ff 70%,              /* celeste */
+    rgba(238, 242, 255, 0.5) 85%, /* celeste difuminado */
+    rgba(249, 250, 251, 0) 100%   /* blanco transparente */
+  );
+  margin-top: -20px;
+}
 .calendario {
   max-width: 900px; /* Aumentamos el ancho máximo para más espacio */
   margin: auto;

@@ -1,9 +1,15 @@
 :host {
   display: block;
   padding: 2rem 1rem 3rem;
-  background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 100%);
+  background: linear-gradient(
+    180deg,
+    #f9fafb 0%,
+    #eef2ff 70%,              /* celeste */
+    rgba(238, 242, 255, 0.5) 85%, /* celeste difuminado */
+    rgba(249, 250, 251, 0) 100%   /* blanco transparente */
+  );
+  margin-top: -20px;
 }
-
 .servicios {
   max-width: 960px;
   margin: 0 auto;
@@ -14,7 +20,7 @@
 
 .servicios__titulo {
   margin: 0;
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.5rem, 1vw, 2.25rem);
   font-weight: 700;
   text-align: center;
   color: #1f2937;

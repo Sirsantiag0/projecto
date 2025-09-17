@@ -1,4 +1,16 @@
 :host {
+  display: block;
+  padding: 2rem 1rem 3rem;
+  background: linear-gradient(
+    180deg,
+    #f9fafb 0%,
+    #eef2ff 70%,              /* celeste */
+    rgba(238, 242, 255, 0.5) 85%, /* celeste difuminado */
+    rgba(249, 250, 251, 0) 100%   /* blanco transparente */
+  );
+  margin-top: -20px;
+}
+:host {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,6 +46,9 @@
   object-fit: contain;
   border-radius: 15px;
 }
+.cell {
+  transition: transform 0.5s ease-in-out; /* suaviza la animación */
+}
 
 .cell:hover {
   transform: scale(1.03);
@@ -41,4 +56,5 @@
 
 .title {
   margin-top: -0px;
+  margin-bottom: 30px
 }

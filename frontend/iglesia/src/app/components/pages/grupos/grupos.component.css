@@ -1,3 +1,15 @@
+:host {
+  display: block;
+  padding: 2rem 1rem 3rem;
+  background: linear-gradient(
+    180deg,
+    #f9fafb 0%,
+    #eef2ff 70%,              /* celeste */
+    rgba(238, 242, 255, 0.5) 85%, /* celeste difuminado */
+    rgba(249, 250, 251, 0) 100%   /* blanco transparente */
+  );
+  margin-top: -20px;
+}
 .grupos-grid {
   display: flex;
   flex-wrap: wrap;
@@ -12,12 +24,10 @@
   border-radius: 13px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  background-color: rgba(128, 128, 128, 0.187)
+  background-color: rgba(255, 255, 255, 0.187)
 }
 
-.grupo-card img:hover {
-  transform: scale(1.02);
-}
+
 
 .grupo-card img {
   margin-top:30px;
@@ -25,8 +35,13 @@
   width: 100%;
   height: 80%;
   object-fit: cover;
+  transition: transform 0.5s ease-in-out; /* suaviza la animación */
   
 }
+.grupo-card img:hover {
+  transform: scale(1.04); /* aumenta un poco más el zoom */
+}
+
 
 .grupo-titulo {
   position: absolute;
