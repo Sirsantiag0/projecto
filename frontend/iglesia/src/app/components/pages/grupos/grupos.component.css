@@ -53,24 +53,24 @@
   border-radius: 4px;
   font-weight: 400;
   text-align: center;
-  width: 70%
+  width: 70%;
 }
 
 .conocer-btn {
   position: absolute;
-  bottom: 10px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(145deg, #4a6fa5, #3f5b87); /* gradiente sutil */
-  color: #fff;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  color: #000000;
   border: none;
-  padding: 7px 20px;
+  padding: 3px 20px;
   border-radius: 25px;
   cursor: pointer;
   letter-spacing: .05em;
   font-weight: 500;
-  font-size: 14px;
-  text-transform: uppercase;
+  font-size: 16px;
+  
 
   /* sombra elegante */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25),
@@ -81,7 +81,7 @@
 }
 
 .conocer-btn:hover {
-  background: linear-gradient(145deg, #3d5e8a, #324b70); /* gradiente más oscuro */
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35),
               0 0 10px rgba(74, 111, 165, 0.6); /* brillo */
   transform: translateX(-50%) scale(1.05); /* efecto zoom suave */
@@ -149,17 +149,39 @@ h2 {
 .modal-title {
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 1rem 100%;
   text-align: center;
+  margin-top: -16px;
+  font-size: 19px
 }
 
 .modal-description {
   background: rgba(255, 255, 255, 0.85);
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  margin-right: 30px;
   text-align: center;
+  
 }
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff; /* blanco, cambia según tu diseño */
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  color: #ff6b6b; /* rojo al pasar el mouse */
+}
+
 
 .ingresar-btn {
   display: block;

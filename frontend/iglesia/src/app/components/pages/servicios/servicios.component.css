@@ -129,6 +129,20 @@
   line-height: 1.45;
 }
 
+.llamar-btn {
+  background-color: #4caf4fbb;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.llamar-btn:hover {
+  background-color: #45a049bb;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

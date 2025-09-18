@@ -1,11 +1,15 @@
 /* Estilos generales */
 :host {
-    --primary-color: #4a6fa5;
-    --accent-color: #ff6b6b;
-    display: block;
-    background-color: #fff;
-    color: #333;
-    font-family: 'Arial', sans-serif;
+  display: block;
+  padding: 2rem 0 3rem;
+  background: linear-gradient(
+    180deg,
+    #f9fafb 0%,
+    #eef2ff 70%,              /* celeste */
+    rgba(238, 242, 255, 0.5) 85%, /* celeste difuminado */
+    rgba(249, 250, 251, 0) 100%   /* blanco transparente */
+  );
+  margin-top: -20px;
 }
 
 *, *::before, *::after {
@@ -13,13 +17,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* Sección 1: Carrousel */
 .carrousel {
     width: 100%;
     height: 70vh;
     overflow: hidden;
     position: relative;
-    margin-top: -26px /* Ajustar según la altura de tu navbar */
+    margin-top: -32px /* Ajustar según la altura de tu navbar */
 }
 
 .carrousel-inner {
@@ -66,62 +71,28 @@
 
 /* Sección 3: Descripción */
 .description {
-    padding: 60px 15%;
-    text-align: center;
-    background-color: white;
-    line-height: 1.6;
-    font-size: 18px;
-    color: #555;
+  padding: 60px 15%;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 18px;
+  color: #555;
+
+  /* 🌥 Degradado vertical que se mezcla con el fondo */
+  background: linear-gradient(
+    to bottom,
+    rgba(249, 250, 251, 0) 0%,      /* transparente al inicio */
+    rgba(255, 255, 255, 0.95) 20%,  /* blanco fuerte en medio */
+    rgba(255, 255, 255, 0.95) 80%,  /* blanco fuerte en medio */
+    rgba(249, 250, 251, 0) 100%     /* transparente al final */
+  );
+
+  /* 🔹 quitamos bordes y sombras que marcan línea */
+  border-radius: 0;
+  box-shadow: none;
 }
 
-/* Sección 4: Galería */
-.gallery {
-    padding: 40px 5%;
-    background: linear-gradient(135deg, #f3f9ff 0%, #f8f0ff 100%);
-}
-
-.gallery-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-
-.gallery-item {
-    position: relative;
-    aspect-ratio: 1/1;
-    background-color: #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.gallery-text {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    text-align: center;
-    width: 80%;
-    border-radius: 5px;
-}
-
-.gallery-btn {
-    position: absolute;
-    bottom: 20px;
-    padding: 8px 20px;
-    background-color: #4a6fa5;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-}
 /* ====== EVENTOS DESTACADOS (aislado con prefijo .fe-) ====== */
 .featured-events{
-  background:#ffffff; /* fondo blanco para toda la sección */
   padding: 60px 5%;
 }
 
