@@ -32,24 +32,36 @@
 
 .papaleon {
   display: flex;
-  flex-direction: column;   /* Cards arriba y botones abajo */
-  align-items: center;      /* Centrar horizontal */
-  gap: 2rem;                /* Espacio entre cards y botones */
+  flex-direction: column;   
+  align-items: center;      
+  gap: 2rem;
 
   width: 100%;
-  max-width: 900px;         /* límite de ancho */
-  margin: 0 auto;           /* centrado */
-  padding: 2rem 1rem;       /* menos padding en móviles */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.8), 
-      rgba(255, 255, 255, 0.8)
-    ),
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
     url('/images/papaleon1.PNG');
   background-size: cover;
   background-position: center;
   border-radius: 12px;
+
+  /* 🔹 Difuminado en los 4 lados */
+  -webkit-mask-image: 
+    linear-gradient(to top,    transparent, black 10%, black 90%, transparent), /* arriba/abajo */
+    linear-gradient(to left,   transparent, black 10%, black 90%, transparent); /* izquierda/derecha */
+  -webkit-mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-image: 
+    linear-gradient(to top,    transparent, black 10%, black 90%, transparent),
+    linear-gradient(to left,   transparent, black 10%, black 90%, transparent);
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
 }
+
 
 /* 📱 Tablets */
 @media (max-width: 992px) {
@@ -118,7 +130,7 @@ background: linear-gradient(
 
   background-size: cover;
   background-position: center;
-  border: 1px solid #ddd;
+  border: 1px solid #cfcece;
   border-radius: 10px;
   padding: 1.5rem;
   width: 290px;
