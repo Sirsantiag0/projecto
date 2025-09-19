@@ -15,6 +15,7 @@
   padding: 2rem 1rem;
   margin-top: -55px;
   margin-bottom: 100px
+  
 }
 
 .donar h2 {
@@ -27,19 +28,94 @@
   font-style: italic;
 }
 
+
+
+.papaleon {
+  display: flex;
+  flex-direction: column;   /* Cards arriba y botones abajo */
+  align-items: center;      /* Centrar horizontal */
+  gap: 2rem;                /* Espacio entre cards y botones */
+
+  width: 100%;
+  max-width: 900px;         /* límite de ancho */
+  margin: 0 auto;           /* centrado */
+  padding: 2rem 1rem;       /* menos padding en móviles */
+
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.8), 
+      rgba(255, 255, 255, 0.8)
+    ),
+    url('/images/papaleon1.PNG');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+}
+
+/* 📱 Tablets */
+@media (max-width: 992px) {
+  .papaleon {
+    max-width: 95%;   /* ocupa casi todo el ancho */
+    padding: 1.5rem;
+  }
+}
+
+/* 📱 Celulares */
+@media (max-width: 600px) {
+  :host {
+    padding: 1rem 0 2rem; /* eliminamos padding lateral */
+  }
+
+  .papaleon {
+    width: 90%;
+    max-width: 90%;   /* ocupa todo */
+    margin: 0 auto;
+    padding: 1rem;     /* padding uniforme */
+    gap: 1.5rem;
+    border-radius: 0;  /* esquinas cuadradas */
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+    width: 100%;
+  }
+
+  .btn-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+    padding: 0 1rem;  /* espacio interno uniforme */
+  }
+
+  .donar-btn {
+    width: 60%;
+    max-width: 300px; /* límite para no estirarse demasiado */
+    margin: 0 auto;   /* se centra cada botón */
+  }
+}
+
+
+
 .cards {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: center; /* centra las tarjetas */
+  width: 100%;
 }
 
+
 .card {
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.8),   /* capa blanca translúcida */
-      rgba(255, 255, 255, 0.8)
-    ),
-    url('/images/papaleon1.PNG');     /* ruta a tu imagen */
+background: linear-gradient(
+  180deg,
+  rgba(249, 250, 251, 0.6) 0%,   /* blanco con 60% opacidad */
+  rgba(238, 242, 255, 0.4) 70%,  /* celeste con 40% opacidad */
+  rgba(238, 242, 255, 0.25) 85%, /* celeste difuminado con 25% */
+  rgba(249, 250, 251, 0) 100%    /* totalmente transparente */
+);
+
   background-size: cover;
   background-position: center;
   border: 1px solid #ddd;
@@ -100,24 +176,6 @@
   transform: scale(0.96);
 }
 
-.donar-btn {
-  display: block;
-  margin: 4px auto 0;
-  width: 50%;
-  font-size: 14px;
-  padding: 2px 4px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  text-decoration: none;
-    box-shadow:
-    0 4px 0 #2E7D32,
-    0 5px 5px rgba(0,0,0,0.1);
-  position: relative;
-  transition: all 0.1s ease;
-}
 
 .donar-btn:hover {
   background-color: #45a049;
@@ -133,19 +191,22 @@
 
 .btn-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 botones por fila */
-  gap: 10px; /* espacio entre botones */
-  margin-top: 10px;
+  grid-template-columns: repeat(2, auto); 
+  gap: 12px;
+  justify-content: center;   /* centra los botones */
+  margin-top: 5px;
+  width: 100%;
 }
+
 
 .donar-btn {
   display: flex;               /* Flex para alinear logo y texto */
   align-items: center;         /* Centrar verticalmente */
-  justify-content: center;     /* Centrar logo+texto en el botón */
-  gap: 6px;                    /* espacio entre logo y texto */
-  width: 75%;
-  font-size: 14px;
-  padding: 6px 10px;
+  justify-content: center;     /* Centrar logo+texto */
+  gap: 8px;                    /* espacio entre logo y texto */
+  min-width: 160px;            /* ancho mínimo */
+  font-size: 15px;
+  padding: 5px 5px;
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -153,15 +214,16 @@
   cursor: pointer;
   text-decoration: none;
   box-shadow: 0 4px 0 #2E7D32, 0 5px 5px rgba(0,0,0,0.1);
-  transition: all 0.1s ease;
+  transition: all 0.2s ease;
 }
 
 .bank-logo {
-  width: 15px;   /* tamaño pequeño */
-  height: 15px;
-  object-fit: contain; /* mantiene proporciones */
-  border-radius: 5px
+  width: 20px;   /* un poco más grande */
+  height: 20px;
+  object-fit: contain;
+  border-radius: 5px;
 }
+
 
 .donar-btn:hover {
   background-color: #45a049;
