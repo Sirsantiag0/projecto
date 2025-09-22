@@ -17,6 +17,12 @@
   margin-bottom: 100px
   
 }
+.label1{
+  color: #37527b;
+  font-size: 15px;
+  margin-top: -10px;
+  border: dotted 1px rgba(135, 207, 235, 0.5)
+}
 
 .donar h2 {
   margin-bottom: 0.5rem;

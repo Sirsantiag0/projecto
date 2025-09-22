@@ -11,12 +11,14 @@ import { CommonModule } from '@angular/common';
 export class DonarComponent {
   cuentas = [
     {
+      nombre: 'Ofrenda de la parroquia ⛪',
       numero: '147749-8',
       banco: 'Pacífico',
       ruc: '0992214694001',
       link: 'https://www.bancodelpacifico.com'
     },
     {
+      nombre: 'Pastoral Social Cáritas 💗',
       numero: '3458912004',
       banco: 'Pichincha',
       ruc: '0992214694001',
