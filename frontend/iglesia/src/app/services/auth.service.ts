@@ -6,7 +6,8 @@ export interface User {
   id: number;
   correo: string;
   id_rol: number | null;
-  rol: string | null;
+    role: string | null;
+  rol?: string | null; // Compatibilidad temporal con respuestas antiguas
   id_feligres: number | null;
   nombres?: string | null;
   apellidos?: string | null;

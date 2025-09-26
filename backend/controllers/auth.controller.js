@@ -28,6 +28,7 @@ exports.login = async (req, res) => {
     // Extraemos id_rol y descripción del rol
     const rolDescripcion = usuario.Roles ? usuario.Roles.descripcion : null;
     const idRol = usuario.id_rol ? usuario.id_rol : null;
+    const role = rolDescripcion; // Normalizamos el nombre de la propiedad del rol
     const feligresData = usuario.Feligre || usuario.Feligres;
     const nombres = feligresData ? feligresData.nombres : null;
     const apellidos = feligresData ? feligresData.apellidos : null;
@@ -36,8 +37,9 @@ exports.login = async (req, res) => {
       {
         id: usuario.id,
         correo: usuario.correo,
-        id_rol: idRol,        // 🔑 ID del rol
-        rol: rolDescripcion,   // 🔑 Descripción del rol
+               id_rol: idRol, // 🔑 ID del rol
+        role,          // 🔑 Descripción del rol (nombre estándar)
+        rol: role,     // 🔄 Compatibilidad con la propiedad anterior
         id_feligres: usuario.id_feligres,
         nombres,
         apellidos
@@ -52,7 +54,8 @@ exports.login = async (req, res) => {
         id: usuario.id,
         correo: usuario.correo,
         id_rol: idRol,
-        rol: rolDescripcion,   // 🔑 Descripción del rol
+                role,
+        rol: role,
         id_feligres: usuario.id_feligres,
         nombres,
         apellidos
