@@ -7,13 +7,29 @@ const cors = require("cors");
 const path = require("path");
 
 
-app.use(
-  cors({
-    //  Habilitar CORS
-    origin: "http://localhost:4200",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+const corsOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter((origin) => origin.length > 0);
+
+const corsOriginSetting = corsOrigins.length === 0
+  ? "http://localhost:4200"
+  : corsOrigins.includes("*")
+    ? "*"
+    : corsOrigins.length === 1
+      ? corsOrigins[0]
+      : corsOrigins;
+
+const corsOptions = {
+  origin: corsOriginSetting,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
+
+if (String(process.env.CORS_CREDENTIALS).toLowerCase() === "true") {
+  corsOptions.credentials = true;
+}
+
+app.use(cors(corsOptions));
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -54,7 +70,9 @@ app.use("/api/login", require("./routes/authRoutes"));
 // Después de inicializar express
 
 // Iniciar el servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || "0.0.0.0";
+
+app.listen(PORT, HOST, () => {
+  console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
 });

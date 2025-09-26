@@ -1,12 +1,14 @@
 const Sequelize = require('sequelize');
-const config = require('../database/database'); 
+const dbConfig = require('../database/database');
 
-const sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-)
+const sequelize = dbConfig.connectionUri
+    ? new Sequelize(dbConfig.connectionUri, dbConfig.options)
+    : new Sequelize(
+        dbConfig.database,
+        dbConfig.username,
+        dbConfig.password,
+        dbConfig.options
+    );
 // import models
 const Archivos_evento = require('./archivos_evento')(sequelize, Sequelize.DataTypes);
 const Archivos_grupo = require('./archivos_grupo')(sequelize, Sequelize.DataTypes);

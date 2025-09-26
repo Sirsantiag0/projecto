@@ -1,15 +1,19 @@
-// backend/database/database.js
+const env = process.env.NODE_ENV || 'development';
+const environmentConfig = require('../config/config.js')[env];
+
+if (!environmentConfig) {
+  throw new Error(`No database configuration found for environment: ${env}`);
+}
+
+const connectionUri = environmentConfig.use_env_variable
+  ? process.env[environmentConfig.use_env_variable]
+  : null;
+
+const { database, username, password, use_env_variable, ...options } = environmentConfig;
 module.exports = {
-  username: 'admin',
-  password: 'admin',
-  database: 'iglesia',
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
+  database,
+  username,
+  password,
+  options,
+  connectionUri,
 };

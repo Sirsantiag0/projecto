@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: proyecto-backend
+    env: node
+    rootDir: backend
+    plan: free
+    buildCommand: |
+      npm install
+      npx sequelize-cli db:migrate --env production --config config/config.js
+    startCommand: node app.js
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 18
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_SSL
+        value: "true"
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: CORS_ORIGIN
+        value: "https://sma.org,http://localhost:4200"
+        # value: https://your-frontend.onrender.com
