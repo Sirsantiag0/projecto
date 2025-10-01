@@ -66,7 +66,8 @@ app.use("/api/suscripcion-grupo", require("./routes/suscripcion_grupoRoutes"));
 app.use("/api/usuario", require("./routes/usuarioRoutes"));
 app.use("/api/archivos-evento", require("./routes/archivos_eventoRoutes"));
 app.use("/api/archivos-grupo", require("./routes/archivos_grupoRoutes"));
-app.use("/api/login", require("./routes/authRoutes")); 
+app.use("/api/videos", require("./routes/videoRoutes"));
+app.use("/api/login", require("./routes/authRoutes"));
 // Después de inicializar express
 
 // Iniciar el servidor

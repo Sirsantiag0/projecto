@@ -16,6 +16,41 @@ exports.crearVideo = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+// Reemplazar el listado completo de videos
+exports.guardarVideosMasivo = async (req, res) => {
+  const { enlaces } = req.body;
+
+  if (!Array.isArray(enlaces)) {
+    return res.status(400).json({ success: false, message: 'Debe enviar un arreglo de enlaces' });
+  }
+
+  const cleanedLinks = enlaces
+    .filter((enlace) => typeof enlace === 'string')
+    .map((enlace) => enlace.trim())
+    .filter((enlace) => enlace.length > 0);
+
+  const transaction = await db.sequelize.transaction();
+
+  try {
+    await Video.destroy({ where: {}, transaction });
+
+    for (const enlace of cleanedLinks) {
+      await Video.create({ enlace }, { transaction });
+    }
+
+    await transaction.commit();
+
+    const videos = await Video.findAll({
+      order: [['createdAt', 'ASC']]
+    });
+
+    return res.status(200).json({ success: true, data: videos });
+  } catch (error) {
+    await transaction.rollback();
+    return res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 
 // Listar todos los videos
 exports.listarVideos = async (_req, res) => {

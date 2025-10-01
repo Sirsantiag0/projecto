@@ -5,12 +5,14 @@ const videoController = require("../controllers/video.controller");
 // Rutas principales CRUD
 router.get("/", videoController.listarVideos);
 router.post("/", videoController.crearVideo);
-router.get("/:id", videoController.obtenerVideo);
-router.put("/:id", videoController.actualizarVideo);
-router.delete("/:id", videoController.eliminarVideo);
+router.post("/bulk", videoController.guardarVideosMasivo);
 
 // Rutas especializadas
-router.patch("/:id/inactivar", videoController.inactivarVideo);
+
 router.get("/buscar/enlaces", videoController.buscarVideos);
+router.get("/:id", videoController.obtenerVideo);
+router.put("/:id", videoController.actualizarVideo);
+router.patch("/:id/inactivar", videoController.inactivarVideo);
+router.delete("/:id", videoController.eliminarVideo);
 
 module.exports = router;

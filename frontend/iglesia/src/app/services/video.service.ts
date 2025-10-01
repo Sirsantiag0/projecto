@@ -1,15 +1,32 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { map, Observable } from 'rxjs';
+
+interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+}
 
 @Injectable({ providedIn: 'root' })
 export class VideoService {
-  private storageKey = 'videoUrls';
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000/api/videos';
 
-  getVideos(): string[] {
-    const data = localStorage.getItem(this.storageKey);
-    return data ? JSON.parse(data) : ['', '', '', ''];
+  getVideos(): Observable<string[]> {
+    return this.http.get<ApiResponse<Array<{ enlace: string }>>>(this.apiUrl).pipe(
+      map((response) =>
+        (response.data ?? []).map((video) => video.enlace).filter((enlace) => !!enlace)
+      )
+    );
   }
 
-  setVideos(urls: string[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(urls));
+  saveVideos(urls: string[]): Observable<string[]> {
+    return this.http
+      .post<ApiResponse<Array<{ enlace: string }>>>(`${this.apiUrl}/bulk`, { enlaces: urls })
+      .pipe(
+        map((response) =>
+          (response.data ?? []).map((video) => video.enlace).filter((enlace) => !!enlace)
+        )
+      );
   }
 }

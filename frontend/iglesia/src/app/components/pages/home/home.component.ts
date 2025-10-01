@@ -49,10 +49,19 @@ export class HomeComponent implements OnInit {
         );
       }, 5000);
     });
-    this.videoUrls = this.videoService
+    this.videoService
       .getVideos()
-      .filter((v) => v)
-      .map((v) => this.sanitizer.bypassSecurityTrustResourceUrl(v));
+      .subscribe({
+        next: (videos) => {
+          this.videoUrls = videos
+            .filter((v) => !!v)
+            .map((v) => this.sanitizer.bypassSecurityTrustResourceUrl(v));
+        },
+        error: (error) => {
+          console.error('Error al cargar videos', error);
+          this.videoUrls = [];
+        }
+      });
     this.eventosService.listarEventos().subscribe(res => {
       const data = res.data || [];
       this.eventos.set(data);

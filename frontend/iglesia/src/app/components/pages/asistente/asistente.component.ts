@@ -59,7 +59,7 @@ export class AsistenteComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarImagenes();
-    this.videoUrls = this.videoService.getVideos();
+    this.cargarVideos();
     this.cargarEventos();
     this.cargarGrupos();
     this.cargarServicios();
@@ -110,10 +110,32 @@ export class AsistenteComponent implements OnInit {
 
   // ---------------- Videos ----------------
   guardarVideos() {
-    const embeds = this.videoUrls.map((url) => this.toEmbed(url));
-    this.videoService.setVideos(embeds);
-    this.videoUrls = embeds;
-    alert('Videos guardados correctamente');
+    const embeds = this.videoUrls
+      .map((url) => (url ? this.toEmbed(url) : ''))
+      .filter((url) => url.length > 0);
+
+    this.videoService.saveVideos(embeds).subscribe({
+      next: (saved) => {
+        this.videoUrls = this.fillVideoSlots(saved);
+        alert('Videos guardados correctamente');
+      },
+      error: (error) => {
+        console.error('Error al guardar videos', error);
+        alert('No se pudieron guardar los videos');
+      }
+    });
+  }
+
+  private cargarVideos() {
+    this.videoService.getVideos().subscribe({
+      next: (urls) => {
+        this.videoUrls = this.fillVideoSlots(urls);
+      },
+      error: (error) => {
+        console.error('Error al cargar videos', error);
+        this.videoUrls = this.fillVideoSlots([]);
+      }
+    });
   }
 
 
@@ -347,5 +369,13 @@ export class AsistenteComponent implements OnInit {
     const match = url.match(/(?:youtu\.be\/|v=|\/embed\/)([A-Za-z0-9_-]{11})/);
     const id = match ? match[1] : url;
     return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1`;
+  }
+
+  private fillVideoSlots(urls: string[]): string[] {
+    const filled = [...urls];
+    while (filled.length < 4) {
+      filled.push('');
+    }
+    return filled.slice(0, 4);
   }
 }
