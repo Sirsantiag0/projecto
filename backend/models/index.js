@@ -28,6 +28,8 @@ const Suscripcion_curso = require('./suscripcion_curso')(sequelize, Sequelize.Da
 const Suscripcion_grupo = require('./suscripcion_grupo')(sequelize, Sequelize.DataTypes);
 const Tipo = require('./tipo')(sequelize, Sequelize.DataTypes);
 const Requisitos = require('./requisitos')(sequelize, Sequelize.DataTypes);
+const Video = require('./video')(sequelize, Sequelize.DataTypes);
+
 
 // Definir relaciones
 // Empresa 
@@ -127,5 +129,6 @@ module.exports = {
     Suscripcion_grupo,
     Tipo,
     Roles,
-    Usuario
+    Usuario,
+    Video
 };
