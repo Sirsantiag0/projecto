@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Evento {
   id?: number;
@@ -14,9 +15,8 @@ export interface Evento {
 })
 // Servicio para CRUD de eventos de asistencia
 export class AsistenciaEventoService {
-  private apiUrl = 'http://localhost:3000/api/eventos'; // Asegúrate de usar la URL correcta
-  private asistenciaUrl = 'http://localhost:3000/api/asistencia-evento';
-
+  private apiUrl = new URL('api/eventos', environment.apiBaseUrl).toString(); // Asegúrate de usar la URL correcta
+  private asistenciaUrl = new URL('api/asistencia-evento', environment.apiBaseUrl).toString();
   constructor(private http: HttpClient) {}
 
   // Crear un nuevo evento

@@ -7,6 +7,7 @@ import { AsistenciaEventoService } from '../../../services/asistencia-evento.ser
 import { AuthService } from '../../../services/auth.service';
 import { SuscripcionGrupoService } from '../../../services/suscripcion-grupo.service';
 import { GruposService } from '../../../services/grupo.service';
+import { environment } from '../../../../environments/environment';
 
 // ---------------- Interfaces ----------------
 interface Asistencia {
@@ -54,6 +55,7 @@ export class FeligresComponent implements OnInit {
   public authService = inject(AuthService);
   private suscripcionGrupoService = inject(SuscripcionGrupoService);
   private gruposService = inject(GruposService);
+  protected readonly apiBaseUrl = environment.apiBaseUrl;
 
   eventos = signal<Evento[]>([]);
   grupos = signal<GrupoSuscrito[]>([]);

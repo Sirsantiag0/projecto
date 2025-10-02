@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HojaDominicalService {
-  private apiUrl = 'http://localhost:3000/api/hoja-dominical';
+ private apiUrl = new URL('api/hoja-dominical', environment.apiBaseUrl).toString();
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +24,6 @@ export class HojaDominicalService {
   }
 
   getArchivoUrl(nombreArchivo: string): string {
-    return `http://localhost:3000/uploads/hojas_dominical/${nombreArchivo}`;
+    return new URL(`uploads/hojas_dominical/${nombreArchivo}`, environment.apiBaseUrl).toString();
   }
 }

@@ -8,6 +8,7 @@ import { GruposService } from '../../../services/grupo.service';
 import { HojaDominicalService } from '../../../services/hoja-dominical.service';
 import { ServiciosService, Servicio } from '../../../services/servicios.service';
 import { RequisitosService } from '../../../services/requisitos.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-asistente',
@@ -24,6 +25,7 @@ export class AsistenteComponent implements OnInit {
   private hojaService = inject(HojaDominicalService);
   private serviciosService = inject(ServiciosService);
   private requisitosService = inject(RequisitosService);
+  protected readonly apiBaseUrl = environment.apiBaseUrl;
 
   // -------- Imágenes --------
   detalle = '';

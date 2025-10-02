@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ArchivosEventoService } from '../../../services/archivos-evento.service';
 import { VideoService } from '../../../services/video.service';
 import { AsistenciaEventoService, Evento } from '../../../services/asistencia-evento.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,9 @@ export class HomeComponent implements OnInit {
       this.archivosService.listarImagenes().subscribe(res => {
       const data = res.data || [];
       this.imagenes.set(
-        data.map((img: any) => `http://localhost:3000/uploads/${img.ruta_archivos}`)
+        data.map((img: any) =>
+          new URL(`uploads/${img.ruta_archivos}`, environment.apiBaseUrl).toString()
+        )
       );
       setInterval(() => {
         this.currentIndex.update(i =>

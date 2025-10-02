@@ -4,6 +4,7 @@ import { GruposService } from '../../../services/grupo.service';
 import { AuthService } from '../../../services/auth.service';
 import { SuscripcionGrupoService } from '../../../services/suscripcion-grupo.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-grupos',
@@ -20,6 +21,7 @@ export class GruposComponent implements OnInit {
   grupos = signal<any[]>([]);
   selectedGrupo = signal<any | null>(null);
   suscripciones = signal<number[]>([]);
+  protected readonly apiBaseUrl = environment.apiBaseUrl;
 
   ngOnInit(): void {
     this.gruposService.listarGrupos().subscribe(res => {

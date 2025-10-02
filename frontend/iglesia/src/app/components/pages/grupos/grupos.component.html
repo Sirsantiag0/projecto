@@ -1,7 +1,7 @@
 <h2>Nuestros grupos</h2>
 <div class="grupos-grid" *ngIf="grupos().length; else noGrupos">
   <div class="grupo-card" *ngFor="let g of grupos()">
-    <img *ngIf="g.imagen" [src]="'http://localhost:3000/uploads/grupos/' + g.imagen" [alt]="g.titulo" />
+<img *ngIf="g.imagen" [src]="apiBaseUrl + '/uploads/grupos/' + g.imagen" [alt]="g.titulo" />
     <div class="grupo-titulo"> <strong>{{ g.titulo }}</strong> </div>
     <button class="conocer-btn" (click)="openModal(g)">Conocer</button>
   </div>
@@ -13,7 +13,7 @@
 <div class="modal" *ngIf="selectedGrupo()" (click)="closeModal()">
   <div class="modal-box" (click)="$event.stopPropagation()">
     <button class="modal-close" (click)="closeModal()">x</button>
-    <img *ngIf="selectedGrupo()?.imagen" [src]="'http://localhost:3000/uploads/grupos/' + selectedGrupo()?.imagen" [alt]="selectedGrupo()?.titulo" />
+    <img *ngIf="selectedGrupo()?.imagen" [src]="apiBaseUrl + '/uploads/grupos/' + selectedGrupo()?.imagen" [alt]="selectedGrupo()?.titulo" />
     <div class="modal-overlay">
       <div class="modal-title">{{ selectedGrupo()?.titulo }}</div>
       <div class="modal-description">{{ selectedGrupo()?.descripcion }}</div>

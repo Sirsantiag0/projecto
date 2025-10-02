@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Requisito {
   id?: number;
@@ -15,7 +16,7 @@ export interface Requisito {
   providedIn: 'root',
 })
 export class RequisitosService {
-  private readonly apiUrl = 'http://localhost:3000/api/requisitos';
+  private readonly apiUrl = new URL('api/requisitos', environment.apiBaseUrl).toString();
 
   constructor(private http: HttpClient) {}
 
