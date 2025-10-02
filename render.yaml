@@ -6,7 +6,7 @@ services:
     plan: free
     buildCommand: |
       npm install
-      npx sequelize-cli db:migrate --env production --config config/config.js
+      node migrate.js
     startCommand: node app.js
     autoDeploy: true
     healthCheckPath: /
