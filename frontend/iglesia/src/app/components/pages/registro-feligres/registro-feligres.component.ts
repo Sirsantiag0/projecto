@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeligresService } from '../../../services/feligres.service';
+import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { HomeComponent } from '../home/home.component';
 
@@ -50,10 +51,12 @@ export class RegistroFeligresComponent implements AfterViewInit {
     const birthDate = new Date(fecha_nacimiento);
     const edad = new Date().getFullYear() - birthDate.getFullYear();
     this.loading = true;
-   
-    this.feligresService.crearFeligres({ ...feligres, fecha_nacimiento: birthDate, edad }).subscribe({
+
+    this.feligresService
+      .crearFeligres({ ...feligres, fecha_nacimiento: birthDate, edad })
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe({
       next: () => {
-        this.loading = false;
         Swal.fire({
           title: 'Registro exitoso',
           icon: 'success',
@@ -64,10 +67,17 @@ export class RegistroFeligresComponent implements AfterViewInit {
         });
         this.form.reset();
       },
-        error: err => {
-        this.loading = false;
+      error: err => {
         console.error('Error al registrar feligrés', err);
-        }
+        const message = err?.error?.error || 'Ocurrió un problema al registrar. Inténtalo nuevamente más tarde.';
+        Swal.fire({
+          title: 'No se pudo completar el registro',
+          text: message,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          position: 'center'
+        });
+      }
     });
   }
 
