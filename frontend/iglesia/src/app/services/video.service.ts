@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
+
 import { map, Observable } from 'rxjs';
 
 interface ApiResponse<T> {
@@ -10,8 +11,8 @@ interface ApiResponse<T> {
 
 @Injectable({ providedIn: 'root' })
 export class VideoService {
-  private http = inject(HttpClient);
-  private apiUrl = new URL('api/videos', environment.apiBaseUrl).toString();
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = new URL('api/videos', environment.apiBaseUrl).toString();
 
   getVideos(): Observable<string[]> {
     return this.http.get<ApiResponse<Array<{ enlace: string }>>>(this.apiUrl).pipe(

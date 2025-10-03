@@ -1,13 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+
 import { tap } from 'rxjs/operators';
 
 export interface User {
   id: number;
   correo: string;
   id_rol: number | null;
-    role: string | null;
+  role: string | null;  
   rol?: string | null; // Compatibilidad temporal con respuestas antiguas
   id_feligres: number | null;
   nombres?: string | null;
@@ -21,10 +22,10 @@ interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = new URL('api/login', environment.apiBaseUrl).toString();
+  private readonly apiUrl = new URL('api/login', environment.apiBaseUrl).toString();
   readonly user = signal<User | null>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.user.set(JSON.parse(storedUser));
@@ -33,14 +34,15 @@ export class AuthService {
 
   login(correo: string, password: string) {
     return this.http.post<LoginResponse>(this.apiUrl, { correo, password }).pipe(
-        tap(res => {
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('user', JSON.stringify(res.user));
-          this.user.set(res.user);
-        })
-      );
-    }
-    logout() {
+      tap((res) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.user.set(res.user);
+      })
+    );
+  }
+
+  logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.user.set(null);

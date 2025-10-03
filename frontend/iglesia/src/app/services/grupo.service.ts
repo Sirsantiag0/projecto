@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GruposService {
-private gruposUrl = new URL('api/grupos', environment.apiBaseUrl).toString();
+private readonly gruposUrl = new URL('api/grupos', environment.apiBaseUrl).toString();  
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   listarGrupos(): Observable<any> {
     return this.http.get<any>(this.gruposUrl);
@@ -32,8 +33,12 @@ private gruposUrl = new URL('api/grupos', environment.apiBaseUrl).toString();
     return this.http.get<any>(`${this.gruposUrl}/grupo/${grupoId}`);
   }
 
-  
-  actualizarGrupo(id: number, titulo: string, descripcion: string, archivo?: File): Observable<any> {
+  actualizarGrupo(
+    id: number,
+    titulo: string,
+    descripcion: string,
+    archivo?: File
+  ): Observable<any> {
     if (archivo) {
       const formData = new FormData();
       formData.append('titulo', titulo);

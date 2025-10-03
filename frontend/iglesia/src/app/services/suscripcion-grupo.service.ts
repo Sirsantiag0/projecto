@@ -7,14 +7,15 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class SuscripcionGrupoService {
- private apiUrl = new URL('api/suscripcion-grupo', environment.apiBaseUrl).toString();
+ private readonly apiUrl = new URL('api/suscripcion-grupo', environment.apiBaseUrl).toString();
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   suscribir(id_feligres: number, id_grupo: number): Observable<any> {
     return this.http.post<any>(this.apiUrl, { id_feligres, id_grupo });
   }
-    obtenerSuscripcionesPorFeligres(id_feligres: number): Observable<any> {
+   
+  obtenerSuscripcionesPorFeligres(id_feligres: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/feligres/${id_feligres}`);
   }
     eliminarSuscripcion(id: number): Observable<any> {

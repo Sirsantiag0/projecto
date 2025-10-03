@@ -1,6 +1,9 @@
 {
   "name": "iglesia",
   "version": "0.0.0",
+  "engines": {
+    "node":""
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
