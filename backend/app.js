@@ -5,31 +5,25 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./docs/swagger");
 const cors = require("cors");
 const path = require("path");
-const defaultCorsOrigins = [
-  "http://localhost:4200",
-  "https://proyecto-frontend-qxik.onrender.com",
-];
 
 
 
-const configuredCorsOrigins = (process.env.CORS_ORIGIN || "")
+const corsOrigins = (process.env.CORS_ORIGIN || "")
   .split(",")
   .map((origin) => origin.trim())
   .filter((origin) => origin.length > 0);
 
-const corsOrigins = configuredCorsOrigins.length > 0
-  ? Array.from(new Set(configuredCorsOrigins))
-  : defaultCorsOrigins;
-
-const corsOriginSetting = corsOrigins.includes("*")
-  ? "*"
-  : corsOrigins.length === 1
-    ? corsOrigins[0]
-    : corsOrigins;
+const corsOriginSetting = corsOrigins.length === 0
+  ? "http://localhost:4200"
+  : corsOrigins.includes("*")
+    ? "*"
+    : corsOrigins.length === 1
+      ? corsOrigins[0]
+      : corsOrigins;
 
 const corsOptions = {
   origin: corsOriginSetting,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
 if (String(process.env.CORS_CREDENTIALS).toLowerCase() === "true") {
