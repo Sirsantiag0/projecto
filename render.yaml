@@ -37,7 +37,7 @@ services:
     buildCommand: |
       npm install
       npm run build -- --configuration production
-    publishPath: dist/iglesia
+    publishPath: dist/iglesia/browser
     routes:
       - type: rewrite
         source: /*
