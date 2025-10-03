@@ -30,5 +30,5 @@ services:
       - key: DB_PASSWORD
         sync: false
       - key: CORS_ORIGIN
-        value: "https://smaguayaquil.com,http://localhost:4200,https://proyecto-frontend-qxik.onrender.com/"
+        value: "https://smaguayaquil.com,http://localhost:4200,https://proyecto-frontend-qxik.onrender.com"
         # value: https://your-frontend.onrender.com
