@@ -33,14 +33,14 @@ services:
         value: "https://smaguayaquil.com,https://www.smaguayaquil.com,http://localhost:4200,https://proyecto-frontend-qxik.onrender.com"
         # value: https://your-frontend.onrender.com
           -tipo:estático  
-    name:proyecto-frontend 
-    rootDir:interfaz/iglesia 
-    comando de compilación:|
- 
-      instalación de npm
-      npm ejecuta build -- --configuración producción
-    staticPublishPath:dist/iglesia/navegador 
-    caminos:
-      -tipo:reescribir  
-        fuente:/* 
-        destino:/índice.html 
+  - type: static
+    name: proyecto-frontend
+    rootDir: frontend/iglesia
+    buildCommand: |
+      npm install
+      npm run build -- --configuration production
+    publishPath: dist/iglesia/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
