@@ -71,14 +71,3 @@ const applyConnectionUrl = (config) => {
   };
 };
 
-module.exports = {
-  development: buildBaseConfig(),
-  production: applyConnectionUrl({
-    ...buildBaseConfig(),
-    logging: String(process.env.DB_LOGGING).toLowerCase() === 'true',
-  }),
-  test: {
-    ...buildBaseConfig(),
-    database: process.env.DB_NAME_TEST || 'iglesia_test',
-  },
-};
