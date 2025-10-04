@@ -7,7 +7,16 @@ const parseNumber = (value, fallback) => {
   return Number.isNaN(parsed) ? fallback : parsed;
 };
 
-const resolveDatabaseName = () => {
+const resolveHost = () =>
+  process.env.DB_HOST ||
+  process.env.DB_SERVER ||
+  process.env.DB_HOSTNAME ||
+  process.env.TIDB_HOST ||
+  '127.0.0.1';
+
+const isTidbCloudHost = (host) => host.includes('tidbcloud.com');
+
+const resolveDatabaseName = (host) => {
   const explicitName =
     process.env.DB_NAME ||
     process.env.DB_DATABASE ||
@@ -20,22 +29,17 @@ const resolveDatabaseName = () => {
     return explicitName;
   }
 
-  const host =
-    process.env.DB_HOST ||
-    process.env.DB_SERVER ||
-    process.env.DB_HOSTNAME ||
-    process.env.TIDB_HOST ||
-    '';
-
-  if (host.includes('tidbcloud.com')) {
-    return 'test';
-  }
-
-  return 'iglesia';
+  return isTidbCloudHost(host) ? 'test' : 'iglesia';
 };
 
+
 const buildBaseConfig = () => {
-  const sslEnabled = String(process.env.DB_SSL).toLowerCase() === 'true';
+    const host = resolveHost();
+  const sslFlag = process.env.DB_SSL;
+  const sslEnabled =
+    sslFlag !== undefined && sslFlag !== null && sslFlag !== ''
+      ? String(sslFlag).toLowerCase() === 'true'
+      : isTidbCloudHost(host);
   const dialectOptions = sslEnabled
     ? { ssl: { require: true, rejectUnauthorized: false } }
     : {};
@@ -45,9 +49,9 @@ const buildBaseConfig = () => {
       process.env.DB_USER || process.env.DB_USERNAME || process.env.DB_USER_NAME || 'admin',
     password:
       process.env.DB_PASSWORD || process.env.DB_PASS || process.env.DB_USER_PASSWORD || 'admin',
-    database: resolveDatabaseName(),
-    host: process.env.DB_HOST || '127.0.0.1',
-    port: parseNumber(process.env.DB_PORT, 3306),
+    database: resolveDatabaseName(host),
+    host, 
+    port: parseNumber(process.env.DB_PORT, isTidbCloudHost(host) ? 4000 : 3306),
     dialect: process.env.DB_DIALECT || 'mysql',
     logging: String(process.env.DB_LOGGING).toLowerCase() === 'true',
     pool: {
@@ -71,3 +75,14 @@ const applyConnectionUrl = (config) => {
   };
 };
 
+module.exports = {
+  development: buildBaseConfig(),
+  production: applyConnectionUrl({
+    ...buildBaseConfig(),
+    logging: String(process.env.DB_LOGGING).toLowerCase() === 'true',
+  }),
+  test: {
+    ...buildBaseConfig(),
+    database: process.env.DB_NAME_TEST || 'iglesia_test',
+  },
+};
