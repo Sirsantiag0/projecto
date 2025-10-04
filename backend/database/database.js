@@ -9,11 +9,28 @@ const connectionUri = environmentConfig.use_env_variable
   ? process.env[environmentConfig.use_env_variable]
   : null;
 
+  const sanitizeOptions = (baseOptions, useConnectionUri) => {
+  if (!baseOptions) {
+    return {};
+  }
+
+  const sanitized = { ...baseOptions };
+
+  if (useConnectionUri) {
+    delete sanitized.host;
+    delete sanitized.port;
+  }
+
+  return sanitized;
+};
+
 const { database, username, password, use_env_variable, ...options } = environmentConfig;
+const optionsSanitized = sanitizeOptions(options, Boolean(connectionUri));
+
 module.exports = {
   database,
   username,
   password,
-  options,
+  options: optionsSanitized,
   connectionUri,
 };
