@@ -2,6 +2,10 @@ const parseNumber = (value, fallback) => {
   if (value === undefined || value === null || value === '') {
     return fallback;
   }
+  
+  const parsed = Number(value);
+  return Number.isNaN(parsed) ? fallback : parsed;
+};
 
 const resolveDatabaseName = () => {
   const explicitName =
