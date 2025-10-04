@@ -30,7 +30,7 @@ services:
       - key: DB_PASSWORD
         sync: false
       - key: CORS_ORIGIN
-        value: "https://smaguayaquil.com,https://www.smaguayaquil.com,http://localhost:4200,https://proyecto-frontend-qxik.onrender.com"
+        value: "https://smaguayaquil.com,https://www.smaguayaquil.com,http://localhost:4200,https://proyecto-frontend-qxik.onrender.com,https://proyecto-frontend-qxik.onrender.com/servicios"
   - type: static
     name: proyecto-frontend
     rootDir: frontend/iglesia
