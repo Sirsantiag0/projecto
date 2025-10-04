@@ -3,8 +3,31 @@ const parseNumber = (value, fallback) => {
     return fallback;
   }
 
-  const parsed = Number(value);
-  return Number.isNaN(parsed) ? fallback : parsed;
+const resolveDatabaseName = () => {
+  const explicitName =
+    process.env.DB_NAME ||
+    process.env.DB_DATABASE ||
+    process.env.DATABASE_NAME ||
+    process.env.MYSQL_DATABASE ||
+    process.env.TIDB_DATABASE ||
+    process.env.TIDB_DB_NAME;
+
+  if (explicitName) {
+    return explicitName;
+  }
+
+  const host =
+    process.env.DB_HOST ||
+    process.env.DB_SERVER ||
+    process.env.DB_HOSTNAME ||
+    process.env.TIDB_HOST ||
+    '';
+
+  if (host.includes('tidbcloud.com')) {
+    return 'test';
+  }
+
+  return 'iglesia';
 };
 
 const buildBaseConfig = () => {
@@ -18,7 +41,7 @@ const buildBaseConfig = () => {
       process.env.DB_USER || process.env.DB_USERNAME || process.env.DB_USER_NAME || 'admin',
     password:
       process.env.DB_PASSWORD || process.env.DB_PASS || process.env.DB_USER_PASSWORD || 'admin',
-    database: process.env.DB_NAME || 'iglesia',
+    database: resolveDatabaseName(),
     host: process.env.DB_HOST || '127.0.0.1',
     port: parseNumber(process.env.DB_PORT, 3306),
     dialect: process.env.DB_DIALECT || 'mysql',
