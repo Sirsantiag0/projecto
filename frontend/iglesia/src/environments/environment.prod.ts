@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'https://proyecto-backend.onrender.com',
+  apiBaseUrl: 'https://proyecto-backend-qxik.onrender.com',
 } as const;

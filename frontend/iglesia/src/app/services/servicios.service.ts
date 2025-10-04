@@ -16,7 +16,7 @@ export interface Servicio {
   providedIn: 'root'
 })
 export class ServiciosService {
-  private readonly apiUrl = new URL('api/servicios', environment.apiBaseUrl).toString();
+  private readonly apiUrl = new URL('/api/servicios', environment.apiBaseUrl).toString();
 
   constructor(private http: HttpClient) {}
 
