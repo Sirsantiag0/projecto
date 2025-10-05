@@ -1,7 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Archivos_grupo = sequelize.define('Archivos_grupo', {
         ruta_archivos: DataTypes.STRING,
-            id_grupo: {
+        mime_type: DataTypes.STRING,
+        contenido: DataTypes.BLOB('long'),
+        id_grupo: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

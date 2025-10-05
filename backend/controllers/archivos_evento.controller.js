@@ -1,33 +1,28 @@
-const db = require('../models');
-const Archivos_evento = db.Archivos_evento;
-const fs = require('fs');
-const path = require('path');
+
 const multer = require('multer');
+const db = require('../models');
+const { buildDataUrl } = require('../utils/data-url');
 
 // Directorio donde se guardarán las imágenes
-const uploadDir = path.join(__dirname, '..', 'uploads');
+const Archivos_evento = db.Archivos_evento;
 
 
-// Configuración de Multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const nombreUnico = Date.now() + '-' + file.originalname;
-    cb(null, nombreUnico);
-  }
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-// Middleware de subida
-const upload = multer({ storage });
 
 exports.subirArchivo = upload.single('archivo');
+function formatArchivoEvento(instance) {
+  const plain = instance.toJSON();
+  const binary = instance.contenido ?? plain.contenido;
+  plain.url = buildDataUrl(plain.mime_type ?? instance.mime_type, binary);
+  delete plain.contenido;
+  return plain;
+}
 
-// Crear registro de archivo de evento
+
 exports.crearArchivoEvento = async (req, res) => {
   try {
     if (!req.file) {
@@ -37,41 +32,34 @@ exports.crearArchivoEvento = async (req, res) => {
     // Obtener archivos activos ordenados por fecha (más antiguos primero)
     const activos = await Archivos_evento.findAll({
       where: { activo: true },
-      order: [['createdAt', 'ASC']]
+      order: [['createdAt', 'ASC']],
     });
 
     // Si ya hay 14 archivos, eliminar el más antiguo
     if (activos.length >= 14) {
-      const antiguo = activos[0];
-      const rutaAntigua = path.join(uploadDir, antiguo.ruta_archivos);
-      if (fs.existsSync(rutaAntigua)) {
-        fs.unlinkSync(rutaAntigua);
-      }
-      await antiguo.destroy();
+   await activos[0].destroy();
     }
 
     const nuevoArchivo = await Archivos_evento.create({
       detalle: req.body.detalle || '',
-      ruta_archivos: req.file.filename,
-      activo: true
+      ruta_archivos: `${Date.now()}-${req.file.originalname}`,
+      mime_type: req.file.mimetype,
+      contenido: req.file.buffer,
+      activo: true,
     });
 
-    res.status(201).json({ success: true, data: nuevoArchivo });
+    res.status(201).json({ success: true, data: formatArchivoEvento(nuevoArchivo) });
   } catch (error) {
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
     res.status(500).json({ success: false, error: error.message });
   }
 };
-// Listar archivos activos
-exports.listarArchivosEvento = async (req, res) => {
+exports.listarArchivosEvento = async (_req, res) => {
   try {
     const archivos = await Archivos_evento.findAll({
       where: { activo: true },
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
     });
-    res.status(200).json({ success: true, data: archivos });
+    res.status(200).json({ success: true, data: archivos.map(formatArchivoEvento) });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -88,24 +76,18 @@ exports.reemplazarArchivoEvento = async (req, res) => {
 
     const archivo = await Archivos_evento.findByPk(id);
     if (!archivo) {
-      fs.existsSync(req.file.path) && fs.unlinkSync(req.file.path);
       return res.status(404).json({ success: false, message: 'Archivo no encontrado' });
     }
 
-    const rutaAntigua = path.join(uploadDir, archivo.ruta_archivos);
-    if (fs.existsSync(rutaAntigua)) {
-      fs.unlinkSync(rutaAntigua);
-    }
-
-    archivo.ruta_archivos = req.file.filename;
+archivo.ruta_archivos = `${Date.now()}-${req.file.originalname}`;
     archivo.detalle = req.body.detalle || archivo.detalle;
+        archivo.mime_type = req.file.mimetype;
+    archivo.contenido = req.file.buffer;
     await archivo.save();
 
-    res.status(200).json({ success: true, data: archivo });
+    res.status(200).json({ success: true, data: formatArchivoEvento(archivo) });
   } catch (error) {
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
+
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -120,10 +102,7 @@ exports.eliminarArchivoEvento = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Archivo no encontrado' });
     }
 
-    const ruta = path.join(uploadDir, archivo.ruta_archivos);
-    if (fs.existsSync(ruta)) {
-      fs.unlinkSync(ruta);
-    }
+
 
     await archivo.destroy();
     res.status(200).json({ success: true, message: 'Archivo eliminado' });
@@ -131,4 +110,3 @@ exports.eliminarArchivoEvento = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-

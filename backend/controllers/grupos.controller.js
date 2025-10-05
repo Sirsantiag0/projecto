@@ -1,35 +1,24 @@
+const multer = require('multer');
 const db = require('../models');
+const { buildDataUrl } = require('../utils/data-url');
+
 const Grupos = db.Grupos;
 
-const fs = require('fs');
-const path = require('path');
-const multer = require('multer');
-
-// Carpeta donde se almacenarán las imágenes de los grupos
-const gruposUploadDir = path.join(__dirname, '..', 'uploads', 'grupos');
-// Asegurarse de que el directorio exista antes de procesar cualquier carga
-if (!fs.existsSync(gruposUploadDir)) {
-    fs.mkdirSync(gruposUploadDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-    destination: (_req, _file, cb) => {
-        cb(null, gruposUploadDir);
-    },
-    filename: (_req, file, cb) => {
-        const nombreUnico = Date.now() + '-' + file.originalname;
-        cb(null, nombreUnico);
-    }
-});
-
 const upload = multer({
-    storage,
-    limits: { fileSize: 5 * 1024 * 1024 }
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 exports.subirArchivo = upload.single('archivo');
 
-// Crear grupo
+function formatGrupo(instance) {
+  const plain = instance.toJSON();
+  const binary = instance.imagen_contenido ?? plain.imagen_contenido;
+  plain.imagenUrl = buildDataUrl(plain.imagen_mime ?? instance.imagen_mime, binary);
+  delete plain.imagen_contenido;
+  return plain;
+}
+
 exports.crearGrupo = async (req, res) => {
   try {
     const { titulo, descripcion } = req.body;
@@ -37,35 +26,32 @@ exports.crearGrupo = async (req, res) => {
     const nuevoGrupo = await Grupos.create({
       titulo,
       descripcion,
-      ruta_archivo: req.file ? req.file.filename : null
+      ruta_archivo: req.file ? `${Date.now()}-${req.file.originalname}` : null,
+      imagen_mime: req.file ? req.file.mimetype : null,
+      imagen_contenido: req.file ? req.file.buffer : null,
     });
 
-    res.status(201).json({ success: true, data: nuevoGrupo });
+    res.status(201).json({ success: true, data: formatGrupo(nuevoGrupo) });
   } catch (error) {
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Listar grupos
-exports.listarGrupos = async (req, res) => {
+exports.listarGrupos = async (_req, res) => {
   try {
     const grupos = await Grupos.findAll();
-    res.status(200).json({ success: true, data: grupos });
+    res.status(200).json({ success: true, data: grupos.map(formatGrupo) });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Obtener un grupo específico
 exports.obtenerGrupo = async (req, res) => {
   try {
     const { id } = req.params;
     const grupo = await Grupos.findByPk(id);
     if (grupo) {
-      return res.status(200).json({ success: true, data: grupo });
+      return res.status(200).json({ success: true, data: formatGrupo(grupo) });
     }
     return res.status(404).json({ success: false, message: 'Grupo no encontrado' });
   } catch (error) {
@@ -73,7 +59,6 @@ exports.obtenerGrupo = async (req, res) => {
   }
 };
 
-// Actualizar grupo
 exports.actualizarGrupo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -84,24 +69,21 @@ exports.actualizarGrupo = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Grupo no encontrado' });
     }
 
-    // Actualizar datos básicos del grupo
-    await grupo.update({
-      titulo,
-      descripcion,
-      ruta_archivo: req.file ? req.file.filename : grupo.ruta_archivo
-    });
-
-    const grupoActualizado = await Grupos.findByPk(id);
-    return res.status(200).json({ success: true, data: grupoActualizado });
-  } catch (error) {
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
+    grupo.titulo = titulo;
+    grupo.descripcion = descripcion;
+    if (req.file) {
+      grupo.ruta_archivo = `${Date.now()}-${req.file.originalname}`;
+      grupo.imagen_mime = req.file.mimetype;
+      grupo.imagen_contenido = req.file.buffer;
     }
+    await grupo.save();
+
+    res.status(200).json({ success: true, data: formatGrupo(grupo) });
+  } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Inactivar grupo
 exports.inactivarGrupo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -118,7 +100,6 @@ exports.inactivarGrupo = async (req, res) => {
   }
 };
 
-// Eliminar grupo
 exports.eliminarGrupo = async (req, res) => {
   try {
     const { id } = req.params;

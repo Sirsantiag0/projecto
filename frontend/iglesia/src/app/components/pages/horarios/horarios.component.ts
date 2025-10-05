@@ -18,11 +18,14 @@ export class HorariosComponent implements OnInit {
   ngOnInit() {
     this.archivosService.listarImagenes().subscribe((res) => {
       const data = res.data || [];
-      this.imagenes.set(
-        data.map((img: any) =>
-          new URL(`uploads/${img.ruta_archivos}`, environment.apiBaseUrl).toString()
+            const urls = data
+        .map((img: any) =>
+          img.url || (img.ruta_archivos
+            ? new URL(`uploads/${img.ruta_archivos}`, environment.apiBaseUrl).toString()
+            : null)
         )
-      );
+              .filter((value: string | null): value is string => value !== null);
+      this.imagenes.set(urls);
     });
   }
 }
