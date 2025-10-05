@@ -28,7 +28,7 @@
               {
                 "glob": "static.json",
                 "input": ".",
-                "output": "."
+                "output": "browser"
               }
             ],
             "styles": [
