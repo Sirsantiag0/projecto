@@ -68,13 +68,6 @@
   cursor: pointer;
 }
 
-.nav-btn.restricted {
-  color: #9aa4b2;
-}
-
-.nav-btn.restricted .material-icons {
-  font-size: 18px;
-}
 
 
 .auth-section {
