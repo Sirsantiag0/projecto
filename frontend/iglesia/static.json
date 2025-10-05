@@ -1,9 +1,9 @@
 {
   "routes": [
     {
-      "src": "/.*",
-      "status": 200,
-      "dest": "/index.html"
+      "type": "rewrite",
+      "source": "/*",
+      "destination": "/index.html"
     }
   ]
 }
