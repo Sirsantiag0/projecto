@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-  this.archivosService.listarImagenes().subscribe(res => {
+    this.archivosService.listarImagenes().subscribe(res => {
       const data = res.data || [];
       const urls = data
         .map((img: any) =>

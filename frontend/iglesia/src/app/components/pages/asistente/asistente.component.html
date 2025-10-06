@@ -9,7 +9,7 @@
   <h3>Imágenes subidas: </h3>
   <div class="imagen-item" *ngFor="let img of imagenes">
     <p>{{ img.detalle }}</p>
-    <img [src]="img.displayUrl" [alt]="img.detalle" />
+    <img [src]="img.displayUrl" [alt]="img.detalle"/>
         <div class="acciones">
       <button (click)="eliminarImagen(img.id)">Eliminar</button>
       <input type="file" (change)="reemplazarImagen(img, $event)" hidden #fileInput />
@@ -58,7 +58,7 @@
     <div class="grupo-item" *ngFor="let g of grupos">
       <h4>{{ g.titulo }}</h4>
       <p>{{ g.descripcion }}</p>
-<img *ngIf="g.imagenUrl" [src]="g.imagenUrl" [alt]="g.descripcion" />
+      <img *ngIf="g.imagenUrl" [src]="g.imagenUrl" [alt]="g.descripcion" />
       <div class="acciones">
         <button (click)="editarGrupo(g)">Editar</button>
         <button (click)="eliminarGrupo(g.id)">Eliminar</button>

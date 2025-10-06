@@ -70,7 +70,11 @@ export class AsistenteComponent implements OnInit {
   // ---------------- Imágenes ----------------
   cargarImagenes() {
     this.archivosService.listarImagenes().subscribe((res) => {
-      this.imagenes = res.data;
+      const data = res.data || [];
+      this.imagenes = data.map((img: any) => ({
+        ...img,
+        displayUrl: img.url || (img.ruta_archivos ? `${this.apiBaseUrl}/uploads/${img.ruta_archivos}` : null)
+      }));
     });
   }
 
@@ -177,9 +181,9 @@ export class AsistenteComponent implements OnInit {
     // ---------------- Grupos ---------------- // grupos
   cargarGrupos() {
     this.gruposService.listarGrupos().subscribe(res => {
-       this.grupos = res.data.map((g: any) => ({
+       this.grupos = (res.data || []).map((g: any) => ({
         ...g,
-        imagen: g.ruta_archivo
+        imagenUrl: g.imagenUrl || (g.ruta_archivo ? `${this.apiBaseUrl}/uploads/grupos/${g.ruta_archivo}` : null)
       }));
     });
   }

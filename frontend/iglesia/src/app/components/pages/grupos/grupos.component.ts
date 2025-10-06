@@ -21,6 +21,7 @@ export class GruposComponent implements OnInit {
   grupos = signal<any[]>([]);
   selectedGrupo = signal<any | null>(null);
   suscripciones = signal<number[]>([]);
+  
 
   ngOnInit(): void {
     this.gruposService.listarGrupos().subscribe(res => {
@@ -28,7 +29,7 @@ export class GruposComponent implements OnInit {
       this.grupos.set(
         data.map((g: any) => ({
           ...g,
-          imagen: g.imagenUrl || (g.ruta_archivo ? new URL(`uploads/grupos/${g.ruta_archivo}`, environment.apiBaseUrl).toString() : null)
+         imagen: g.imagenUrl || (g.ruta_archivo ? new URL(`uploads/grupos/${g.ruta_archivo}`, environment.apiBaseUrl).toString() : null)
         }))
       );
     });

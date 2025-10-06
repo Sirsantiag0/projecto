@@ -33,6 +33,7 @@ interface Grupo {
   id: number;
   titulo: string;
   ruta_archivo: string | null;
+  imagenUrl?: string | null;
 }
 
 
@@ -93,8 +94,9 @@ export class FeligresComponent implements OnInit {
 
           if (requests.length) {
             forkJoin(requests).subscribe((grupoRes: { data: Grupo }[]) => {
-                            const grupos = grupoRes.map((g, index) => ({
+                             const grupos = grupoRes.map((g, index) => ({
                 ...g.data,
+                imagenUrl: g.data.imagenUrl || (g.data.ruta_archivo ? `${this.apiBaseUrl}/uploads/grupos/${g.data.ruta_archivo}` : null),
                 suscripcionId: subs[index].id,
               }));
               this.grupos.set(grupos);
