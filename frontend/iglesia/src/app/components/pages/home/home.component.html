@@ -1,6 +1,19 @@
 <div class="home">
     <!-- Sección 1: Carrousel -->
-    <section class="carrousel" *ngIf="carouselImages().length">
+    <section
+        class="carrousel"
+        *ngIf="carouselImages().length"
+        (touchstart)="onTouchStart($event)"
+        (touchend)="onTouchEnd($event)"
+    >
+        <button
+            type="button"
+            class="carrousel-arrow carrousel-arrow--prev"
+            (click)="previousSlide()"
+            aria-label="Mostrar imagen anterior"
+        >
+            &lt;
+        </button>
         <div
             class="carrousel-inner"
             [style.width.%]="carouselImages().length * 100"
@@ -14,6 +27,14 @@
                 <img [src]="img" alt="Imagen del carrusel" />
             </div>
         </div>
+        <button
+            type="button"
+            class="carrousel-arrow carrousel-arrow--next"
+            (click)="nextSlide()"
+            aria-label="Mostrar imagen siguiente"
+        >
+            &gt;
+        </button>
     </section>
     
     <!-- Sección 2: Videos -->

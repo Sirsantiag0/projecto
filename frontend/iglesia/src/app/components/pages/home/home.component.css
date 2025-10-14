@@ -33,6 +33,41 @@
     transition: transform 0.5s ease;
 }
 
+.carrousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.75);
+    color: #1f2d3d;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+}
+
+.carrousel-arrow:hover,
+.carrousel-arrow:focus {
+    background: rgba(255, 255, 255, 0.95);
+    outline: none;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.carrousel-arrow:active {
+    transform: translateY(-50%) scale(0.97);
+}
+
+.carrousel-arrow--prev { left: 24px; }
+
+.carrousel-arrow--next { right: 24px; }
+
 .carrousel-item {
     height: 100%;
     flex-shrink: 0;
@@ -249,6 +284,10 @@
   .carrousel {
     margin-top: 0;
     height: 55vh;
+  }
+
+  .carrousel-arrow {
+    display: none;
   }
 }
 

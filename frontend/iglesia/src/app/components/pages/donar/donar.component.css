@@ -83,6 +83,14 @@
     padding: 1rem 0 2rem; /* eliminamos padding lateral */
   }
 
+    .donar {
+    margin-top: 0;
+    padding-top: 2.5rem;
+  }
+
+  .donar h2 {
+    margin-top: 0.5rem;
+  }
   .papaleon {
     width: 90%;
     max-width: 90%;   /* ocupa todo */
