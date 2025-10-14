@@ -17,6 +17,7 @@
    padding-top: 20px;
 }
 
+/* Navbar con imagen de fondo + capa más blanquecina */
 .navbar {
   position: sticky;
   top: 0;
@@ -28,10 +29,61 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
+
+  /* imagen de fondo */
+  background-image: url('/images/espiritusanto.PNG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
+
+/* Capa blanquecina / degradado encima de la imagen pero debajo del contenido */
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* overlay más blanquecino */
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(249, 250, 251, 0) 0%,
+      rgba(255, 255, 255, 0.60) 20%,  /* más opaco */
+      rgba(255, 255, 255, 0.60) 80%,  /* más opaco */
+      rgba(249, 250, 251, 0) 100%
+    ),
+    rgba(255,255,255,0.75);          /* overlay general más blanqueado */
+}
+
+/* Contenido por encima de la capa */
+.navbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ajustes para móviles: aún más opaco para legibilidad */
+@media (max-width: 600px) {
+  .navbar::before {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(249, 250, 251, 0) 0%,
+        rgba(255, 255, 255, 0.75) 20%,
+        rgba(255, 255, 255, 0.75) 80%,
+        rgba(249, 250, 251, 0) 100%
+      ),
+      rgba(255,255,255,0.85);
+  }
+}
+
+
 
 .logo {
   font-size: 22px;
