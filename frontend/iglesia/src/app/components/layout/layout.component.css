@@ -104,6 +104,9 @@
     order: 3;
     margin-top: 10px;
   }
+  .content {
+    padding-top: 0;
+  }
 }
 
 .footer {
@@ -197,6 +200,14 @@
   align-items: center;
   gap: 10px; /* espacio entre texto y botón */
 }
+.nav-btn--volunteer {
+  color: #fff;
+}
+
+.nav-btn--volunteer .material-icons {
+  color: #fff;
+}
+
 
 .llamar-btn {
   background-color: #4CAF50;
