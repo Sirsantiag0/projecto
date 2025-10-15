@@ -238,7 +238,7 @@
   transform: translateX(-50%);  /* centra el contenedor full-bleed */
   width: 100vw;                 /* ocupa todo el viewport horizontal */
   margin: 0;     
-  margin-top:0px;               /* elimina márgenes que mostraban gris */
+  margin-top: -70px;               /* elimina márgenes que mostraban gris */
   padding: 0 clamp(16px, 3vw, 40px) 40px; /* padding interno opcional */
   max-width: none;              /* quita límites heredados */
   border-radius: 0;             /* opcional: quita radio para que llegue a los bordes */
