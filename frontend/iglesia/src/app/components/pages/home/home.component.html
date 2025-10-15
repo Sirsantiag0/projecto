@@ -6,6 +6,7 @@
         (touchstart)="onTouchStart($event)"
         (touchend)="onTouchEnd($event)"
     >
+        <div class="carrousel-accent carrousel-accent--top" aria-hidden="true"></div>
         <button
             type="button"
             class="carrousel-arrow carrousel-arrow--prev"
@@ -27,6 +28,7 @@
                 <img [src]="img" alt="Imagen del carrusel" />
             </div>
         </div>
+        <div class="carrousel-accent carrousel-accent--bottom" aria-hidden="true"></div>
         <button
             type="button"
             class="carrousel-arrow carrousel-arrow--next"
