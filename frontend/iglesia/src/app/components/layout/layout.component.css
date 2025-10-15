@@ -241,10 +241,26 @@
 }
 
 .map-container iframe {
+  display: block;
   padding-top: 20px;
-  width: 90vw;
-  max-width: 100%;
+width: 100%;
   height: 600px;
+    max-width: 100%;
+  margin: 0 auto;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    padding: 0 16px 32px;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .map-container iframe {
+    padding-top: 16px;
+    height: 360px;
+  }
 }
 
 .telefono {
