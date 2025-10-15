@@ -33,6 +33,55 @@
     transition: transform 0.5s ease;
 }
 
+/* CSS: barra bonita rosada ↔ celeste */
+.barrabonita{
+  --height: 14px;              /* ajusta la altura si la quieres más fina/gorda */
+  width: 100%;                 /* ocupa todo el contenedor (cambiar si quieres ancho fijo) */
+  max-width: 980px;            /* opcional: límite de ancho para que no sea gigante */
+  height: var(--height);
+  margin: 18px auto;           /* centra horizontalmente */
+  border-radius: 999px;        /* borde redondeado tipo "pill" */
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 2px 8px rgba(15,20,30,0.06),   /* sombra suave externa */
+    inset 0 1px 0 rgba(255,255,255,0.35); /* luz interior arriba */
+  
+  /* capas de fondo: degradado principal + brillo + textura fina */
+  background-image:
+    linear-gradient(90deg,
+      #f8b6d6 0%,
+      #f6c8e6 20%,
+      #e9d3f2 36%,
+      #cfe7f8 58%,
+      #9fd3f7 78%,
+      #8fc9ff 100%
+    ),
+    linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06)), /* brillo sutil */
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px); /* textura muy fina */
+  background-blend-mode: normal, overlay, normal;
+}
+
+/* variante con animación (opcional): movimiento lento del degradado */
+.barrabonita.animate {
+  background-size: 300% 100%, 100% 100%, 6px 100%;
+  animation: moveGradient 8s linear infinite;
+}
+
+@keyframes moveGradient {
+  0%   { background-position: 0% 50%, 0 0, 0 0; }
+  50%  { background-position: 100% 50%, 0 0, 0 0; }
+  100% { background-position: 0% 50%, 0 0, 0 0; }
+}
+
+/* versiones más finas o más gruesas */
+.barrabonita.thin  { --height: 8px;  }
+.barrabonita.thick { --height: 22px; }
+
+/* ejemplo de contenedor centrado (opcional) */
+.barra-wrap { padding: 8px 16px; background: transparent; display:flex; justify-content:center; }
+
+
 .carrousel-arrow {
     position: absolute;
     top: 50%;
