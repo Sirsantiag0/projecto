@@ -36,11 +36,10 @@
 /* CSS: barra bonita rosada ↔ celeste */
 .barrabonita{
   --height: 14px;              /* ajusta la altura si la quieres más fina/gorda */
-  width: 100%;                 /* ocupa todo el contenedor (cambiar si quieres ancho fijo) */
-  max-width: 980px;            /* opcional: límite de ancho para que no sea gigante */
+  width: 100vw;                /* ocupa todo el ancho de la ventana */
   height: var(--height);
-  margin: 18px auto;           /* centra horizontalmente */
-  border-radius: 999px;        /* borde redondeado tipo "pill" */
+  margin: 0 calc(-50vw + 50%); /* sin márgenes y centrada a pantalla completa */
+  border-radius: 0;     
   position: relative;
   overflow: hidden;
   box-shadow:
