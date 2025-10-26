@@ -67,6 +67,43 @@
   animation: moveGradient 8s linear infinite;
 }
 
+.barrabonita-inversa{
+  --height: 14px;              /* ajusta la altura si la quieres más fina/gorda */
+  width: 100vw;                /* ocupa todo el ancho de la ventana */
+  height: var(--height);
+  margin: 0 calc(-50vw + 50%); /* sin márgenes y centrada a pantalla completa */
+  border-radius: 0;     
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 2px 8px rgba(15,20,30,0.06),   /* sombra suave externa */
+    inset 0 1px 0 rgba(255,255,255,0.35); /* luz interior arriba */
+  
+  /* capas de fondo: degradado principal INVERTIDO + brillo + textura fina */
+  background-image:
+    linear-gradient(90deg,
+      #8fc9ff 0%,
+      #9fd3f7 22%,
+      #cfe7f8 42%,
+      #e9d3f2 64%,
+      #f6c8e6 80%,
+      #f8b6d6 100%
+    ),
+    linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06)), /* brillo sutil */
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px); /* textura muy fina */
+  background-blend-mode: normal, overlay, normal;
+}
+
+/* variante con animación (opcional): movimiento lento del degradado */
+.barrabonita-inversa.animate {
+  background-size: 300% 100%, 100% 100%, 6px 100%;
+  animation: moveGradient 8s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+  100% { background-position: 300% 0%, 0% 0%, 6px 0%; }
+}
 @keyframes moveGradient {
   0%   { background-position: 0% 50%, 0 0, 0 0; }
   50%  { background-position: 100% 50%, 0 0, 0 0; }

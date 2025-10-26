@@ -119,6 +119,9 @@ button:active {
 .evento button:hover {
   background-color: #45a049;
 }
+.eventito {
+  margin-top:-15px; 
+}
 
 /* MEDIA QUERY CORREGIDA PARA MÓVIL */
 @media (max-width: 600px) {
