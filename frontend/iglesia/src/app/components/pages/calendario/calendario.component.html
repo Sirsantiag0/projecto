@@ -1,4 +1,4 @@
-  <div class="calendario">
+<div class="calendario">
   <div class="header">
     <button (click)="cambiarMes(-1)">&#8592;</button>
     <h2>{{ monthName | titlecase }} {{ year }}</h2>
@@ -17,12 +17,13 @@
     </div>
 
     <div class="dias-mes">
-      <div *ngFor="let dia of monthDays" class="dia" [class.vacio]="dia.day === 0">
+      <div *ngFor="let dia of monthDays" class="dia" [class.vacio]="dia.day === 0" 
+           [attr.data-dia-semana]="getDiaSemana(dia.fullDate)">
         <div *ngIf="dia.day !== 0">
           <strong>{{ dia.day }}</strong>
           <div *ngFor="let evento of getEventosPorDia(dia.fullDate)">
             <div class="evento">
-              <small>{{ evento.hora }}   {{ evento.descripcion }}</small>
+              <small>{{ evento.hora }} {{ evento.descripcion }}</small>
               <button *ngIf="!haParticipado(evento)" (click)="marcarAsistencia(evento)">Participar</button>
             </div>
           </div>

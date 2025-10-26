@@ -53,8 +53,8 @@ export class CalendarioComponent implements  OnInit {
     this.searchEvento();
     this.loadParticipations();
   }
+  
   searchEvento() {
-
     this.eventosService.listarEventos().subscribe(
       (data: any) => {
         this.listEventos = data.data;
@@ -122,6 +122,14 @@ export class CalendarioComponent implements  OnInit {
       const eventoFecha = new Date(e.fecha).toISOString().split('T')[0];
       return eventoFecha === fecha;
     });
+  }
+
+  // FUNCIÓN PARA OBTENER EL DÍA DE LA SEMANA
+  getDiaSemana(fullDate: string): string {
+    if (!fullDate) return '';
+    const date = new Date(fullDate);
+    const dias = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    return dias[date.getDay()];
   }
 
   cambiarMes(offset: number) {

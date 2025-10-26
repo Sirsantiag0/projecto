@@ -10,13 +10,13 @@
   );
   margin-top: -20px;
 }
+
 .calendario {
-  max-width: 900px; /* Aumentamos el ancho máximo para más espacio */
+  max-width: 900px;
   margin: auto;
   text-align: center;
   margin-top: -20px; 
-  font-family: Arial, sans-serif; /* Opcional: mejora la legibilidad */
-
+  font-family: Arial, sans-serif;
 }
 
 .header {
@@ -33,14 +33,13 @@
 .dias-semana, .dias-mes {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px; /* Aumentamos el gap para mejor separación */
+  gap: 8px;
 }
-
 
 .dias-semana div {
   font-weight: bold;
-  padding: 10px 0; /* Añadimos padding vertical para alinear con las celdas */
-  background-color: #f8f9fa; /* Fondo opcional para los días de la semana */
+  padding: 10px 0;
+  background-color: #f8f9fa;
   border-radius: 4px;
 }
 
@@ -55,14 +54,12 @@
   align-items: center;
   text-align: center;
   justify-content: flex-start;
-  /* Eliminamos overflow: hidden para permitir expansión */
 }
 
 .dia:hover {
-  transform: scale(1.09); /* Efecto sutil al pasar el mouse */
-  border-color: #aaaaaa; /* Cambia el color del borde al pasar el mouse */
+  transform: scale(1.09);
+  border-color: #aaaaaa;
 }
-
 
 .vacio {
   background-color: #f0f0f0;
@@ -70,19 +67,19 @@
 
 .evento {
   background-color: #e6f2ff;
-  padding: 8px 12px; /* Más padding para mejor aspecto */
-  margin: 6px 0; /* Margen vertical */
+  padding: 8px 12px;
+  margin: 6px 0;
   border-radius: 6px;
   font-size: 15px;
-  word-break: break-word; /* Permite saltos de línea naturales */
-  white-space: normal; /* Permite múltiples líneas */
-  width: auto; /* Ancho automático según contenido */
-  max-width: 90%; /* Máximo ancho para no tocar bordes */
-  display: inline-flex; /* Mejor control del layout */
+  word-break: break-word;
+  white-space: normal;
+  width: auto;
+  max-width: 90%;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sutil sombra para profundidad */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button {
@@ -94,53 +91,113 @@ button {
   border: none;
   border-radius: 7px;
   cursor: pointer;
-  
-  /* Efecto 3D esencial */
   box-shadow: 
-    0 4px 0 #2E7D32,       /* Sombra inferior (profundidad) */
-    0 5px 5px rgba(0,0,0,0.1); /* Sombra difuminada */
+    0 4px 0 #2E7D32,
+    0 5px 5px rgba(0,0,0,0.1);
   position: relative;
   transition: all 0.1s ease;
 }
 
-/* Efecto al presionar */
 button:active {
-  transform: translateY(4px); /* Mueve el botón hacia abajo */
+  transform: translateY(4px);
   box-shadow: 
-    0 1px 0 #2E7D32,       /* Reduce la sombra inferior */
-    0 2px 3px rgba(0,0,0,0.1); /* Achica la sombra difuminada */
+    0 1px 0 #2E7D32,
+    0 2px 3px rgba(0,0,0,0.1);
 }
 
 .evento small {
-  display: block; /* Hace que la hora y descripción ocupen línea completa */
+  display: block;
   margin-bottom: 4px;
 }
 
 .evento button {
   display: block;
   margin: 4px auto 0;
-  width: 100%; /* Botón ocupa todo el ancho del evento */
+  width: 100%;
 }
 
 .evento button:hover {
-  background-color: #45a049; /* Cambia el color al pasar el mouse */
-
+  background-color: #45a049;
 }
 
+/* MEDIA QUERY CORREGIDA PARA MÓVIL */
 @media (max-width: 600px) {
-  .dias-semana,
-  .dias-mes {
-    display: flex;
+  .calendario {
+    padding: 0 10px; /* Agregamos padding para que no toque los bordes */
+    margin-top: 0;
   }
 
-  .dias-semana div,
+  .dias-contenedor {
+    overflow-x: visible;
+    width: 100%;
+  }
+
+  .dias-semana {
+    display: none;
+  }
+
+  .dias-mes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center; /* Centramos los días */
+  }
+
   .dias-mes .dia {
-    flex: 0 0 140px;
+    width: 100%; /* Ocupa el 100% del contenedor */
+    max-width: 100%; /* Evita que se salga */
+    min-height: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centramos el contenido */
+    text-align: center; /* Texto centrado */
+    box-sizing: border-box; /* Incluye padding en el width */
+  }
+
+  .dia > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centramos el contenido interno */
+    width: 100%;
+  }
+
+  .dia strong {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    width: 100%;
+    text-align: center; /* Fecha centrada */
   }
 
   .evento {
     width: 100%;
-    max-width: none;
-    word-break: normal;
+    max-width: 100%;
+    margin: 8px 0;
+    text-align: center; /* Eventos centrados */
+    align-items: center; /* Contenido del evento centrado */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Indicador del día de la semana - CENTRADO */
+  .dia::before {
+    content: attr(data-dia-semana);
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: normal;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Aseguramos que los botones también estén centrados */
+  .evento button {
+    align-self: center;
+    margin: 4px auto 0;
   }
 }
