@@ -181,6 +181,7 @@ button:active {
     align-items: center; /* Contenido del evento centrado */
     display: flex;
     flex-direction: column;
+    margin-left: -12px; 
   }
 
   /* Indicador del día de la semana - CENTRADO */
@@ -200,4 +201,18 @@ button:active {
     align-self: center;
     margin: 4px auto 0;
   }
+    /* 🔹 Texto más grande en móviles */
+  .evento small {
+    font-size: 17px; /* antes 15px */
+  }
+
+  .evento button {
+    font-size: 16px; /* antes 14px */
+    padding: 6px 10px; /* un poco más de área táctil */
+  }
+
+  .dia strong {
+    font-size: 19px; /* para que el número del día también destaque */
+  }
+
 }
