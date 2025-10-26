@@ -140,6 +140,7 @@
     align-items: center;
     margin-right: 30px;
     width: 100%;
+    margin-top: -10px;
   }
 
   /* 🔥 CORRECCIÓN PARA EL TEXTO Y BOTONES EN MÓVIL */
@@ -149,6 +150,7 @@
     font-size: 20px; /* Más grande en móvil */
     margin: 1rem 0 1.5rem 0; /* Más espacio alrededor */
     padding: 0 1rem;
+    margin-bottom: -20px;
   }
 
   /* UNA SOLA COLUMNA PARA LOS BOTONES DE BANCOS */
