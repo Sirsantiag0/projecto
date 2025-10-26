@@ -235,10 +235,11 @@ h2 {
 .ingresar-btn {
   display: block;
   margin: 4px auto 0;
-  width: 205px;
+  width: auto; /* Cambiar de 205px a auto */
+  min-width: 205px; /* Mantener un ancho mínimo */
   height: 30px;
   font-size: 14px;
-  padding: 8px 12px;
+  padding: 8px 20px;
   background-color: #4CAF50;
   color: white;
   border: none;
