@@ -256,9 +256,9 @@
     font-size: 17px;
   }
 
-  /* Botón de WhatsApp en móvil */
+  /* BOTÓN DE WHATSAPP CORREGIDO - QUITAR margin-left: auto */
   .llamar-btn {
-    margin-left: auto; /* Empuja el botón hacia la derecha */
+    margin-left: 8px; /* Mantener espacio normal, no auto */
     padding: 7px 16px;
     font-size: 13px;
   }
@@ -295,10 +295,11 @@
     font-size: 16px;
   }
 
+  /* BOTÓN DE WHATSAPP CORREGIDO - QUITAR margin-left: auto */
   .llamar-btn {
     padding: 6px 12px;
     font-size: 12px;
-    margin-left: auto;
+    margin-left: 8px; /* Mantener espacio normal, no auto */
   }
 
   .social-links {
@@ -313,15 +314,13 @@
 /* Asegurar que el texto largo se ajuste correctamente */
 @media (max-width: 360px) {
   .footer-info p {
-    flex-direction: column; /* En pantallas muy pequeñas, poner en columna */
-    align-items: flex-start;
+    flex-direction: row; /* Mantener en fila en lugar de columna */
+    align-items: center;
     gap: 5px;
   }
 
   .llamar-btn {
-    margin-left: 0; /* Quitar margen izquierdo en columna */
-    align-self: flex-start; /* Alinear a la izquierda */
-    margin-right: 30px;
+    margin-left: 8px; /* Mantener espacio normal */
   }
 }
 
@@ -388,5 +387,3 @@ html, body {
 .nav-btn--volunteer .material-icons {
   color: #fff;
 }
-
-/* Eliminé los estilos duplicados de .llamar-btn que estaban al final */
