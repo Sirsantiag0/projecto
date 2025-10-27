@@ -321,6 +321,7 @@
   .llamar-btn {
     margin-left: 0; /* Quitar margen izquierdo en columna */
     align-self: flex-start; /* Alinear a la izquierda */
+    margin-right: 30px;
   }
 }
 
