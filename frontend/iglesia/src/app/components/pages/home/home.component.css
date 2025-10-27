@@ -1,7 +1,7 @@
 /* Estilos generales */
 :host {
   display: block;
-  padding: 2rem 0 3rem;
+  padding: 0; /* Cambiar de 2rem 0 3rem a 0 */
   background: linear-gradient(
     180deg,
     #f9fafb 0%,
@@ -18,35 +18,25 @@
     box-sizing: border-box;
 }
 
-/* Sección 1: Carrousel */
-.carrousel {
-    width: 100%;
-    height: 70vh;
-    overflow: hidden;
-    position: relative;
-    margin-top: -32px /* Ajustar según la altura de tu navbar */
+/* CONTENEDOR PRINCIPAL - ELIMINAR MÁRGENES */
+.home {
+  margin: 0;
+  padding: 0;
 }
 
-.carrousel-inner {
-    display: flex;
-    height: 100%;
-    transition: transform 0.5s ease;
-}
-
-/* CSS: barra bonita rosada ↔ celeste */
+/* BARRA SUPERIOR - POSICIONAR CORRECTAMENTE */
 .barrabonita{
-  --height: 14px;              /* ajusta la altura si la quieres más fina/gorda */
-  width: 100vw;                /* ocupa todo el ancho de la ventana */
+  --height: 14px;
+  width: 100vw;
   height: var(--height);
-  margin: 0 calc(-50vw + 50%); /* sin márgenes y centrada a pantalla completa */
+  margin: 0 calc(-50vw + 50%);
   border-radius: 0;     
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 2px 8px rgba(15,20,30,0.06),   /* sombra suave externa */
-    inset 0 1px 0 rgba(255,255,255,0.35); /* luz interior arriba */
+    0 2px 8px rgba(15,20,30,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.35);
   
-  /* capas de fondo: degradado principal + brillo + textura fina */
   background-image:
     linear-gradient(90deg,
       #f8b6d6 0%,
@@ -56,30 +46,28 @@
       #9fd3f7 78%,
       #8fc9ff 100%
     ),
-    linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06)), /* brillo sutil */
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px); /* textura muy fina */
+    linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px);
   background-blend-mode: normal, overlay, normal;
+  
+  /* ASEGURAR QUE SEA VISIBLE */
+  z-index: 5;
+  display: block;
 }
 
-/* variante con animación (opcional): movimiento lento del degradado */
-.barrabonita.animate {
-  background-size: 300% 100%, 100% 100%, 6px 100%;
-  animation: moveGradient 8s linear infinite;
-}
-
+/* BARRA INFERIOR - POSICIONAR CORRECTAMENTE */
 .barrabonita-inversa{
-  --height: 14px;              /* ajusta la altura si la quieres más fina/gorda */
-  width: 100vw;                /* ocupa todo el ancho de la ventana */
+  --height: 14px;
+  width: 100vw;
   height: var(--height);
-  margin: 0 calc(-50vw + 50%); /* sin márgenes y centrada a pantalla completa */
+  margin: 0 calc(-50vw + 50%);
   border-radius: 0;     
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 2px 8px rgba(15,20,30,0.06),   /* sombra suave externa */
-    inset 0 1px 0 rgba(255,255,255,0.35); /* luz interior arriba */
+    0 2px 8px rgba(15,20,30,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.35);
   
-  /* capas de fondo: degradado principal INVERTIDO + brillo + textura fina */
   background-image:
     linear-gradient(90deg,
       #8fc9ff 0%,
@@ -89,34 +77,31 @@
       #f6c8e6 80%,
       #f8b6d6 100%
     ),
-    linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06)), /* brillo sutil */
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px); /* textura muy fina */
+    linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px);
   background-blend-mode: normal, overlay, normal;
+  
+  /* ASEGURAR QUE SEA VISIBLE */
+  z-index: 5;
+  display: block;
 }
 
-/* variante con animación (opcional): movimiento lento del degradado */
-.barrabonita-inversa.animate {
-  background-size: 300% 100%, 100% 100%, 6px 100%;
-  animation: moveGradient 8s linear infinite;
+/* Sección 1: Carrousel - AJUSTAR MARGEN SUPERIOR */
+.carrousel {
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    position: relative;
+    margin-top: 0; /* Cambiar de -32px a 0 */
 }
 
-@keyframes moveGradient {
-  0% { background-position: 0% 0%, 0% 0%, 0% 0%; }
-  100% { background-position: 300% 0%, 0% 0%, 6px 0%; }
-}
-@keyframes moveGradient {
-  0%   { background-position: 0% 50%, 0 0, 0 0; }
-  50%  { background-position: 100% 50%, 0 0, 0 0; }
-  100% { background-position: 0% 50%, 0 0, 0 0; }
+.carrousel-inner {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
 }
 
-/* versiones más finas o más gruesas */
-.barrabonita.thin  { --height: 8px;  }
-.barrabonita.thick { --height: 22px; }
-
-/* ejemplo de contenedor centrado (opcional) */
-.barra-wrap { padding: 8px 16px; background: transparent; display:flex; justify-content:center; }
-
+/* Resto de tu CSS... */
 
 .carrousel-arrow {
     position: absolute;
@@ -164,10 +149,12 @@
     object-fit: cover;
     display: block;
 }
+
 /* Sección 2: Videos */
 .video-section {
     padding: 40px 5%;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    margin: 0;
 }
 
 .video-container {
@@ -181,7 +168,7 @@
     aspect-ratio: 16/9;
     border-radius: 8px;
     overflow: hidden;
-    background-color: #000; /* Fondo negro para áreas sin video */
+    background-color: #000;
 }
 .video-item iframe {
     width: 100%;
@@ -189,7 +176,7 @@
     border: 0;
 }
 
-/* Sección 3: Descripción — imagen más blanqueada */
+/* Sección 3: Descripción */
 .description {
   position: relative;
   overflow: hidden;
@@ -198,8 +185,7 @@
   line-height: 1.6;
   font-size: 18px;
   color: #333;
-
-  /* mantenemos la imagen como fondo principal */
+  margin: 0; /* Eliminar márgenes */
   background: url('/images/mariavirgen.PNG') center/cover no-repeat;
 }
 
@@ -225,10 +211,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0; /* debajo del contenido (el contenido tendrá z-index:1) */
+  z-index: 0;
   pointer-events: none;
-  background: rgba(255,255,255,0.55); /* <-- ajustar este alfa para más/menos blanqueado */
-  backdrop-filter: blur(1px);          /* suaviza un poco la textura */
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(1px);
 }
 
 /* aseguramos que el contenido quede por encima */
@@ -237,19 +223,10 @@
   z-index: 1;
 }
 
-/* si quieres menos blanqueado en móviles, ajusta aquí */
-@media (max-width: 600px) {
-  .description::before {
-    background: rgba(255,255,255,0.45);
-    backdrop-filter: blur(0.8px);
-  }
-}
-
-
-
-/* ====== EVENTOS DESTACADOS (aislado con prefijo .fe-) ====== */
+/* ====== EVENTOS DESTACADOS ====== */
 .featured-events{
   padding: 60px 5%;
+  margin: 0;
 }
 
 .fe-wrap{max-width: 1300px; margin: 0 auto;}
@@ -268,7 +245,7 @@
 }
 
 .fe-card{
-  background:#fff;                /* tarjetas en blanco */
+  background:#fff;
   border: 1px solid rgba(0,0,0,.06);
   border-radius: 14px;
   overflow:hidden;
@@ -277,9 +254,8 @@
   box-shadow: 0 10px 24px rgba(0,0,0,.06);
 }
 
-/* Imagen del póster (reemplaza el src en el HTML) */
 .fe-poster{
-  aspect-ratio: 4 / 3;            /* 1200x900 recomendado */
+  aspect-ratio: 4 / 3;
   background:#f3f4f6;
   overflow:hidden;
 }
@@ -292,7 +268,6 @@
 }
 .fe-card:hover .fe-poster img{ transform: scale(1.04); }
 
-/* Texto */
 .fe-body{ padding: 16px 16px 18px; }
 .fe-name{
   font-size: 18px;
@@ -312,11 +287,10 @@
 }
 .fe-ico{ margin-right:6px; }
 
-/* Botón (combina con tu paleta) */
 .fe-btn{
   display:inline-block;
   padding:10px 18px;
-  background:#4a6fa5;             /* mismo tono de tu logo */
+  background:#4a6fa5;
   color:#fff;
   border-radius:24px;
   text-decoration:none;
@@ -333,25 +307,22 @@
 .historia{
   text-align:center;
   padding:60px 5%;
-  margin-top: -60px;
+  margin-top: 0; /* Cambiar de -60px a 0 */
 }
 
 .historia-img {
   display: block;
-  width: 100%;           /* se adapta al ancho del contenedor */
-  max-width: 1200px;     /* límite para pantallas grandes */
-  height: auto;          /* mantiene la proporción */
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
   object-fit: cover;
-  margin: 0 auto;        /* centra la imagen */
-
-  /* Difuminado en 4 bordes */
+  margin: 0 auto;
   -webkit-mask-image: 
     linear-gradient(to right, rgba(0,0,0,0) 1%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, rgba(0,0,0,0) 99%),
     linear-gradient(to bottom, rgba(0,0,0,0) 1%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, rgba(0,0,0,0) 99%);
   -webkit-mask-composite: intersect;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
-
   mask-image: 
     linear-gradient(to right, rgba(0,0,0,0) 1%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, rgba(0,0,0,0) 99%),
     linear-gradient(to bottom, rgba(0,0,0,0) 1%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, rgba(0,0,0,0) 99%);
@@ -360,6 +331,7 @@
   mask-size: 100% 100%;
 }
 
+/* MEDIA QUERY PARA MÓVIL */
 @media (max-width: 768px) {
   :host {
     padding-top: 0;
@@ -374,11 +346,13 @@
   .carrousel-arrow {
     display: none;
   }
+  
+  /* Asegurar que las barras sean visibles en móvil */
+  .barrabonita,
+  .barrabonita-inversa {
+    --height: 12px; /* Un poco más delgadas en móvil si es necesario */
+  }
 }
-
-
-
-
 
 .title {
     color:#5a5959
@@ -413,9 +387,8 @@
   .fe-grid{ grid-template-columns: 1fr; }
 }
 
-
 /* Responsive */
-@media (max-width: 1024px) {␊
+@media (max-width: 1024px) {
     .video-container, .gallery-container {
         grid-template-columns: repeat(2, 1fr);
     }
