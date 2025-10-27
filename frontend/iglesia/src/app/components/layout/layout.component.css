@@ -83,8 +83,6 @@
   }
 }
 
-
-
 .logo {
   font-size: 22px;
   font-weight: bold;
@@ -99,7 +97,6 @@
   height: 45px;
   margin-top: -10px
 }
-
 
 .nav-links {
   display: flex;
@@ -120,12 +117,11 @@
   cursor: pointer;
 }
 
-
-
 .auth-section {
   display: flex;
   align-items: center;
 }
+
 .login-btn {
   padding: 8px 20px;
   background-color: var(--accent-color);
@@ -161,6 +157,7 @@
   }
 }
 
+/* FOOTER CORREGIDO PARA RESPONSIVE */
 .footer {
   background-color: #f5f5f5;
   padding: 40px 5% 20px;
@@ -177,17 +174,20 @@
 }
 
 .footer-info p {
-  margin: 6px 0;
+  margin: 8px 0; /* Aumenté el margen para mejor separación */
   font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en móvil */
 }
 
 .footer-info i {
   color: var(--primary-color);
   font-size: 16px;
+  min-width: 20px; /* Ancho mínimo para alinear iconos */
+  text-align: center;
 }
 
 .social-links {
@@ -220,18 +220,111 @@
   line-height: 1.6;
 }
 
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 10px 0;
+.llamar-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px 14px; /* Un poco más de padding */
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  white-space: nowrap; /* Evita que el texto se rompa */
+  margin-left: 8px; /* Espacio adicional del botón */
 }
 
-.social-links a {
-  color: var(--primary-color);
-  font-size: 24px;
+.llamar-btn:hover {
+  background-color: #45a049;
 }
 
+/* MEDIA QUERY PARA MÓVIL - FOOTER CORREGIDO */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 4% 15px;
+  }
+
+  .footer-info p {
+    justify-content: flex-start; /* Alinear a la izquierda en móvil */
+    text-align: left;
+    padding: 0 10px; /* Padding interno para mejor alineación */
+    gap: 10px; /* Más espacio entre elementos */
+    margin: 12px 0; /* Más espacio entre líneas */
+  }
+
+  /* Asegurar que los iconos mantengan su alineación */
+  .footer-info i {
+    min-width: 24px; /* Más espacio para iconos en móvil */
+    font-size: 17px;
+  }
+
+  /* Botón de WhatsApp en móvil */
+  .llamar-btn {
+    margin-left: auto; /* Empuja el botón hacia la derecha */
+    padding: 7px 16px;
+    font-size: 13px;
+  }
+
+  .social-links {
+    gap: 25px; /* Más espacio entre iconos sociales */
+    margin: 20px 0;
+  }
+
+  .social-links a {
+    font-size: 26px; /* Iconos sociales un poco más grandes */
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .footer {
+    padding: 25px 3% 12px;
+  }
+
+  .footer-info p {
+    font-size: 14px;
+    padding: 0 5px;
+    gap: 8px;
+  }
+
+  .footer-info i {
+    min-width: 22px;
+    font-size: 16px;
+  }
+
+  .llamar-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-left: auto;
+  }
+
+  .social-links {
+    gap: 20px;
+  }
+
+  .social-links a {
+    font-size: 24px;
+  }
+}
+
+/* Asegurar que el texto largo se ajuste correctamente */
+@media (max-width: 360px) {
+  .footer-info p {
+    flex-direction: column; /* En pantallas muy pequeñas, poner en columna */
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .llamar-btn {
+    margin-left: 0; /* Quitar margen izquierdo en columna */
+    align-self: flex-start; /* Alinear a la izquierda */
+  }
+}
+
+/* MAPA Y OTROS ESTILOS */
 .map-container {
   position: relative;
   left: 50%;
@@ -246,6 +339,7 @@
   background-color: #fff;       /* mantiene la franja blanca */
   z-index: 0;
 }
+
 .map-container iframe {
   display: block;
   margin: 0 auto;
@@ -261,9 +355,10 @@
 html, body {
   overflow-x: hidden;
 }
+
 @media (max-width: 768px) {
   .map-container {
-padding: 0 12px 24px;;
+    padding: 0 12px 24px;
   }
 
   .map-container iframe {
@@ -279,12 +374,12 @@ padding: 0 12px 24px;;
   }
 }
 
-
 .telefono {
   display: flex;
   align-items: center;
   gap: 10px; /* espacio entre texto y botón */
 }
+
 .nav-btn--volunteer {
   color: #fff;
 }
@@ -293,38 +388,4 @@ padding: 0 12px 24px;;
   color: #fff;
 }
 
-
-.llamar-btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  transition: background 0.2s ease;
-}
-
-.llamar-btn:hover {
-  background-color: #45a049;
-}
-
-.telefono {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* espacio entre texto y botón */
-}
-
-.llamar-btn {
-  background-color: #bebebe;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  transition: background 0.2s ease;
-}
-
-.llamar-btn:hover {
-  background-color: #81a383;
-}
-
+/* Eliminé los estilos duplicados de .llamar-btn que estaban al final */
