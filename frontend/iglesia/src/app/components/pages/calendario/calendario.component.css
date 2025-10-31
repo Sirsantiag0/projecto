@@ -4,9 +4,9 @@
   background: linear-gradient(
     180deg,
     #f9fafb 0%,
-    #eef2ff 70%,              /* celeste */
-    rgba(238, 242, 255, 0.5) 85%, /* celeste difuminado */
-    rgba(249, 250, 251, 0) 100%   /* blanco transparente */
+    #eef2ff 70%,
+    rgba(238, 242, 255, 0.5) 85%,
+    rgba(249, 250, 251, 0) 100%
   );
   margin-top: -20px;
 }
@@ -23,13 +23,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.header button {
+  background: var(--primary-color, #4a6fa5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .dias-contenedor {
   overflow-x: auto;
 }
 
+/* VISTA ESCRITORIO */
 .dias-semana, .dias-mes {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -38,184 +50,244 @@
 
 .dias-semana div {
   font-weight: bold;
-  padding: 10px 0;
+  padding: 15px 0;
   background-color: #f8f9fa;
-  border-radius: 4px;
+  border-radius: 8px;
+  font-size: 14px;
 }
 
 .dia {
   padding: 10px;
   border: 1px solid #ddd;
-  min-height: 80px;
+  min-height: 120px;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: flex-start;
+  position: relative;
+}
+
+.dia-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dia-numero {
+  font-size: 16px;
+  margin-bottom: 8px;
+  align-self: flex-start;
 }
 
 .dia:hover {
-  transform: scale(1.09);
+  transform: scale(1.02);
   border-color: #aaaaaa;
 }
 
 .vacio {
-  background-color: #f0f0f0;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.eventos-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .evento {
   background-color: #e6f2ff;
-  padding: 8px 12px;
-  margin: 6px 0;
+  padding: 8px;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 12px;
   word-break: break-word;
-  white-space: normal;
-  width: auto;
-  max-width: 90%;
-  display: inline-flex;
+  text-align: center; /* Cambiado de left a center */
+  border-left: 2px solid pink;
+  border-right: 2px solid pink;
+  display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  align-items: center; /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
 }
 
-button {
+.evento-hora {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 13px;
+  text-align: center; /* Asegura que el texto esté centrado */
+  width: 100%; /* Ocupa todo el ancho para centrar correctamente */
+}
+
+.evento-descripcion {
+  color: #666;
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  font-size: 13px;
+  text-align: center; /* Asegura que el texto esté centrado */
+  width: 100%; /* Ocupa todo el ancho para centrar correctamente */
+}
+
+.btn-participar {
   margin-top: 4px;
-  font-size: 14px;
-  padding: 2px 4px;
+  font-size: 13px;
+  padding: 4px 8px;
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 7px;
+  border-radius: 10px;
   cursor: pointer;
-  box-shadow: 
-    0 4px 0 #2E7D32,
-    0 5px 5px rgba(0,0,0,0.1);
-  position: relative;
-  transition: all 0.1s ease;
+  width: auto;
+  min-width: 80px;
+  transition: all 0.2s ease;
+  align-self: center;
+
+  /* 🔹 Sombra elegante debajo */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
-button:active {
-  transform: translateY(4px);
-  box-shadow: 
-    0 1px 0 #2E7D32,
-    0 2px 3px rgba(0,0,0,0.1);
+/* 🔹 Efecto bonito al pasar el mouse */
+.btn-participar:hover {
+  background-color: #45a049; /* un tono más oscuro */
+  transform: translateY(-2px); /* se eleva ligeramente */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* sombra más profunda */
 }
 
-.evento small {
-  display: block;
-  margin-bottom: 4px;
+/* 🔹 Efecto al presionar (clic) */
+.btn-participar:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.evento button {
-  display: block;
-  margin: 4px auto 0;
-  width: 100%;
-}
 
-.evento button:hover {
-  background-color: #45a049;
-}
-.eventito {
-  margin-top:-15px; 
-}
-
-/* MEDIA QUERY CORREGIDA PARA MÓVIL */
+/* MEDIA QUERY PARA MÓVIL - CORREGIDA */
 @media (max-width: 600px) {
   .calendario {
-    padding: 0 10px; /* Agregamos padding para que no toque los bordes */
+    padding: 0 5px;
     margin-top: 0;
+  }
+
+  .header {
+    margin-bottom: 15px;
+    padding: 0 5px;
+  }
+
+  .header h2 {
+    font-size: 18px;
   }
 
   .dias-contenedor {
     overflow-x: visible;
-    width: 100%;
   }
 
+  /* Ocultar días de la semana en grid */
   .dias-semana {
     display: none;
   }
 
+  /* Cambiar a diseño de columna para móvil */
   .dias-mes {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 100%;
-    align-items: center; /* Centramos los días */
+    align-items: center;
   }
 
-  .dias-mes .dia {
-    width: 100%; /* Ocupa el 100% del contenedor */
-    max-width: 100%; /* Evita que se salga */
+  .dia {
+    width: 100%;
+    max-width: 100%;
     min-height: auto;
     padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centramos el contenido */
-    text-align: center; /* Texto centrado */
-    box-sizing: border-box; /* Incluye padding en el width */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 8px;
   }
 
-  .dia > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centramos el contenido interno */
-    width: 100%;
-  }
-
-  .dia strong {
-    font-size: 18px;
-    margin-bottom: 10px;
+  /* Mostrar día de la semana antes de la fecha */
+  .dia::before {
+    content: attr(data-dia-semana);
     display: block;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
     width: 100%;
-    text-align: center; /* Fecha centrada */
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .dia-content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .dia-numero {
+    font-size: 20px;
+    margin-bottom: 12px;
+    align-self: center;
+    color: #333;
+  }
+
+  .eventos-container {
+    width: 100%;
+    align-items: center;
   }
 
   .evento {
     width: 100%;
-    max-width: 100%;
-    margin: 8px 0;
-    text-align: center; /* Eventos centrados */
-    align-items: center; /* Contenido del evento centrado */
-    display: flex;
-    flex-direction: column;
-    margin-left: -12px; 
-  }
-
-  /* Indicador del día de la semana - CENTRADO */
-  .dia::before {
-    content: attr(data-dia-semana);
-    display: block;
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 5px;
-    font-weight: normal;
+    max-width: 280px;
     text-align: center;
-    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
   }
 
-  /* Aseguramos que los botones también estén centrados */
-  .evento button {
-    align-self: center;
-    margin: 4px auto 0;
-  }
-    /* 🔹 Texto más grande en móviles */
-  .evento small {
-    font-size: 17px; /* antes 15px */
+  .evento-hora {
+    font-size: 15px;
+    text-align: center;
   }
 
-  .evento button {
-    font-size: 16px; /* antes 14px */
-    padding: 6px 10px; /* un poco más de área táctil */
+  .evento-descripcion {
+    font-size: 14px;
+    text-align: center;
+    margin: 6px 0;
   }
 
-  .dia strong {
-    font-size: 19px; /* para que el número del día también destaque */
+  .btn-participar {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin-top: 8px;
   }
 
+  /* Ocultar días vacíos en móvil para mejor experiencia */
+  .dia.vacio {
+    display: none;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 380px) {
+  .dia {
+    padding: 12px;
+  }
+
+  .dia-numero {
+    font-size: 18px;
+  }
+
+  .evento {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .evento-hora {
+    font-size: 14px;
+  }
+
+  .evento-descripcion {
+    font-size: 13px;
+  }
 }

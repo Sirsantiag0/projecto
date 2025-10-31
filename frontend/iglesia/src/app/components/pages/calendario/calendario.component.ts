@@ -12,8 +12,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.css'] 
 })
-
-export class CalendarioComponent implements  OnInit {
+export class CalendarioComponent implements OnInit {
   currentDate = new Date();
   monthDays: { day: number, fullDate: string }[] = [];
   monthName: string = '';
@@ -33,6 +32,7 @@ export class CalendarioComponent implements  OnInit {
       descripcion: 'Taller Angular'
     }
   ];
+
   constructor(
     private eventosService: AsistenciaEventoService,
     private breakpointObserver: BreakpointObserver,
@@ -124,7 +124,15 @@ export class CalendarioComponent implements  OnInit {
     });
   }
 
-  // FUNCIÓN PARA OBTENER EL DÍA DE LA SEMANA
+  // MÉTODO PARA OBTENER EL NOMBRE COMPLETO DEL DÍA (Móvil)
+  getDiaSemanaNombre(fullDate: string): string {
+    if (!fullDate) return '';
+    const date = new Date(fullDate);
+    const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    return dias[date.getDay()];
+  }
+
+  // MÉTODO PARA OBTENER LA ABREVIATURA DEL DÍA (Desktop)
   getDiaSemana(fullDate: string): string {
     if (!fullDate) return '';
     const date = new Date(fullDate);
@@ -148,7 +156,7 @@ export class CalendarioComponent implements  OnInit {
   marcarAsistencia(evento: Evento) {
     const user = this.authService.user();
     if (!user || !user.id_feligres || !evento.id) {
-            Swal.fire({
+      Swal.fire({
         icon: 'warning',
         title: 'Acceso requerido',
         text: 'Debes iniciar sesión para marcar asistencia.',
@@ -164,12 +172,12 @@ export class CalendarioComponent implements  OnInit {
     }).subscribe(
       () => {
         Swal.fire({
-      icon: 'success',
-      title: 'Asistencia registrada',
-      text: `Asistencia marcada para: ${evento.descripcion} a las ${evento.hora}, te esperamos⛪`,
-      confirmButtonText: 'Aceptar',
-      position: 'center'
-    });
+          icon: 'success',
+          title: 'Asistencia registrada',
+          text: `Asistencia marcada para: ${evento.descripcion} a las ${evento.hora}, te esperamos⛪`,
+          confirmButtonText: 'Aceptar',
+          position: 'center'
+        });
         if (evento.id) {
           this.participatedEventIds.add(evento.id);
           this.cdr.detectChanges();
@@ -184,5 +192,4 @@ export class CalendarioComponent implements  OnInit {
   haParticipado(evento: Evento) {
     return !!evento.id && this.participatedEventIds.has(evento.id);
   }
-  
 }

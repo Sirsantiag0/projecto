@@ -18,15 +18,16 @@
 
     <div class="dias-mes">
       <div *ngFor="let dia of monthDays" class="dia" [class.vacio]="dia.day === 0" 
-           [attr.data-dia-semana]="getDiaSemana(dia.fullDate)">
-        <div *ngIf="dia.day !== 0">
-          <strong>{{ dia.day }}</strong>
-          <div *ngFor="let evento of getEventosPorDia(dia.fullDate)">
-            <div class="evento">
-              <small>{{ evento.hora }} </small>
-              <br>
-              <small class="eventito">{{ evento.descripcion }}</small>
-              <button *ngIf="!haParticipado(evento)" (click)="marcarAsistencia(evento)">Participar</button>
+           [attr.data-dia-semana]="getDiaSemanaNombre(dia.fullDate)">
+        <div *ngIf="dia.day !== 0" class="dia-content">
+          <strong class="dia-numero">{{ dia.day }}</strong>
+          <div class="eventos-container">
+            <div *ngFor="let evento of getEventosPorDia(dia.fullDate)" class="evento">
+              <small class="evento-hora">{{ evento.hora }}</small>
+              <small class="evento-descripcion">{{ evento.descripcion }}</small>
+              <button *ngIf="!haParticipado(evento)" (click)="marcarAsistencia(evento)" class="btn-participar">
+                Participar
+              </button>
             </div>
           </div>
         </div>
